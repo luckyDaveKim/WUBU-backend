@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:mariadb://localhost:3306/testinvestar
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    open-in-view: true
