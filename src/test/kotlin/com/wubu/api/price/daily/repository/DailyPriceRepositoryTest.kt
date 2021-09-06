@@ -1,8 +1,7 @@
-package com.wubu.api.price.daily
+package com.wubu.api.price.daily.repository
 
 import com.wubu.api.price.daily.entity.DailyPrice
-import com.wubu.api.price.daily.entity.DailyPriceKey
-import com.wubu.api.price.daily.repository.DailyPriceRepository
+import com.wubu.api.price.daily.entity.DailyPriceId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -29,9 +28,9 @@ class DailyPriceRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        dailyPrice1 = DailyPrice(DailyPriceKey("000001", LocalDate.of(1991, 3, 26)), 1, 2, 3, 4, 5, 6)
-        dailyPrice2 = DailyPrice(DailyPriceKey("000001", LocalDate.of(1991, 3, 28)), 10, 20, 30, 40, 50, 60)
-        dailyPrice3 = DailyPrice(DailyPriceKey("000001", LocalDate.of(1991, 3, 27)), 100, 200, 300, 400, 500, 600)
+        dailyPrice1 = DailyPrice(DailyPriceId("000001", LocalDate.of(1991, 3, 26)), 1, 2, 3, 4, 5, 6)
+        dailyPrice2 = DailyPrice(DailyPriceId("000001", LocalDate.of(1991, 3, 28)), 10, 20, 30, 40, 50, 60)
+        dailyPrice3 = DailyPrice(DailyPriceId("000001", LocalDate.of(1991, 3, 27)), 100, 200, 300, 400, 500, 600)
     }
 
     @Test

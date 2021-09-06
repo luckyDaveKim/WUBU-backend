@@ -9,7 +9,7 @@ import javax.persistence.Table
 @Table(name = "daily_price")
 class DailyPrice(
         @EmbeddedId
-        var id: DailyPriceKey,
+        var id: DailyPriceId,
 
         @Column(name = "open", nullable = false)
         var open: Long,

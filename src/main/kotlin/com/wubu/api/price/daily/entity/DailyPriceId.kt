@@ -5,7 +5,7 @@ import java.time.LocalDate
 import javax.persistence.Embeddable
 
 @Embeddable
-data class DailyPriceKey(
+data class DailyPriceId(
         var code: String,
         var date: LocalDate
 ) : Serializable
