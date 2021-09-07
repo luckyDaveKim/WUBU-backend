@@ -8,8 +8,8 @@ import com.wubu.api.price.daily.model.Volume
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.sql.Timestamp
 import java.time.LocalDate
+import java.time.ZoneOffset
 
 class DailyChartsResponseDtoTest {
 
@@ -27,7 +27,7 @@ class DailyChartsResponseDtoTest {
         val dailyChartsResponseDto = DailyChartsResponseDto.DailyChartDto.of(dailyPrice1)
 
         assertThat(dailyChartsResponseDto).isNotNull
-        assertThat(dailyChartsResponseDto.timestamp).isEqualTo(Timestamp.valueOf(dailyPrice1.id.date.atStartOfDay()))
+        assertThat(dailyChartsResponseDto.x).isEqualTo(dailyPrice1.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
         assertThat(dailyChartsResponseDto.open).isEqualTo(dailyPrice1.open)
         assertThat(dailyChartsResponseDto.high).isEqualTo(dailyPrice1.high)
         assertThat(dailyChartsResponseDto.low).isEqualTo(dailyPrice1.low)
@@ -43,14 +43,14 @@ class DailyChartsResponseDtoTest {
         assertThat(dailyChartsResponseDto.dailyChart).isNotNull
 
         assertThat(dailyChartsResponseDto.dailyChart[0]).isNotNull
-        assertThat(dailyChartsResponseDto.dailyChart[0].timestamp).isEqualTo(Timestamp.valueOf(dailyPrice1.id.date.atStartOfDay()))
+        assertThat(dailyChartsResponseDto.dailyChart[0].x).isEqualTo(dailyPrice1.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
         assertThat(dailyChartsResponseDto.dailyChart[0].open).isEqualTo(dailyPrice1.open)
         assertThat(dailyChartsResponseDto.dailyChart[0].high).isEqualTo(dailyPrice1.high)
         assertThat(dailyChartsResponseDto.dailyChart[0].low).isEqualTo(dailyPrice1.low)
         assertThat(dailyChartsResponseDto.dailyChart[0].close).isEqualTo(dailyPrice1.close)
 
         assertThat(dailyChartsResponseDto.dailyChart[1]).isNotNull
-        assertThat(dailyChartsResponseDto.dailyChart[1].timestamp).isEqualTo(Timestamp.valueOf(dailyPrice2.id.date.atStartOfDay()))
+        assertThat(dailyChartsResponseDto.dailyChart[1].x).isEqualTo(dailyPrice2.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
         assertThat(dailyChartsResponseDto.dailyChart[1].open).isEqualTo(dailyPrice2.open)
         assertThat(dailyChartsResponseDto.dailyChart[1].high).isEqualTo(dailyPrice2.high)
         assertThat(dailyChartsResponseDto.dailyChart[1].low).isEqualTo(dailyPrice2.low)

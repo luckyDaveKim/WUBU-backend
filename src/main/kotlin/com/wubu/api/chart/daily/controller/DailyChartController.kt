@@ -15,12 +15,10 @@ class DailyChartController(
 
     @GetMapping(
             "/code/{code}",
-            produces = [MediaType.APPLICATION_JSON_VALUE]
-    )
+            produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(HttpStatus.OK)
     fun findDailyChart(
-            @PathVariable(value = "code") code: Code
-    ): DailyChartsResponseDto {
+            @PathVariable(value = "code") code: Code): DailyChartsResponseDto {
         return dailyChartService.findDailyChart(code)
     }
 
