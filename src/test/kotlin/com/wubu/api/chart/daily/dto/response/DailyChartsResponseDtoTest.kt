@@ -1,5 +1,6 @@
 package com.wubu.api.chart.daily.dto.response
 
+import com.wubu.api.chart.daily.dto.DailyChartDto
 import com.wubu.api.price.daily.entity.DailyPrice
 import com.wubu.api.price.daily.entity.DailyPriceId
 import com.wubu.api.price.daily.model.Code
@@ -18,24 +19,56 @@ class DailyChartsResponseDtoTest {
 
     @BeforeEach
     fun setUp() {
-        dailyPrice1 = DailyPrice(DailyPriceId(Code("000001"), LocalDate.of(1991, 3, 26)), Price(1), Price(2), Price(3), Price(4), 5, Volume(6))
-        dailyPrice2 = DailyPrice(DailyPriceId(Code("000001"), LocalDate.of(1991, 3, 27)), Price(10), Price(20), Price(30), Price(40), 50, Volume(60))
+        dailyPrice1 = DailyPrice(
+                DailyPriceId(
+                        Code("000000"),
+                        LocalDate.of(1991, 3, 26)
+                ),
+                Price(1),
+                Price(2),
+                Price(3),
+                Price(4),
+                5,
+                Volume(6)
+        )
+
+        dailyPrice2 = DailyPrice(
+                DailyPriceId(
+                        Code("000000"),
+                        LocalDate.of(1991, 3, 27)
+                ),
+                Price(10),
+                Price(20),
+                Price(30),
+                Price(40),
+                50,
+                Volume(60)
+        )
+    }
+
+    @Test
+    fun `생성 테스트`() {
+        // given
+        val dailyChartDto1 = DailyChartDto.of(dailyPrice1)
+        val dailyChartDto2 = DailyChartDto.of(dailyPrice2)
+        val dailyChartDtoList = listOf(dailyChartDto1, dailyChartDto2)
+
+        // when
+        val dailyChartsResponseDto = DailyChartsResponseDto(dailyChartDtoList)
+
+        // then
+        assertThat(dailyChartsResponseDto).isNotNull
+        assertThat(dailyChartsResponseDto.dailyChart).isNotNull
+        assertThat(dailyChartsResponseDto.dailyChart[0]).isNotNull
+        assertThat(dailyChartsResponseDto.dailyChart[0].x).isEqualTo(dailyPrice1.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
+        assertThat(dailyChartsResponseDto.dailyChart[0].open).isEqualTo(dailyPrice1.open)
+        assertThat(dailyChartsResponseDto.dailyChart[0].high).isEqualTo(dailyPrice1.high)
+        assertThat(dailyChartsResponseDto.dailyChart[0].low).isEqualTo(dailyPrice1.low)
+        assertThat(dailyChartsResponseDto.dailyChart[0].close).isEqualTo(dailyPrice1.close)
     }
 
     @Test
     fun `Entity to Dto 테스트`() {
-        val dailyChartsResponseDto = DailyChartsResponseDto.DailyChartDto.of(dailyPrice1)
-
-        assertThat(dailyChartsResponseDto).isNotNull
-        assertThat(dailyChartsResponseDto.x).isEqualTo(dailyPrice1.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
-        assertThat(dailyChartsResponseDto.open).isEqualTo(dailyPrice1.open)
-        assertThat(dailyChartsResponseDto.high).isEqualTo(dailyPrice1.high)
-        assertThat(dailyChartsResponseDto.low).isEqualTo(dailyPrice1.low)
-        assertThat(dailyChartsResponseDto.close).isEqualTo(dailyPrice1.close)
-    }
-
-    @Test
-    fun `Entity List to Dto 테스트`() {
         val dailyPrices = listOf(dailyPrice1, dailyPrice2)
         val dailyChartsResponseDto = DailyChartsResponseDto.of(dailyPrices)
 
