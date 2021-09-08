@@ -1,6 +1,7 @@
 package com.wubu.api.chart.daily.service
 
 import com.wubu.api.chart.daily.dto.response.DailyChartsResponseDto
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.price.daily.entity.DailyPrice
 import com.wubu.api.price.daily.entity.DailyPriceId
 import com.wubu.api.price.daily.model.Code
@@ -62,14 +63,15 @@ class DailyChartServiceTest {
     fun `일별 차트 데이터 조회 테스트`() {
         // given
         val code = Code("000000")
+        val pagingReqDto = PagingReqDto()
         val dailyPrices = listOf(dailyPrice1, dailyPrice2)
         val dailyChartsResponseDto = DailyChartsResponseDto.of(dailyPrices)
 
-        given(dailyPriceRepository.findAllByIdCodeOrderByIdDateAsc(code))
+        given(dailyPriceRepository.findAllByIdCodeOrderByIdDateAsc(code, pagingReqDto.getPageable()))
                 .willReturn(dailyPrices)
 
         // when
-        val foundDailyChartsResponseDto = dailyChartService.findDailyChart(code)
+        val foundDailyChartsResponseDto = dailyChartService.findDailyChart(code, pagingReqDto)
 
         // then
         assertThat(foundDailyChartsResponseDto).isEqualTo(dailyChartsResponseDto)

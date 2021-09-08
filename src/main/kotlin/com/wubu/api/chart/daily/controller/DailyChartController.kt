@@ -2,6 +2,7 @@ package com.wubu.api.chart.daily.controller
 
 import com.wubu.api.chart.daily.dto.response.DailyChartsResponseDto
 import com.wubu.api.chart.daily.service.DailyChartService
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.price.daily.model.Code
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -18,8 +19,9 @@ class DailyChartController(
             produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(HttpStatus.OK)
     fun findDailyChart(
-            @PathVariable(value = "code") code: Code): DailyChartsResponseDto {
-        return dailyChartService.findDailyChart(code)
+            @PathVariable(value = "code") code: Code,
+            @ModelAttribute pagingReqDto: PagingReqDto): DailyChartsResponseDto {
+        return dailyChartService.findDailyChart(code, pagingReqDto)
     }
 
 }

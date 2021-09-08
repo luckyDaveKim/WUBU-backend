@@ -3,6 +3,7 @@ package com.wubu.api.chart.daily.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wubu.api.chart.daily.dto.response.DailyChartsResponseDto
 import com.wubu.api.chart.daily.service.DailyChartService
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.price.daily.entity.DailyPrice
 import com.wubu.api.price.daily.entity.DailyPriceId
 import com.wubu.api.price.daily.model.Code
@@ -66,14 +67,14 @@ class DailyChartControllerTest {
     }
 
     @Test
-    fun `일별 차트 데이터 조회 테스트`() {
+    fun `데이터 조회 테스트`() {
         // given
         val code = Code("000000")
         val dailyPrices = listOf(dailyPrice1, dailyPrice2)
         val dailyChartsResponseDto = DailyChartsResponseDto.of(dailyPrices)
         val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyChartsResponseDto)
 
-        given(dailyChartService.findDailyChart(code))
+        given(dailyChartService.findDailyChart(code, PagingReqDto()))
                 .willReturn(dailyChartsResponseDto)
 
         // when
@@ -85,6 +86,31 @@ class DailyChartControllerTest {
 
         resultActions.andExpect { status().isOk }
                 .andExpect(content().json(jsonDailyChartsResponseDto))
+                .andDo { print() }
+    }
+
+    @Test
+    fun `페이징 데이터 조회 테스트`() {
+        // given
+        val code = Code("000000")
+        val dailyPrices = listOf(dailyPrice1, dailyPrice2)
+        val dailyChartsResponseDto = DailyChartsResponseDto.of(dailyPrices)
+        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyChartsResponseDto)
+
+        given(dailyChartService.findDailyChart(code, PagingReqDto()))
+                .willReturn(dailyChartsResponseDto)
+
+        // when
+        val resultActions: ResultActions = mockMvc.perform(
+                get("/api/charts/daily/code/{code}", code.value)
+                        .param("page", "1")
+                        .param("pageSize", "10")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        )
+
+        resultActions.andExpect { status().isOk }
+                .andExpect(content().string(jsonDailyChartsResponseDto))
                 .andDo { print() }
     }
 
