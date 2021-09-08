@@ -55,6 +55,24 @@ class DailyChartsDtoTest {
     }
 
     @Test
+    fun `동등성 비교 테스트`() {
+        // given
+        val x = 1L
+        val y = Price(10)
+        val open = Price(10)
+        val high = Price(10)
+        val low = Price(10)
+        val close = Price(10)
+
+        // when
+        val dailyChartDto1 = DailyChartDto(x, y, open, high, low, close)
+        val dailyChartDto2 = DailyChartDto(x, y, open, high, low, close)
+
+        // then
+        assertThat(dailyChartDto1).isEqualTo(dailyChartDto2)
+    }
+
+    @Test
     fun `Entity to Dto 테스트`() {
         val dailyChartsResponseDto = DailyChartDto.of(dailyPrice1)
 

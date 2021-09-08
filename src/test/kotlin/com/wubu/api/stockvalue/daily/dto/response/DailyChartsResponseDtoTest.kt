@@ -68,6 +68,21 @@ class DailyChartsResponseDtoTest {
     }
 
     @Test
+    fun `동등성 비교 테스트`() {
+        // given
+        val dailyChartDto1 = DailyChartDto.of(dailyPrice1)
+        val dailyChartDto2 = DailyChartDto.of(dailyPrice2)
+        val dailyChartDtoList = listOf(dailyChartDto1, dailyChartDto2)
+
+        // when
+        val dailyChartsResponseDto1 = DailyChartsResponseDto(dailyChartDtoList)
+        val dailyChartsResponseDto2 = DailyChartsResponseDto(dailyChartDtoList)
+
+        // then
+        assertThat(dailyChartsResponseDto1).isEqualTo(dailyChartsResponseDto2)
+    }
+
+    @Test
     fun `Entity to Dto 테스트`() {
         val dailyPrices = listOf(dailyPrice1, dailyPrice2)
         val dailyChartsResponseDto = DailyChartsResponseDto.of(dailyPrices)
