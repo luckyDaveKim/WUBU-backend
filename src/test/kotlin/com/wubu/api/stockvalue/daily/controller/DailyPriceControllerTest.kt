@@ -80,7 +80,7 @@ class DailyPriceControllerTest {
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/daily/price/code/{code}", code.value)
+                get("/api/daily/price/companies/{code}", code.value)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         )
@@ -103,7 +103,7 @@ class DailyPriceControllerTest {
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/daily/price/code/{code}", code.value)
+                get("/api/daily/price/companies/{code}", code.value)
                         .param("page", "1")
                         .param("pageSize", "10")
                         .contentType(MediaType.APPLICATION_JSON)

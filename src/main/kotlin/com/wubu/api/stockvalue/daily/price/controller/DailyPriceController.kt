@@ -15,7 +15,7 @@ class DailyPriceController(
 ) {
 
     @GetMapping(
-            "/code/{code}",
+            "/companies/{code}",
             produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(HttpStatus.OK)
     fun findDailyChart(
