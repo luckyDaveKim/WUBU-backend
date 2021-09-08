@@ -1,4 +1,4 @@
-package com.wubu.api.chart.daily.dto
+package com.wubu.api.stockvalue.daily.dto
 
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.stockvalue.daily.entity.DailyPrice

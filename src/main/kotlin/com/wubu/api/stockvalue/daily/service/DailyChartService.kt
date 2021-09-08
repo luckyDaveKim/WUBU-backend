@@ -1,8 +1,8 @@
-package com.wubu.api.chart.daily.service
+package com.wubu.api.stockvalue.daily.service
 
-import com.wubu.api.chart.daily.dto.response.DailyChartsResponseDto
 import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.Code
+import com.wubu.api.stockvalue.daily.dto.response.DailyChartsResponseDto
 import com.wubu.api.stockvalue.daily.repository.DailyPriceRepository
 import org.springframework.stereotype.Service
 

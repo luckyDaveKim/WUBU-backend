@@ -1,7 +1,7 @@
-package com.wubu.api.chart.daily.dto.response
+package com.wubu.api.stockvalue.daily.dto.response
 
 import com.fasterxml.jackson.annotation.JsonValue
-import com.wubu.api.chart.daily.dto.DailyChartDto
+import com.wubu.api.stockvalue.daily.dto.DailyChartDto
 import com.wubu.api.stockvalue.daily.entity.DailyPrice
 import java.util.stream.Collectors
 
