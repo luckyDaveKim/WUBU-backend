@@ -1,7 +1,7 @@
-package com.wubu.api.price.daily.model
+package com.wubu.api.common.web.model.stockvalue
 
-import com.wubu.api.price.daily.exception.InvalidPriceException
-import com.wubu.api.price.daily.model.Price.PriceConverter
+import com.wubu.api.common.error.exception.InvalidPriceException
+import com.wubu.api.common.web.model.stockvalue.Price.PriceConverter
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

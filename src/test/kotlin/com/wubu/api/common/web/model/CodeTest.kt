@@ -1,7 +1,7 @@
-package com.wubu.api.price.daily.model
+package com.wubu.api.common.web.model
 
-import com.wubu.api.price.daily.exception.InvalidLengthCodeException
-import com.wubu.api.price.daily.model.Code.CodeConverter
+import com.wubu.api.common.error.exception.InvalidLengthCodeException
+import com.wubu.api.common.web.model.Code.CodeConverter
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test

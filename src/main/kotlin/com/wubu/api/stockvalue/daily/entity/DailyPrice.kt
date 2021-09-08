@@ -1,9 +1,9 @@
-package com.wubu.api.price.daily.entity
+package com.wubu.api.stockvalue.daily.entity
 
-import com.wubu.api.price.daily.model.Price
-import com.wubu.api.price.daily.model.Price.PriceConverter
-import com.wubu.api.price.daily.model.Volume
-import com.wubu.api.price.daily.model.Volume.VolumeConverter
+import com.wubu.api.common.web.model.stockvalue.Price
+import com.wubu.api.common.web.model.stockvalue.Price.PriceConverter
+import com.wubu.api.common.web.model.stockvalue.Volume
+import com.wubu.api.common.web.model.stockvalue.Volume.VolumeConverter
 import javax.persistence.*
 
 @Entity

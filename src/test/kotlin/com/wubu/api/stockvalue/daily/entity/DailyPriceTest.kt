@@ -1,8 +1,8 @@
-package com.wubu.api.price.daily.entity
+package com.wubu.api.stockvalue.daily.entity
 
-import com.wubu.api.price.daily.model.Code
-import com.wubu.api.price.daily.model.Price
-import com.wubu.api.price.daily.model.Volume
+import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.stockvalue.Price
+import com.wubu.api.common.web.model.stockvalue.Volume
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDate

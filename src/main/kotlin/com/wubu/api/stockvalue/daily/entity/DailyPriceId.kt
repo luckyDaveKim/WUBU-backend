@@ -1,7 +1,7 @@
-package com.wubu.api.price.daily.entity
+package com.wubu.api.stockvalue.daily.entity
 
-import com.wubu.api.price.daily.model.Code
-import com.wubu.api.price.daily.model.Code.CodeConverter
+import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.Code.CodeConverter
 import java.io.Serializable
 import java.time.LocalDate
 import javax.persistence.Column

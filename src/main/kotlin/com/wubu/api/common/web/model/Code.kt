@@ -1,7 +1,6 @@
-package com.wubu.api.price.daily.model
+package com.wubu.api.common.web.model
 
-import com.wubu.api.common.web.model.SingleValue
-import com.wubu.api.price.daily.exception.InvalidLengthCodeException
+import com.wubu.api.common.error.exception.InvalidLengthCodeException
 import javax.persistence.AttributeConverter
 
 data class Code(val code: String) : SingleValue<String>(code) {

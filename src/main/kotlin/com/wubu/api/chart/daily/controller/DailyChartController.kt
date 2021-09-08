@@ -3,7 +3,7 @@ package com.wubu.api.chart.daily.controller
 import com.wubu.api.chart.daily.dto.response.DailyChartsResponseDto
 import com.wubu.api.chart.daily.service.DailyChartService
 import com.wubu.api.common.web.dto.req.PagingReqDto
-import com.wubu.api.price.daily.model.Code
+import com.wubu.api.common.web.model.Code
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*

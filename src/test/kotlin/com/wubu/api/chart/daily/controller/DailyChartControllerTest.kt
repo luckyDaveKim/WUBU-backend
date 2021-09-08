@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.wubu.api.chart.daily.dto.response.DailyChartsResponseDto
 import com.wubu.api.chart.daily.service.DailyChartService
 import com.wubu.api.common.web.dto.req.PagingReqDto
-import com.wubu.api.price.daily.entity.DailyPrice
-import com.wubu.api.price.daily.entity.DailyPriceId
-import com.wubu.api.price.daily.model.Code
-import com.wubu.api.price.daily.model.Price
-import com.wubu.api.price.daily.model.Volume
+import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.stockvalue.Price
+import com.wubu.api.common.web.model.stockvalue.Volume
+import com.wubu.api.stockvalue.daily.entity.DailyPrice
+import com.wubu.api.stockvalue.daily.entity.DailyPriceId
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given

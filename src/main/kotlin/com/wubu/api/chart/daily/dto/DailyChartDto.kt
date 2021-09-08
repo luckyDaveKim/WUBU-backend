@@ -1,7 +1,7 @@
 package com.wubu.api.chart.daily.dto
 
-import com.wubu.api.price.daily.entity.DailyPrice
-import com.wubu.api.price.daily.model.Price
+import com.wubu.api.common.web.model.stockvalue.Price
+import com.wubu.api.stockvalue.daily.entity.DailyPrice
 import java.time.ZoneOffset
 
 data class DailyChartDto(

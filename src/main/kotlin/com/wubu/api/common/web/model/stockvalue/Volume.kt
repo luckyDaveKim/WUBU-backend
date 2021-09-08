@@ -1,7 +1,7 @@
-package com.wubu.api.price.daily.model
+package com.wubu.api.common.web.model.stockvalue
 
+import com.wubu.api.common.error.exception.InvalidVolumeException
 import com.wubu.api.common.web.model.SingleValue
-import com.wubu.api.price.daily.exception.InvalidVolumeException
 import javax.persistence.AttributeConverter
 
 data class Volume(val volume: Long) : SingleValue<Long>(volume) {
