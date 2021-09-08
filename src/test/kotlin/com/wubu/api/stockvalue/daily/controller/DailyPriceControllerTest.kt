@@ -5,10 +5,11 @@ import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.Code
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
-import com.wubu.api.stockvalue.daily.dto.response.DailyChartsResponseDto
 import com.wubu.api.stockvalue.daily.entity.DailyPrice
 import com.wubu.api.stockvalue.daily.entity.DailyPriceId
-import com.wubu.api.stockvalue.daily.service.DailyChartService
+import com.wubu.api.stockvalue.daily.price.controller.DailyPriceController
+import com.wubu.api.stockvalue.daily.price.dto.res.DailyPriceResDto
+import com.wubu.api.stockvalue.daily.service.DailyPriceService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -24,14 +25,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 
-@WebMvcTest(DailyChartController::class)
-class DailyChartControllerTest {
+@WebMvcTest(DailyPriceController::class)
+class DailyPriceControllerTest {
 
     @Autowired
     lateinit var mockMvc: MockMvc
 
     @MockBean
-    lateinit var dailyChartService: DailyChartService
+    lateinit var dailyPriceService: DailyPriceService
 
     private val objectMapper = ObjectMapper()
     lateinit var dailyPrice1: DailyPrice
@@ -71,15 +72,15 @@ class DailyChartControllerTest {
         // given
         val code = Code("000000")
         val dailyPrices = listOf(dailyPrice1, dailyPrice2)
-        val dailyChartsResponseDto = DailyChartsResponseDto.of(dailyPrices)
-        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyChartsResponseDto)
+        val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
+        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyPriceResDto)
 
-        given(dailyChartService.findDailyChart(code, PagingReqDto()))
-                .willReturn(dailyChartsResponseDto)
+        given(dailyPriceService.findDailyChart(code, PagingReqDto()))
+                .willReturn(dailyPriceResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/charts/daily/code/{code}", code.value)
+                get("/api/daily/price/code/{code}", code.value)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         )
@@ -94,15 +95,15 @@ class DailyChartControllerTest {
         // given
         val code = Code("000000")
         val dailyPrices = listOf(dailyPrice1, dailyPrice2)
-        val dailyChartsResponseDto = DailyChartsResponseDto.of(dailyPrices)
-        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyChartsResponseDto)
+        val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
+        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyPriceResDto)
 
-        given(dailyChartService.findDailyChart(code, PagingReqDto()))
-                .willReturn(dailyChartsResponseDto)
+        given(dailyPriceService.findDailyChart(code, PagingReqDto()))
+                .willReturn(dailyPriceResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/charts/daily/code/{code}", code.value)
+                get("/api/daily/price/code/{code}", code.value)
                         .param("page", "1")
                         .param("pageSize", "10")
                         .contentType(MediaType.APPLICATION_JSON)
