@@ -9,7 +9,7 @@ import com.wubu.api.stockvalue.daily.entity.DailyPrice
 import com.wubu.api.stockvalue.daily.entity.DailyPriceId
 import com.wubu.api.stockvalue.daily.price.controller.DailyPriceController
 import com.wubu.api.stockvalue.daily.price.dto.res.DailyPriceResDto
-import com.wubu.api.stockvalue.daily.service.DailyPriceService
+import com.wubu.api.stockvalue.daily.price.service.DailyPriceFindService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -32,7 +32,7 @@ class DailyPriceControllerTest {
     lateinit var mockMvc: MockMvc
 
     @MockBean
-    lateinit var dailyPriceService: DailyPriceService
+    lateinit var dailyPriceFindService: DailyPriceFindService
 
     private val objectMapper = ObjectMapper()
     lateinit var dailyPrice1: DailyPrice
@@ -75,7 +75,7 @@ class DailyPriceControllerTest {
         val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
         val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyPriceResDto)
 
-        given(dailyPriceService.findDailyChart(code, PagingReqDto()))
+        given(dailyPriceFindService.findDailyChart(code, PagingReqDto()))
                 .willReturn(dailyPriceResDto)
 
         // when
@@ -98,7 +98,7 @@ class DailyPriceControllerTest {
         val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
         val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyPriceResDto)
 
-        given(dailyPriceService.findDailyChart(code, PagingReqDto()))
+        given(dailyPriceFindService.findDailyChart(code, PagingReqDto()))
                 .willReturn(dailyPriceResDto)
 
         // when
