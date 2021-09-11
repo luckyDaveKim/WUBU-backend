@@ -19,8 +19,8 @@ class DailyPriceFindService(
         return DailyPriceResDto.of(dailyPrices)
     }
 
-    override fun findThisWeekValue(code: Code): DailyPriceResDto {
-        val startDateOfThisWeek = DateUtil.getStartDateOfWeek(LocalDate.now())
+    override fun findThisWeekValue(code: Code, date: LocalDate): DailyPriceResDto {
+        val startDateOfThisWeek = DateUtil.getStartDateOfWeek(date)
         val thisWeekDailyPrice = dailyPriceRepository.findAllByIdCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
                 code,
                 startDateOfThisWeek

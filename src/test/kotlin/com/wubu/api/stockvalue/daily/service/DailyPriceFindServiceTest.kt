@@ -31,13 +31,16 @@ class DailyPriceFindServiceTest {
 
     lateinit var dailyPrice1: DailyPrice
     lateinit var dailyPrice2: DailyPrice
+    lateinit var dailyPrice3: DailyPrice
+    lateinit var dailyPrice4: DailyPrice
+    lateinit var dailyPrice5: DailyPrice
 
     @BeforeEach
     fun setUp() {
         dailyPrice1 = DailyPrice(
                 DailyPriceId(
                         Code("000000"),
-                        LocalDate.of(1991, 3, 26)
+                        LocalDate.of(1991, 3, 24)
                 ),
                 Price(1),
                 Price(2),
@@ -50,7 +53,7 @@ class DailyPriceFindServiceTest {
         dailyPrice2 = DailyPrice(
                 DailyPriceId(
                         Code("000000"),
-                        LocalDate.of(1991, 3, 27)
+                        LocalDate.of(1991, 3, 25)
                 ),
                 Price(10),
                 Price(20),
@@ -59,6 +62,45 @@ class DailyPriceFindServiceTest {
                 50,
                 Volume(60)
         )
+
+        dailyPrice3 = DailyPrice(
+                DailyPriceId(
+                        Code("000000"),
+                        LocalDate.of(1991, 3, 26)
+                ),
+                Price(100),
+                Price(200),
+                Price(300),
+                Price(400),
+                500,
+                Volume(600)
+        )
+
+        dailyPrice4 = DailyPrice(
+                DailyPriceId(
+                        Code("000000"),
+                        LocalDate.of(1991, 3, 27)
+                ),
+                Price(1000),
+                Price(2000),
+                Price(3000),
+                Price(4000),
+                5000,
+                Volume(6000)
+        )
+
+        dailyPrice5 = DailyPrice(
+                DailyPriceId(
+                        Code("000000"),
+                        LocalDate.of(1991, 3, 24)
+                ),
+                Price(1),
+                Price(2),
+                Price(3),
+                Price(4),
+                5,
+                Volume(6)
+        )
     }
 
     @Test
@@ -66,7 +108,7 @@ class DailyPriceFindServiceTest {
         // given
         val code = Code("000000")
         val pagingReqDto = PagingReqDto()
-        val dailyPrices = listOf(dailyPrice1, dailyPrice2)
+        val dailyPrices = listOf(dailyPrice1, dailyPrice2, dailyPrice3, dailyPrice4)
         val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
 
         given(dailyPriceRepository.findAllByIdCodeOrderByIdDateAsc(code, pagingReqDto.getPageable()))
@@ -80,7 +122,28 @@ class DailyPriceFindServiceTest {
     }
 
     @Test
-    fun `이번주 데이터 조회 테스트`() {
+    fun `주 데이터 조회 테스트`() {
+        // given
+        val code = Code("000000")
+        val date = LocalDate.now()
+        val mondayDate = DateUtil.getStartDateOfWeek(date)
+        val dailyPrices = listOf(dailyPrice2, dailyPrice3)
+        val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
+
+        given(dailyPriceRepository.findAllByIdCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+                code,
+                mondayDate))
+                .willReturn(dailyPrices)
+
+        // when
+        val foundDailyChartsResponseDto = dailyPriceFindService.findThisWeekValue(code, date)
+
+        // then
+        assertThat(foundDailyChartsResponseDto).isEqualTo(dailyPriceResDto)
+    }
+
+    @Test
+    fun `default date 주 데이터 조회 테스트`() {
         // given
         val code = Code("000000")
         val date = LocalDate.now()
