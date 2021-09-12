@@ -1,6 +1,7 @@
 package com.wubu.api.stockvalue.daily.entity
 
 import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.point.RangePoint
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
 import org.assertj.core.api.Assertions.assertThat
@@ -61,6 +62,23 @@ class DailyPriceTest {
 
         // then
         assertThat(dailyPrice1).isEqualTo(dailyPrice2)
+    }
+
+    @Test
+    fun `RangePoint of Price 인터페이스 테스트`() {
+        // given
+        val point = listOf(open, high, low, close)
+
+        // when
+        val rangePrice: RangePoint<Price> = DailyPrice(DailyPriceId(code, date), open, high, low, close, diff, volume)
+
+        // then
+        assertThat(rangePrice).isNotNull
+        assertThat(rangePrice.open).isEqualTo(open)
+        assertThat(rangePrice.high).isEqualTo(high)
+        assertThat(rangePrice.low).isEqualTo(low)
+        assertThat(rangePrice.close).isEqualTo(close)
+        assertThat(rangePrice.point).isEqualTo(point)
     }
 
 }
