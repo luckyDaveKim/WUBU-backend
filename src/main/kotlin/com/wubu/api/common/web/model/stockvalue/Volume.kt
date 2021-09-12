@@ -4,7 +4,7 @@ import com.wubu.api.common.error.exception.InvalidVolumeException
 import com.wubu.api.common.web.model.SingleValue
 import javax.persistence.AttributeConverter
 
-data class Volume(val volume: Long) : SingleValue<Long>(volume) {
+data class Volume(val volume: Long) : SingleValue<Long>(volume), StockValue {
     private fun validate(volume: Long) {
         if (volume < 0) {
             throw InvalidVolumeException(volume)

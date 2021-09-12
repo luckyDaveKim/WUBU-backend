@@ -4,7 +4,7 @@ import com.wubu.api.common.error.exception.InvalidPriceException
 import com.wubu.api.common.web.model.SingleValue
 import javax.persistence.AttributeConverter
 
-data class Price(val price: Long) : SingleValue<Long>(price) {
+data class Price(val price: Long) : SingleValue<Long>(price), StockValue {
     private fun validate(price: Long) {
         if (price < 0) {
             throw InvalidPriceException(price)
