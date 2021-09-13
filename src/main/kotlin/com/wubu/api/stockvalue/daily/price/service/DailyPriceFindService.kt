@@ -14,12 +14,12 @@ class DailyPriceFindService(
         private val dailyPriceRepository: DailyPriceRepository
 ) : DailyStockValueFindService {
 
-    fun findDailyChart(code: Code, pagingReqDto: PagingReqDto): DailyPriceResDto {
+    override fun findDailyStockValue(code: Code, pagingReqDto: PagingReqDto): DailyPriceResDto {
         val dailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateAsc(code, pagingReqDto.getPageable())
         return DailyPriceResDto.of(dailyPrices)
     }
 
-    override fun findThisWeekValue(code: Code, date: LocalDate): DailyPriceResDto {
+    override fun findThisWeekStockValue(code: Code, date: LocalDate): DailyPriceResDto {
         val startDateOfThisWeek = DateUtil.getStartDateOfWeek(date)
         val thisWeekDailyPrice = dailyPriceRepository.findAllByIdCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
                 code,

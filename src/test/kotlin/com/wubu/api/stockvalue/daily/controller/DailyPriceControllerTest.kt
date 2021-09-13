@@ -75,7 +75,7 @@ class DailyPriceControllerTest {
         val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
         val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyPriceResDto)
 
-        given(dailyPriceFindService.findDailyChart(code, PagingReqDto()))
+        given(dailyPriceFindService.findDailyStockValue(code, PagingReqDto()))
                 .willReturn(dailyPriceResDto)
 
         // when
@@ -98,7 +98,7 @@ class DailyPriceControllerTest {
         val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
         val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyPriceResDto)
 
-        given(dailyPriceFindService.findDailyChart(code, PagingReqDto()))
+        given(dailyPriceFindService.findDailyStockValue(code, PagingReqDto()))
                 .willReturn(dailyPriceResDto)
 
         // when

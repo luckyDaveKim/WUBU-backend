@@ -21,7 +21,7 @@ class DailyPriceController(
     fun findDailyChart(
             @PathVariable(value = "code") code: Code,
             @ModelAttribute pagingReqDto: PagingReqDto): DailyPriceResDto {
-        return dailyPriceFindService.findDailyChart(code, pagingReqDto)
+        return dailyPriceFindService.findDailyStockValue(code, pagingReqDto)
     }
 
 }

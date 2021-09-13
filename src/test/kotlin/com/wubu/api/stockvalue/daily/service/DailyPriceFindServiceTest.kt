@@ -115,7 +115,7 @@ class DailyPriceFindServiceTest {
                 .willReturn(dailyPrices)
 
         // when
-        val foundDailyChartsResponseDto = dailyPriceFindService.findDailyChart(code, pagingReqDto)
+        val foundDailyChartsResponseDto = dailyPriceFindService.findDailyStockValue(code, pagingReqDto)
 
         // then
         assertThat(foundDailyChartsResponseDto).isEqualTo(dailyPriceResDto)
@@ -136,7 +136,7 @@ class DailyPriceFindServiceTest {
                 .willReturn(dailyPrices)
 
         // when
-        val foundDailyChartsResponseDto = dailyPriceFindService.findThisWeekValue(code, date)
+        val foundDailyChartsResponseDto = dailyPriceFindService.findThisWeekStockValue(code, date)
 
         // then
         assertThat(foundDailyChartsResponseDto).isEqualTo(dailyPriceResDto)
@@ -181,7 +181,7 @@ class DailyPriceFindServiceTest {
                 .willReturn(dailyPrices)
 
         // when
-        val foundDailyChartsResponseDto = dailyPriceFindService.findThisWeekValue(code)
+        val foundDailyChartsResponseDto = dailyPriceFindService.findThisWeekStockValue(code)
 
         // then
         assertThat(foundDailyChartsResponseDto).isEqualTo(dailyPriceResDto)
