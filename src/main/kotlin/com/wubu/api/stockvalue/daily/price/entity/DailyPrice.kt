@@ -1,9 +1,7 @@
-package com.wubu.api.stockvalue.daily.entity
+package com.wubu.api.stockvalue.daily.price.entity
 
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Price.PriceConverter
-import com.wubu.api.common.web.model.stockvalue.Volume
-import com.wubu.api.common.web.model.stockvalue.Volume.VolumeConverter
 import javax.persistence.*
 
 @Entity
@@ -26,14 +24,7 @@ class DailyPrice(
 
         @Column(name = "close", nullable = false)
         @Convert(converter = PriceConverter::class)
-        var close: Price,
-
-        @Column(name = "diff", nullable = false)
-        var diff: Long,
-
-        @Column(name = "volume", nullable = false)
-        @Convert(converter = VolumeConverter::class)
-        var volume: Volume
+        var close: Price
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

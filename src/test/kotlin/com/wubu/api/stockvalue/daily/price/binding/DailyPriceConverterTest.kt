@@ -2,10 +2,9 @@ package com.wubu.api.stockvalue.daily.price.binding
 
 import com.wubu.api.common.web.model.Code
 import com.wubu.api.common.web.model.stockvalue.Price
-import com.wubu.api.common.web.model.stockvalue.Volume
-import com.wubu.api.stockvalue.daily.entity.DailyPrice
-import com.wubu.api.stockvalue.daily.entity.DailyPriceId
 import com.wubu.api.stockvalue.daily.price.binding.DailyPriceConverter.DailyPriceToPointConverter
+import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
+import com.wubu.api.stockvalue.daily.price.entity.DailyPriceId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -49,9 +48,7 @@ class DailyPriceConverterTest {
                 Price(open),
                 Price(high),
                 Price(low),
-                Price(close),
-                5,
-                Volume(6)
+                Price(close)
         )
 
         // when

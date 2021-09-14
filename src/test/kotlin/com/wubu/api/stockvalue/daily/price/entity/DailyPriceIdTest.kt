@@ -1,4 +1,4 @@
-package com.wubu.api.stockvalue.daily.entity
+package com.wubu.api.stockvalue.daily.price.entity
 
 import com.wubu.api.common.web.model.Code
 import org.assertj.core.api.Assertions.assertThat

@@ -1,7 +1,7 @@
 package com.wubu.api.stockvalue.daily.price.binding
 
 import com.wubu.api.common.web.model.Point
-import com.wubu.api.stockvalue.daily.entity.DailyPrice
+import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
 import org.springframework.core.convert.converter.Converter
 import org.springframework.stereotype.Component
 import java.time.ZoneOffset

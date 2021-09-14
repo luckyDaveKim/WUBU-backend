@@ -5,7 +5,7 @@ import com.wubu.api.common.web.dto.res.PointResDto
 import com.wubu.api.common.web.model.Code
 import com.wubu.api.common.web.util.date.DateUtil
 import com.wubu.api.stockvalue.daily.price.binding.DailyPriceConverter.DailyPriceToPointConverter
-import com.wubu.api.stockvalue.daily.repository.DailyPriceRepository
+import com.wubu.api.stockvalue.daily.price.repository.DailyPriceRepository
 import com.wubu.api.stockvalue.daily.service.DailyStockValueFindService
 import org.springframework.stereotype.Service
 import java.time.LocalDate

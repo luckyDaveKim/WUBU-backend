@@ -1,12 +1,11 @@
-package com.wubu.api.stockvalue.daily.repository
+package com.wubu.api.stockvalue.daily.price.repository
 
 import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.Code
 import com.wubu.api.common.web.model.stockvalue.Price
-import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.common.web.util.date.DateUtil
-import com.wubu.api.stockvalue.daily.entity.DailyPrice
-import com.wubu.api.stockvalue.daily.entity.DailyPriceId
+import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
+import com.wubu.api.stockvalue.daily.price.entity.DailyPriceId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -37,9 +36,7 @@ class DailyPriceRepositoryTest {
                 Price(1),
                 Price(2),
                 Price(3),
-                Price(4),
-                5,
-                Volume(6))
+                Price(4))
         dailyPrice2 = DailyPrice(
                 DailyPriceId(
                         Code("000001"),
@@ -47,9 +44,7 @@ class DailyPriceRepositoryTest {
                 Price(10),
                 Price(20),
                 Price(30),
-                Price(40),
-                50,
-                Volume(60))
+                Price(40))
         dailyPrice3 = DailyPrice(
                 DailyPriceId(
                         Code("000001"),
@@ -57,9 +52,7 @@ class DailyPriceRepositoryTest {
                 Price(100),
                 Price(200),
                 Price(300),
-                Price(400),
-                500,
-                Volume(600))
+                Price(400))
 
         dailyPriceRepository.deleteAll()
 
@@ -162,9 +155,7 @@ class DailyPriceRepositoryTest {
                     Price(1),
                     Price(2),
                     Price(3),
-                    Price(4),
-                    5,
-                    Volume(6))
+                    Price(4))
             prices.add(dailyPrice)
         }
 

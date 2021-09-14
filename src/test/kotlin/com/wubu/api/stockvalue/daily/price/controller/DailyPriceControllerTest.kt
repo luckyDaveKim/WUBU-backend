@@ -6,9 +6,8 @@ import com.wubu.api.common.web.dto.res.PointResDto
 import com.wubu.api.common.web.model.Code
 import com.wubu.api.common.web.model.Point
 import com.wubu.api.common.web.model.stockvalue.Price
-import com.wubu.api.common.web.model.stockvalue.Volume
-import com.wubu.api.stockvalue.daily.entity.DailyPrice
-import com.wubu.api.stockvalue.daily.entity.DailyPriceId
+import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
+import com.wubu.api.stockvalue.daily.price.entity.DailyPriceId
 import com.wubu.api.stockvalue.daily.price.service.DailyPriceFindService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -49,9 +48,7 @@ class DailyPriceControllerTest(
                 Price(1),
                 Price(2),
                 Price(3),
-                Price(4),
-                5,
-                Volume(6)
+                Price(4)
         )
 
         dailyPrice2 = DailyPrice(
@@ -62,9 +59,7 @@ class DailyPriceControllerTest(
                 Price(10),
                 Price(20),
                 Price(30),
-                Price(40),
-                50,
-                Volume(60)
+                Price(40)
         )
     }
 

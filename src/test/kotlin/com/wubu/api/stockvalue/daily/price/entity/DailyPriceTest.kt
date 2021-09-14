@@ -1,8 +1,7 @@
-package com.wubu.api.stockvalue.daily.entity
+package com.wubu.api.stockvalue.daily.price.entity
 
 import com.wubu.api.common.web.model.Code
 import com.wubu.api.common.web.model.stockvalue.Price
-import com.wubu.api.common.web.model.stockvalue.Volume
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,10 +21,6 @@ class DailyPriceTest {
     lateinit var low2: Price
     lateinit var close1: Price
     lateinit var close2: Price
-    var diff1: Long = 0
-    var diff2: Long = 0
-    lateinit var volume1: Volume
-    lateinit var volume2: Volume
 
     @BeforeEach
     fun setUp() {
@@ -41,10 +36,6 @@ class DailyPriceTest {
         low2 = Price(30)
         close1 = Price(4)
         close2 = Price(40)
-        diff1 = 5L
-        diff2 = 50L
-        volume1 = Volume(6)
-        volume2 = Volume(60)
     }
 
     @Test
@@ -52,7 +43,7 @@ class DailyPriceTest {
         // given
 
         // when
-        val dailyPrice = DailyPrice(DailyPriceId(code1, date1), open1, high1, low1, close1, diff1, volume1)
+        val dailyPrice = DailyPrice(DailyPriceId(code1, date1), open1, high1, low1, close1)
 
         // then
         assertThat(dailyPrice).isNotNull
@@ -63,8 +54,6 @@ class DailyPriceTest {
         assertThat(dailyPrice.high).isEqualTo(high1)
         assertThat(dailyPrice.low).isEqualTo(low1)
         assertThat(dailyPrice.close).isEqualTo(close1)
-        assertThat(dailyPrice.diff).isEqualTo(diff1)
-        assertThat(dailyPrice.volume).isEqualTo(volume1)
     }
 
     @Test
@@ -77,17 +66,13 @@ class DailyPriceTest {
                 open1,
                 high1,
                 low1,
-                close1,
-                diff1,
-                volume1)
+                close1)
         val dailyPrice2 = DailyPrice(
                 DailyPriceId(code1, date1),
                 open1,
                 high1,
                 low1,
-                close1,
-                diff1,
-                volume1)
+                close1)
 
         // then
         assertThat(dailyPrice1).isEqualTo(dailyPrice2)
@@ -103,17 +88,13 @@ class DailyPriceTest {
                 open1,
                 high1,
                 low1,
-                close1,
-                diff1,
-                volume1)
+                close1)
         val dailyPrice2 = DailyPrice(
                 DailyPriceId(code2, date2),
                 open2,
                 high2,
                 low2,
-                close2,
-                diff2,
-                volume2)
+                close2)
 
         // then
         assertThat(dailyPrice1).isNotEqualTo(dailyPrice2)
@@ -129,17 +110,13 @@ class DailyPriceTest {
                 open1,
                 high1,
                 low1,
-                close1,
-                diff1,
-                volume1)
+                close1)
         val dailyPrice2 = DailyPrice(
                 DailyPriceId(code1, date1),
                 open1,
                 high1,
                 low1,
-                close1,
-                diff1,
-                volume1)
+                close1)
 
         // then
         assertThat(dailyPrice1.hashCode()).isEqualTo(dailyPrice2.hashCode())
@@ -155,17 +132,13 @@ class DailyPriceTest {
                 open1,
                 high1,
                 low1,
-                close1,
-                diff1,
-                volume1)
+                close1)
         val dailyPrice2 = DailyPrice(
                 DailyPriceId(code2, date2),
                 open2,
                 high2,
                 low2,
-                close2,
-                diff2,
-                volume2)
+                close2)
 
         // then
         assertThat(dailyPrice1.hashCode()).isNotEqualTo(dailyPrice2.hashCode())

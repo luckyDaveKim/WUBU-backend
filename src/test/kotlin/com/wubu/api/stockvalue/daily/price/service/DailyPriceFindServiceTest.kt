@@ -4,12 +4,11 @@ import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.dto.res.PointResDto
 import com.wubu.api.common.web.model.Code
 import com.wubu.api.common.web.model.stockvalue.Price
-import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.common.web.util.date.DateUtil
-import com.wubu.api.stockvalue.daily.entity.DailyPrice
-import com.wubu.api.stockvalue.daily.entity.DailyPriceId
 import com.wubu.api.stockvalue.daily.price.binding.DailyPriceConverter.DailyPriceToPointConverter
-import com.wubu.api.stockvalue.daily.repository.DailyPriceRepository
+import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
+import com.wubu.api.stockvalue.daily.price.entity.DailyPriceId
+import com.wubu.api.stockvalue.daily.price.repository.DailyPriceRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -49,9 +48,7 @@ class DailyPriceFindServiceTest {
                 Price(1),
                 Price(2),
                 Price(3),
-                Price(4),
-                5,
-                Volume(6)
+                Price(4)
         )
 
         dailyPrice2 = DailyPrice(
@@ -62,9 +59,7 @@ class DailyPriceFindServiceTest {
                 Price(10),
                 Price(20),
                 Price(30),
-                Price(40),
-                50,
-                Volume(60)
+                Price(40)
         )
 
         dailyPrice3 = DailyPrice(
@@ -75,9 +70,7 @@ class DailyPriceFindServiceTest {
                 Price(100),
                 Price(200),
                 Price(300),
-                Price(400),
-                500,
-                Volume(600)
+                Price(400)
         )
 
         dailyPrice4 = DailyPrice(
@@ -88,9 +81,7 @@ class DailyPriceFindServiceTest {
                 Price(1000),
                 Price(2000),
                 Price(3000),
-                Price(4000),
-                5000,
-                Volume(6000)
+                Price(4000)
         )
 
         dailyPrice5 = DailyPrice(
@@ -101,9 +92,7 @@ class DailyPriceFindServiceTest {
                 Price(1),
                 Price(2),
                 Price(3),
-                Price(4),
-                5,
-                Volume(6)
+                Price(4)
         )
     }
 
@@ -165,9 +154,7 @@ class DailyPriceFindServiceTest {
                 Price(1),
                 Price(2),
                 Price(3),
-                Price(4),
-                5,
-                Volume(6)
+                Price(4)
         )
         val thisTuesdayPrice = DailyPrice(
                 DailyPriceId(
@@ -177,9 +164,7 @@ class DailyPriceFindServiceTest {
                 Price(10),
                 Price(20),
                 Price(30),
-                Price(40),
-                50,
-                Volume(60)
+                Price(40)
         )
         val reversedDailyPrices = listOf(thisTuesdayPrice, thisMondayPrice)
         val dailyPrices = reversedDailyPrices.reversed()
