@@ -10,7 +10,7 @@ import java.time.LocalDate
 
 @Repository
 interface DailyPriceRepository : JpaRepository<DailyPrice, DailyPriceId> {
-    fun findAllByIdCodeOrderByIdDateAsc(
+    fun findAllByIdCodeOrderByIdDateDesc(
             code: Code,
             pageable: Pageable): List<DailyPrice>
 

@@ -17,7 +17,8 @@ class DailyPriceFindService(
 ) : DailyStockValueFindService {
 
     override fun findDailyStockValue(code: Code, pagingReqDto: PagingReqDto): PointResDto {
-        val points = dailyPriceRepository.findAllByIdCodeOrderByIdDateAsc(code, pagingReqDto.getPageable())
+        val points = dailyPriceRepository.findAllByIdCodeOrderByIdDateDesc(code, pagingReqDto.getPageable())
+                .reversed()
                 .map(dailyPriceToPointConverter::convert)
                 .toList()
 

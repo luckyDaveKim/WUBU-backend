@@ -96,7 +96,7 @@ class DailyPriceFindServiceTest {
         dailyPrice5 = DailyPrice(
                 DailyPriceId(
                         Code("000000"),
-                        LocalDate.of(1991, 3, 24)
+                        LocalDate.of(1991, 3, 28)
                 ),
                 Price(1),
                 Price(2),
@@ -112,13 +112,14 @@ class DailyPriceFindServiceTest {
         // given
         val code = Code("000000")
         val pagingReqDto = PagingReqDto()
-        val dailyPrices = listOf(dailyPrice1, dailyPrice2, dailyPrice3, dailyPrice4)
+        val reversedDailyPrices = listOf(dailyPrice4, dailyPrice3, dailyPrice2, dailyPrice1)
+        val dailyPrices = reversedDailyPrices.reversed()
         val points = dailyPrices.map(dailyPriceToPointConverter::convert)
                 .toList()
         val pointResDto = PointResDto.of(points)
 
-        given(dailyPriceRepository.findAllByIdCodeOrderByIdDateAsc(code, pagingReqDto.getPageable()))
-                .willReturn(dailyPrices)
+        given(dailyPriceRepository.findAllByIdCodeOrderByIdDateDesc(code, pagingReqDto.getPageable()))
+                .willReturn(reversedDailyPrices)
 
         // when
         val foundDailyChartsResponseDto = dailyPriceFindService.findDailyStockValue(code, pagingReqDto)
@@ -180,7 +181,8 @@ class DailyPriceFindServiceTest {
                 50,
                 Volume(60)
         )
-        val dailyPrices = listOf(thisMondayPrice, thisTuesdayPrice)
+        val reversedDailyPrices = listOf(thisTuesdayPrice, thisMondayPrice)
+        val dailyPrices = reversedDailyPrices.reversed()
         val points = dailyPrices.map(dailyPriceToPointConverter::convert)
                 .toList()
         val pointResDto = PointResDto.of(points)

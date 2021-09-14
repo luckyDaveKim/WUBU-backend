@@ -87,12 +87,12 @@ class DailyPriceRepositoryTest {
         val pageable = PagingReqDto().getPageable()
 
         // when
-        val foundDailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateAsc(code, pageable)
+        val foundDailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
 
         // then
-        assertThat(foundDailyPrices[0]).isEqualTo(dailyPrice1)
+        assertThat(foundDailyPrices[0]).isEqualTo(dailyPrice2)
         assertThat(foundDailyPrices[1]).isEqualTo(dailyPrice3)
-        assertThat(foundDailyPrices[2]).isEqualTo(dailyPrice2)
+        assertThat(foundDailyPrices[2]).isEqualTo(dailyPrice1)
     }
 
     @Test
@@ -104,7 +104,7 @@ class DailyPriceRepositoryTest {
         val pageable = PagingReqDto(page, pageSize).getPageable()
 
         // when
-        val foundDailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateAsc(code, pageable)
+        val foundDailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
 
         // then
         assertThat(foundDailyPrices.size).isEqualTo(pageSize)
@@ -120,12 +120,12 @@ class DailyPriceRepositoryTest {
         val pageable = PagingReqDto(page, pageSize).getPageable()
 
         // when
-        val foundDailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateAsc(code, pageable)
+        val foundDailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
 
         // then
         assertThat(foundDailyPrices.size).isEqualTo(pageSize)
 
-        assertThat(foundDailyPrices[0]).isEqualTo(dailyPrice1)
+        assertThat(foundDailyPrices[0]).isEqualTo(dailyPrice2)
         assertThat(foundDailyPrices[1]).isEqualTo(dailyPrice3)
     }
 
