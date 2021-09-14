@@ -1,9 +1,10 @@
 package com.wubu.api.common.web.model
 
 import com.wubu.api.common.error.exception.InvalidLengthCodeException
+import java.io.Serializable
 import javax.persistence.AttributeConverter
 
-data class Code(val code: String) : SingleValue<String>(code) {
+data class Code(private val code: String) : SingleValue<String>(code), Serializable {
     private fun validate(code: String) {
         if (code.length != 6) {
             throw InvalidLengthCodeException(code)
