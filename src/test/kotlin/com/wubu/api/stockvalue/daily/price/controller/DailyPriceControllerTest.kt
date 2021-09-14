@@ -28,7 +28,7 @@ import java.time.ZoneOffset
 @WebMvcTest(DailyPriceController::class)
 class DailyPriceControllerTest(
         @Autowired
-        val mockMvc: MockMvc
+        private val mockMvc: MockMvc
 ) {
 
     @MockBean
@@ -92,6 +92,7 @@ class DailyPriceControllerTest(
                         .accept(MediaType.APPLICATION_JSON)
         )
 
+        // then
         resultActions.andExpect { status().isOk }
                 .andExpect(content().json(jsonDailyChartsResponseDto))
                 .andDo { print() }
@@ -128,6 +129,7 @@ class DailyPriceControllerTest(
                         .accept(MediaType.APPLICATION_JSON)
         )
 
+        // then
         resultActions.andExpect { status().isOk }
                 .andExpect(content().string(jsonDailyChartsResponseDto))
                 .andDo { print() }
