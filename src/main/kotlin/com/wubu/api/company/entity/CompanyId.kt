@@ -8,8 +8,23 @@ import javax.persistence.Convert
 import javax.persistence.Embeddable
 
 @Embeddable
-data class CompanyId(
+class CompanyId(
         @Column(name = "code", nullable = false)
         @Convert(converter = CodeConverter::class)
         var code: Code
-) : Serializable
+) : Serializable {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as CompanyId
+
+        if (code != other.code) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return code.hashCode()
+    }
+}
