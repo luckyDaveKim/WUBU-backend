@@ -1,14 +1,14 @@
-package com.wubu.api.stockvalue.daily.controller
+package com.wubu.api.stockvalue.daily.price.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wubu.api.common.web.dto.req.PagingReqDto
+import com.wubu.api.common.web.dto.res.PointResDto
 import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.Point
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.stockvalue.daily.entity.DailyPrice
 import com.wubu.api.stockvalue.daily.entity.DailyPriceId
-import com.wubu.api.stockvalue.daily.price.controller.DailyPriceController
-import com.wubu.api.stockvalue.daily.price.dto.res.DailyPriceResDto
 import com.wubu.api.stockvalue.daily.price.service.DailyPriceFindService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -24,12 +24,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
+import java.time.ZoneOffset
 
 @WebMvcTest(DailyPriceController::class)
-class DailyPriceControllerTest {
-
-    @Autowired
-    lateinit var mockMvc: MockMvc
+class DailyPriceControllerTest(
+        @Autowired
+        val mockMvc: MockMvc
+) {
 
     @MockBean
     lateinit var dailyPriceFindService: DailyPriceFindService
@@ -71,12 +72,23 @@ class DailyPriceControllerTest {
     fun `데이터 조회 테스트`() {
         // given
         val code = Code("000000")
-        val dailyPrices = listOf(dailyPrice1, dailyPrice2)
-        val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
-        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyPriceResDto)
+        val points = listOf(dailyPrice1, dailyPrice2)
+                .map { source ->
+                    Point(
+                            x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                            y = source.close.value,
+                            open = source.open.value,
+                            high = source.high.value,
+                            low = source.low.value,
+                            close = source.close.value
+                    )
+                }
+                .toList()
+        val pointResDto = PointResDto.of(points)
+        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(pointResDto)
 
         given(dailyPriceFindService.findDailyStockValue(code, PagingReqDto()))
-                .willReturn(dailyPriceResDto)
+                .willReturn(pointResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -94,12 +106,23 @@ class DailyPriceControllerTest {
     fun `페이징 데이터 조회 테스트`() {
         // given
         val code = Code("000000")
-        val dailyPrices = listOf(dailyPrice1, dailyPrice2)
-        val dailyPriceResDto = DailyPriceResDto.of(dailyPrices)
-        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(dailyPriceResDto)
+        val points = listOf(dailyPrice1, dailyPrice2)
+                .map { source ->
+                    Point(
+                            x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                            y = source.close.value,
+                            open = source.open.value,
+                            high = source.high.value,
+                            low = source.low.value,
+                            close = source.close.value
+                    )
+                }
+                .toList()
+        val pointResDto = PointResDto.of(points)
+        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(pointResDto)
 
         given(dailyPriceFindService.findDailyStockValue(code, PagingReqDto()))
-                .willReturn(dailyPriceResDto)
+                .willReturn(pointResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(

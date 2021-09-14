@@ -1,7 +1,6 @@
 package com.wubu.api.stockvalue.daily.entity
 
 import com.wubu.api.common.web.model.Code
-import com.wubu.api.common.web.model.point.RangePoint
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
 import org.assertj.core.api.Assertions.assertThat
@@ -11,25 +10,41 @@ import java.time.LocalDate
 
 class DailyPriceTest {
 
-    lateinit var code: Code
-    lateinit var date: LocalDate
-    lateinit var open: Price
-    lateinit var high: Price
-    lateinit var low: Price
-    lateinit var close: Price
-    var diff: Long = 0
-    lateinit var volume: Volume
+    lateinit var code1: Code
+    lateinit var code2: Code
+    lateinit var date1: LocalDate
+    lateinit var date2: LocalDate
+    lateinit var open1: Price
+    lateinit var open2: Price
+    lateinit var high1: Price
+    lateinit var high2: Price
+    lateinit var low1: Price
+    lateinit var low2: Price
+    lateinit var close1: Price
+    lateinit var close2: Price
+    var diff1: Long = 0
+    var diff2: Long = 0
+    lateinit var volume1: Volume
+    lateinit var volume2: Volume
 
     @BeforeEach
     fun setUp() {
-        code = Code("000001")
-        date = LocalDate.of(1991, 3, 26)
-        open = Price(1)
-        high = Price(2)
-        low = Price(3)
-        close = Price(4)
-        diff = 5L
-        volume = Volume(6)
+        code1 = Code("000001")
+        code2 = Code("000002")
+        date1 = LocalDate.of(1991, 3, 26)
+        date2 = LocalDate.of(1991, 3, 27)
+        open1 = Price(1)
+        open2 = Price(10)
+        high1 = Price(2)
+        high2 = Price(20)
+        low1 = Price(3)
+        low2 = Price(30)
+        close1 = Price(4)
+        close2 = Price(40)
+        diff1 = 5L
+        diff2 = 50L
+        volume1 = Volume(6)
+        volume2 = Volume(60)
     }
 
     @Test
@@ -37,19 +52,19 @@ class DailyPriceTest {
         // given
 
         // when
-        val dailyPrice = DailyPrice(DailyPriceId(code, date), open, high, low, close, diff, volume)
+        val dailyPrice = DailyPrice(DailyPriceId(code1, date1), open1, high1, low1, close1, diff1, volume1)
 
         // then
         assertThat(dailyPrice).isNotNull
         assertThat(dailyPrice.id).isNotNull
-        assertThat(dailyPrice.id.code).isEqualTo(code)
-        assertThat(dailyPrice.id.date).isEqualTo(date)
-        assertThat(dailyPrice.open).isEqualTo(open)
-        assertThat(dailyPrice.high).isEqualTo(high)
-        assertThat(dailyPrice.low).isEqualTo(low)
-        assertThat(dailyPrice.close).isEqualTo(close)
-        assertThat(dailyPrice.diff).isEqualTo(diff)
-        assertThat(dailyPrice.volume).isEqualTo(volume)
+        assertThat(dailyPrice.id.code).isEqualTo(code1)
+        assertThat(dailyPrice.id.date).isEqualTo(date1)
+        assertThat(dailyPrice.open).isEqualTo(open1)
+        assertThat(dailyPrice.high).isEqualTo(high1)
+        assertThat(dailyPrice.low).isEqualTo(low1)
+        assertThat(dailyPrice.close).isEqualTo(close1)
+        assertThat(dailyPrice.diff).isEqualTo(diff1)
+        assertThat(dailyPrice.volume).isEqualTo(volume1)
     }
 
     @Test
@@ -57,28 +72,103 @@ class DailyPriceTest {
         // given
 
         // when
-        val dailyPrice1 = DailyPrice(DailyPriceId(code, date), open, high, low, close, diff, volume)
-        val dailyPrice2 = DailyPrice(DailyPriceId(code, date), open, high, low, close, diff, volume)
+        val dailyPrice1 = DailyPrice(
+                DailyPriceId(code1, date1),
+                open1,
+                high1,
+                low1,
+                close1,
+                diff1,
+                volume1)
+        val dailyPrice2 = DailyPrice(
+                DailyPriceId(code1, date1),
+                open1,
+                high1,
+                low1,
+                close1,
+                diff1,
+                volume1)
 
         // then
         assertThat(dailyPrice1).isEqualTo(dailyPrice2)
     }
 
     @Test
-    fun `RangePoint of Price 인터페이스 테스트`() {
+    fun `동등성 비교 실패 테스트`() {
         // given
-        val point = listOf(open, high, low, close)
 
         // when
-        val rangePrice: RangePoint<Price> = DailyPrice(DailyPriceId(code, date), open, high, low, close, diff, volume)
+        val dailyPrice1 = DailyPrice(
+                DailyPriceId(code1, date1),
+                open1,
+                high1,
+                low1,
+                close1,
+                diff1,
+                volume1)
+        val dailyPrice2 = DailyPrice(
+                DailyPriceId(code2, date2),
+                open2,
+                high2,
+                low2,
+                close2,
+                diff2,
+                volume2)
 
         // then
-        assertThat(rangePrice).isNotNull
-        assertThat(rangePrice.open).isEqualTo(open)
-        assertThat(rangePrice.high).isEqualTo(high)
-        assertThat(rangePrice.low).isEqualTo(low)
-        assertThat(rangePrice.close).isEqualTo(close)
-        assertThat(rangePrice.point).isEqualTo(point)
+        assertThat(dailyPrice1).isNotEqualTo(dailyPrice2)
+    }
+
+    @Test
+    fun `HashCode 비교 테스트`() {
+        // given
+
+        // when
+        val dailyPrice1 = DailyPrice(
+                DailyPriceId(code1, date1),
+                open1,
+                high1,
+                low1,
+                close1,
+                diff1,
+                volume1)
+        val dailyPrice2 = DailyPrice(
+                DailyPriceId(code1, date1),
+                open1,
+                high1,
+                low1,
+                close1,
+                diff1,
+                volume1)
+
+        // then
+        assertThat(dailyPrice1.hashCode()).isEqualTo(dailyPrice2.hashCode())
+    }
+
+    @Test
+    fun `HashCode 비교 실패 테스트`() {
+        // given
+
+        // when
+        val dailyPrice1 = DailyPrice(
+                DailyPriceId(code1, date1),
+                open1,
+                high1,
+                low1,
+                close1,
+                diff1,
+                volume1)
+        val dailyPrice2 = DailyPrice(
+                DailyPriceId(code2, date2),
+                open2,
+                high2,
+                low2,
+                close2,
+                diff2,
+                volume2)
+
+        // then
+        assertThat(dailyPrice1.hashCode()).isNotEqualTo(dailyPrice2.hashCode())
     }
 
 }

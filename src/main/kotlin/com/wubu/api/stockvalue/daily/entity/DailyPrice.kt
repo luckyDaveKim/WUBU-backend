@@ -1,6 +1,5 @@
 package com.wubu.api.stockvalue.daily.entity
 
-import com.wubu.api.common.web.model.point.RangePoint
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Price.PriceConverter
 import com.wubu.api.common.web.model.stockvalue.Volume
@@ -15,19 +14,19 @@ class DailyPrice(
 
         @Column(name = "open", nullable = false)
         @Convert(converter = PriceConverter::class)
-        override var open: Price,
+        var open: Price,
 
         @Column(name = "high", nullable = false)
         @Convert(converter = PriceConverter::class)
-        override var high: Price,
+        var high: Price,
 
         @Column(name = "low", nullable = false)
         @Convert(converter = PriceConverter::class)
-        override var low: Price,
+        var low: Price,
 
         @Column(name = "close", nullable = false)
         @Convert(converter = PriceConverter::class)
-        override var close: Price,
+        var close: Price,
 
         @Column(name = "diff", nullable = false)
         var diff: Long,
@@ -35,7 +34,7 @@ class DailyPrice(
         @Column(name = "volume", nullable = false)
         @Convert(converter = VolumeConverter::class)
         var volume: Volume
-) : RangePoint<Price> {
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

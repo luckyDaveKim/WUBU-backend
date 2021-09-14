@@ -1,8 +1,8 @@
 package com.wubu.api.stockvalue.daily.price.controller
 
 import com.wubu.api.common.web.dto.req.PagingReqDto
+import com.wubu.api.common.web.dto.res.PointResDto
 import com.wubu.api.common.web.model.Code
-import com.wubu.api.stockvalue.daily.price.dto.res.DailyPriceResDto
 import com.wubu.api.stockvalue.daily.price.service.DailyPriceFindService
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -20,7 +20,7 @@ class DailyPriceController(
     @ResponseStatus(HttpStatus.OK)
     fun findDailyChart(
             @PathVariable(value = "code") code: Code,
-            @ModelAttribute pagingReqDto: PagingReqDto): DailyPriceResDto {
+            @ModelAttribute pagingReqDto: PagingReqDto): PointResDto {
         return dailyPriceFindService.findDailyStockValue(code, pagingReqDto)
     }
 

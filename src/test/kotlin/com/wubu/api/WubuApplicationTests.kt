@@ -8,6 +8,12 @@ class WubuApplicationTests {
 
     @Test
     fun contextLoads() {
+        // given
+
+        // when
+        main(emptyArray())
+
+        // then
     }
 
 }

@@ -8,6 +8,17 @@ import java.time.LocalDate
 class DateUtilTest {
 
     @Test
+    fun `생성 테스트`() {
+        // given
+
+        // when
+        val dateUtil = DateUtil()
+
+        // then
+        assertThat(dateUtil).isNotNull
+    }
+
+    @Test
     fun getStartDateOfWeekTest() {
         val date = LocalDate.of(1991, 3, 26)
 
