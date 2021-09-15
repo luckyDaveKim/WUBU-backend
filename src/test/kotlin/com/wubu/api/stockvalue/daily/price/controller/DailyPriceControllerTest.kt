@@ -80,7 +80,7 @@ class DailyPriceControllerTest(
                 }
                 .toList()
         val pointResDto = PointResDto.of(points)
-        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(pointResDto)
+        val jsonDailyPricesResponseDto = objectMapper.writeValueAsString(pointResDto)
 
         given(dailyPriceFindService.findDailyStockValue(code, PagingReqDto()))
                 .willReturn(pointResDto)
@@ -94,7 +94,7 @@ class DailyPriceControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-                .andExpect(content().json(jsonDailyChartsResponseDto))
+                .andExpect(content().json(jsonDailyPricesResponseDto))
                 .andDo { print() }
     }
 
@@ -115,7 +115,7 @@ class DailyPriceControllerTest(
                 }
                 .toList()
         val pointResDto = PointResDto.of(points)
-        val jsonDailyChartsResponseDto = objectMapper.writeValueAsString(pointResDto)
+        val jsonDailyPricesResponseDto = objectMapper.writeValueAsString(pointResDto)
 
         given(dailyPriceFindService.findDailyStockValue(code, PagingReqDto()))
                 .willReturn(pointResDto)
@@ -131,7 +131,7 @@ class DailyPriceControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-                .andExpect(content().string(jsonDailyChartsResponseDto))
+                .andExpect(content().string(jsonDailyPricesResponseDto))
                 .andDo { print() }
     }
 

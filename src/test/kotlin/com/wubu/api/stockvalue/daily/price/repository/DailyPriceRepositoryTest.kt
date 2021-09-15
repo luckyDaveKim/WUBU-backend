@@ -19,9 +19,10 @@ import java.time.LocalDate
 @SpringBootTest
 @ContextConfiguration(initializers = [ConfigDataApplicationContextInitializer::class])
 @ActiveProfiles("test")
-class DailyPriceRepositoryTest {
-    @Autowired
-    lateinit var dailyPriceRepository: DailyPriceRepository
+class DailyPriceRepositoryTest(
+        @Autowired
+        private val dailyPriceRepository: DailyPriceRepository
+) {
 
     lateinit var dailyPrice1: DailyPrice
     lateinit var dailyPrice2: DailyPrice

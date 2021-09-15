@@ -83,7 +83,7 @@ class CompanyTest {
     }
 
     @Test
-    fun `HashCode 비교 테스트`() {
+    fun `hashCode 비교 테스트`() {
         // given
 
         // when
@@ -101,7 +101,7 @@ class CompanyTest {
     }
 
     @Test
-    fun `HashCode 비교 실패 테스트`() {
+    fun `hashCode 비교 실패 테스트`() {
         // given
 
         // when
