@@ -9,7 +9,7 @@ import javax.persistence.Embeddable
 
 @Embeddable
 class DailyVolumeId(
-        @Column(name = "code", nullable = false)
+        @Column(name = "company_id", nullable = false)
         @Convert(converter = CompanyCode.CodeConverter::class)
         var companyCode: CompanyCode,
 
