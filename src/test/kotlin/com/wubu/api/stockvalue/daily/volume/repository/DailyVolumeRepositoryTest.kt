@@ -1,0 +1,153 @@
+package com.wubu.api.stockvalue.daily.volume.repository
+
+import com.wubu.api.common.web.dto.req.PagingReqDto
+import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.stockvalue.Volume
+import com.wubu.api.common.web.util.date.DateUtil
+import com.wubu.api.stockvalue.daily.volume.entity.DailyVolume
+import com.wubu.api.stockvalue.daily.volume.entity.DailyVolumeId
+import org.assertj.core.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.ConfigDataApplicationContextInitializer
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.ContextConfiguration
+import java.time.LocalDate
+
+@SpringBootTest
+@ContextConfiguration(initializers = [ConfigDataApplicationContextInitializer::class])
+@ActiveProfiles("test")
+class DailyVolumeRepositoryTest(
+        @Autowired
+        private val dailyVolumeRepository: DailyVolumeRepository
+) {
+
+    lateinit var dailyVolume1: DailyVolume
+    lateinit var dailyVolume2: DailyVolume
+    lateinit var dailyVolume3: DailyVolume
+
+    @BeforeEach
+    fun setUp() {
+        dailyVolume1 = DailyVolume(
+                DailyVolumeId(
+                        Code("000001"),
+                        LocalDate.of(1991, 3, 24)),
+                Volume(1))
+        dailyVolume2 = DailyVolume(
+                DailyVolumeId(
+                        Code("000001"),
+                        LocalDate.of(1991, 3, 26)),
+                Volume(10))
+        dailyVolume3 = DailyVolume(
+                DailyVolumeId(
+                        Code("000001"),
+                        LocalDate.of(1991, 3, 27)),
+                Volume(100))
+
+        dailyVolumeRepository.deleteAll()
+
+        dailyVolumeRepository.save(dailyVolume1)
+        dailyVolumeRepository.save(dailyVolume2)
+        dailyVolumeRepository.save(dailyVolume3)
+    }
+
+    @Test
+    fun `id 기준 조회 테스트`() {
+        // given
+        val id = dailyVolume1.id
+
+        // when
+        val foundDailVolume = dailyVolumeRepository.findById(id)
+
+        // then
+        Assertions.assertThat(foundDailVolume.get()).isEqualTo(dailyVolume1)
+    }
+
+    @Test
+    fun `code 기준 리스트 조회 테스트`() {
+        // given
+        val code = dailyVolume1.id.code
+        val pageable = PagingReqDto().getPageable()
+
+        // when
+        val foundDailyVolume = dailyVolumeRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
+
+        // then
+        Assertions.assertThat(foundDailyVolume[0]).isEqualTo(dailyVolume3)
+        Assertions.assertThat(foundDailyVolume[1]).isEqualTo(dailyVolume2)
+        Assertions.assertThat(foundDailyVolume[2]).isEqualTo(dailyVolume1)
+    }
+
+    @Test
+    fun `페이징 테스트`() {
+        // given
+        val code = dailyVolume1.id.code
+        val page = 2
+        val pageSize = 1
+        val pageable = PagingReqDto(page, pageSize).getPageable()
+
+        // when
+        val foundDailyVolumes = dailyVolumeRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
+
+        // then
+        Assertions.assertThat(foundDailyVolumes.size).isEqualTo(pageSize)
+        Assertions.assertThat(foundDailyVolumes[0]).isEqualTo(dailyVolume2)
+    }
+
+    @Test
+    fun `페이징 사이즈 테스트`() {
+        // given
+        val code = dailyVolume1.id.code
+        val page = 1
+        val pageSize = 2
+        val pageable = PagingReqDto(page, pageSize).getPageable()
+
+        // when
+        val foundDailyVolumes = dailyVolumeRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
+
+        // then
+        Assertions.assertThat(foundDailyVolumes.size).isEqualTo(pageSize)
+        Assertions.assertThat(foundDailyVolumes[0]).isEqualTo(dailyVolume3)
+        Assertions.assertThat(foundDailyVolumes[1]).isEqualTo(dailyVolume2)
+    }
+
+    @Test
+    fun `코드 및 날짜 기준 리스트 조회 테스트`() {
+        // given
+        val code = dailyVolume2.id.code
+        val today = LocalDate.now()
+        val startDateOfWeek = DateUtil.getStartDateOfWeek(today)
+        val thisWeekDataSize = today.dayOfWeek.value
+
+        // when
+        for (dailyVolume in getVolumeBefore6DaysUntilToday()) {
+            dailyVolumeRepository.save(dailyVolume)
+        }
+        val foundThisWeekDailyVolumes = dailyVolumeRepository.findAllByIdCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+                code,
+                startDateOfWeek)
+
+        // then
+        Assertions.assertThat(foundThisWeekDailyVolumes.size).isEqualTo(thisWeekDataSize)
+    }
+
+    private fun getVolumeBefore6DaysUntilToday(): List<DailyVolume> {
+        val volumes = emptyList<DailyVolume>().toMutableList()
+        val today = LocalDate.now()
+
+        for (i: Long in -6..0L) {
+            val targetDate = today.plusDays(i)
+            val dailyVolume = DailyVolume(
+                    DailyVolumeId(
+                            Code("000001"),
+                            targetDate),
+                    Volume(1))
+            volumes.add(dailyVolume)
+        }
+
+        return volumes
+    }
+
+}
