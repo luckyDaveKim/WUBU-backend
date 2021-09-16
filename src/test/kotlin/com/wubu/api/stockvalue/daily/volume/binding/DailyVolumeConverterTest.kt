@@ -37,12 +37,12 @@ class DailyVolumeConverterTest {
         val date = LocalDate.of(1991, 3, 26)
         val volume = 1L
         val dailyVolumeId = DailyVolumeId(
-                CompanyCode("000000"),
-                date
+            CompanyCode("000000"),
+            date
         )
         val dailyVolume = DailyVolume(
-                dailyVolumeId,
-                Volume(volume)
+            dailyVolumeId,
+            Volume(volume)
         )
 
         // when
@@ -52,5 +52,4 @@ class DailyVolumeConverterTest {
         assertThat(point.x).isEqualTo(date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
         assertThat(point.y).isEqualTo(volume)
     }
-
 }

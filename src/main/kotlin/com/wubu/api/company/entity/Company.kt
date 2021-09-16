@@ -9,14 +9,14 @@ import javax.persistence.Table
 @Entity
 @Table(name = "company_info")
 class Company(
-        @EmbeddedId
-        var id: CompanyId,
+    @EmbeddedId
+    var id: CompanyId,
 
-        @Column(name = "name", nullable = false)
-        var name: String,
+    @Column(name = "name", nullable = false)
+    var name: String,
 
-        @Column(name = "last_update", nullable = false)
-        var date: LocalDate
+    @Column(name = "last_update", nullable = false)
+    var date: LocalDate
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -9,12 +9,12 @@ import javax.persistence.Embeddable
 
 @Embeddable
 class DailyVolumeId(
-        @Column(name = "company_id", nullable = false)
-        @Convert(converter = CompanyCode.CodeConverter::class)
-        var companyCode: CompanyCode,
+    @Column(name = "company_id", nullable = false)
+    @Convert(converter = CompanyCode.CodeConverter::class)
+    var companyCode: CompanyCode,
 
-        @Column(name = "date", nullable = false)
-        var date: LocalDate
+    @Column(name = "date", nullable = false)
+    var date: LocalDate
 ) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

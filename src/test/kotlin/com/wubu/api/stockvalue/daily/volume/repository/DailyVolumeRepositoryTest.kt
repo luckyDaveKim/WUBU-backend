@@ -20,8 +20,8 @@ import java.time.LocalDate
 @ContextConfiguration(initializers = [ConfigDataApplicationContextInitializer::class])
 @ActiveProfiles("test")
 class DailyVolumeRepositoryTest(
-        @Autowired
-        private val dailyVolumeRepository: DailyVolumeRepository
+    @Autowired
+    private val dailyVolumeRepository: DailyVolumeRepository
 ) {
 
     lateinit var dailyVolume1: DailyVolume
@@ -31,20 +31,26 @@ class DailyVolumeRepositoryTest(
     @BeforeEach
     fun setUp() {
         dailyVolume1 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000001"),
-                        LocalDate.of(1991, 3, 24)),
-                Volume(1))
+            DailyVolumeId(
+                CompanyCode("000001"),
+                LocalDate.of(1991, 3, 24)
+            ),
+            Volume(1)
+        )
         dailyVolume2 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000001"),
-                        LocalDate.of(1991, 3, 26)),
-                Volume(10))
+            DailyVolumeId(
+                CompanyCode("000001"),
+                LocalDate.of(1991, 3, 26)
+            ),
+            Volume(10)
+        )
         dailyVolume3 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000001"),
-                        LocalDate.of(1991, 3, 27)),
-                Volume(100))
+            DailyVolumeId(
+                CompanyCode("000001"),
+                LocalDate.of(1991, 3, 27)
+            ),
+            Volume(100)
+        )
 
         dailyVolumeRepository.deleteAll()
 
@@ -125,9 +131,11 @@ class DailyVolumeRepositoryTest(
         for (dailyVolume in getVolumeBefore6DaysUntilToday()) {
             dailyVolumeRepository.save(dailyVolume)
         }
-        val foundThisWeekDailyVolumes = dailyVolumeRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+        val foundThisWeekDailyVolumes =
+            dailyVolumeRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
                 code,
-                startDateOfWeek)
+                startDateOfWeek
+            )
 
         // then
         Assertions.assertThat(foundThisWeekDailyVolumes.size).isEqualTo(thisWeekDataSize)
@@ -140,14 +148,15 @@ class DailyVolumeRepositoryTest(
         for (i: Long in -6..0L) {
             val targetDate = today.plusDays(i)
             val dailyVolume = DailyVolume(
-                    DailyVolumeId(
-                            CompanyCode("000001"),
-                            targetDate),
-                    Volume(1))
+                DailyVolumeId(
+                    CompanyCode("000001"),
+                    targetDate
+                ),
+                Volume(1)
+            )
             volumes.add(dailyVolume)
         }
 
         return volumes
     }
-
 }

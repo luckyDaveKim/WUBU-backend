@@ -6,12 +6,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class CompanyFindService(
-        private val companyRepository: CompanyRepository
+    private val companyRepository: CompanyRepository
 ) {
 
     fun findCompanies(): CompaniesResDto {
         val companies = companyRepository.findAllByOrderByNameAsc()
         return CompaniesResDto.of(companies)
     }
-
 }

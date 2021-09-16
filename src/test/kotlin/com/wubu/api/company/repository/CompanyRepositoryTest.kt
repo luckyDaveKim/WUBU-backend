@@ -17,8 +17,8 @@ import java.time.LocalDate
 @ContextConfiguration(initializers = [ConfigDataApplicationContextInitializer::class])
 @ActiveProfiles("test")
 class CompanyRepositoryTest(
-        @Autowired
-        private val companyRepository: CompanyRepository
+    @Autowired
+    private val companyRepository: CompanyRepository
 ) {
 
     lateinit var company1: Company
@@ -29,21 +29,25 @@ class CompanyRepositoryTest(
     @BeforeEach
     fun setUp() {
         company1 = Company(
-                id = CompanyId(CompanyCode("000001")),
-                name = "company name1",
-                date = LocalDate.of(1991, 3, 26))
+            id = CompanyId(CompanyCode("000001")),
+            name = "company name1",
+            date = LocalDate.of(1991, 3, 26)
+        )
         company2 = Company(
-                id = CompanyId(CompanyCode("000002")),
-                name = "company name2",
-                date = LocalDate.of(1991, 3, 27))
+            id = CompanyId(CompanyCode("000002")),
+            name = "company name2",
+            date = LocalDate.of(1991, 3, 27)
+        )
         company3 = Company(
-                id = CompanyId(CompanyCode("000003")),
-                name = "company name3",
-                date = LocalDate.of(1991, 3, 28))
+            id = CompanyId(CompanyCode("000003")),
+            name = "company name3",
+            date = LocalDate.of(1991, 3, 28)
+        )
         company4 = Company(
-                id = CompanyId(CompanyCode("000004")),
-                name = "company name4",
-                date = LocalDate.of(1991, 3, 29))
+            id = CompanyId(CompanyCode("000004")),
+            name = "company name4",
+            date = LocalDate.of(1991, 3, 29)
+        )
 
         companyRepository.deleteAll()
 
@@ -80,5 +84,4 @@ class CompanyRepositoryTest(
         assertThat(foundCompanies[2]).isEqualTo(company3)
         assertThat(foundCompanies[3]).isEqualTo(company4)
     }
-
 }

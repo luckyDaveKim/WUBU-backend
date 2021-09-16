@@ -12,14 +12,13 @@ class DailyPriceConverter {
     class DailyPriceToPointConverter : Converter<DailyPrice, Point> {
         override fun convert(source: DailyPrice): Point {
             return Point(
-                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                    y = source.close.value,
-                    open = source.open.value,
-                    high = source.high.value,
-                    low = source.low.value,
-                    close = source.close.value
+                x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                y = source.close.value,
+                open = source.open.value,
+                high = source.high.value,
+                low = source.low.value,
+                close = source.close.value
             )
         }
     }
-
 }

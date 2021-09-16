@@ -13,21 +13,23 @@ class PointDtoTest {
     @BeforeEach
     fun setUp() {
         point1 = Point(
-                x = 1,
-                y = 2,
-                z = 3,
-                open = 4,
-                high = 5,
-                low = 6,
-                close = 7)
+            x = 1,
+            y = 2,
+            z = 3,
+            open = 4,
+            high = 5,
+            low = 6,
+            close = 7
+        )
         point2 = Point(
-                x = 10,
-                y = 20,
-                z = 30,
-                open = 40,
-                high = 50,
-                low = 60,
-                close = 70)
+            x = 10,
+            y = 20,
+            z = 30,
+            open = 40,
+            high = 50,
+            low = 60,
+            close = 70
+        )
     }
 
     @Test
@@ -36,13 +38,13 @@ class PointDtoTest {
 
         // when
         val pointDto = PointDto(
-                x = 1,
-                y = 2,
-                z = 3,
-                open = 4,
-                high = 5,
-                low = 6,
-                close = 7
+            x = 1,
+            y = 2,
+            z = 3,
+            open = 4,
+            high = 5,
+            low = 6,
+            close = 7
         )
 
         // then
@@ -97,5 +99,4 @@ class PointDtoTest {
         // then
         assertThat(pointDto1).isNotEqualTo(pointDto2)
     }
-
 }

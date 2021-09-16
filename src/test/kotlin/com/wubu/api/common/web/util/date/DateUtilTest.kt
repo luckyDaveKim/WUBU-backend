@@ -32,9 +32,9 @@ class DateUtilTest {
             // then
             assertThat(startDateOfWeek.dayOfWeek).isEqualTo(DayOfWeek.MONDAY)
             assertThat(startDateOfWeek).isBetween(
-                    targetDate.minusDays(6),
-                    targetDate)
+                targetDate.minusDays(6),
+                targetDate
+            )
         }
     }
-
 }

@@ -27,8 +27,8 @@ import java.time.ZoneOffset
 
 @WebMvcTest(DailyPriceController::class)
 class DailyPriceControllerTest(
-        @Autowired
-        private val mockMvc: MockMvc
+    @Autowired
+    private val mockMvc: MockMvc
 ) {
 
     @MockBean
@@ -41,25 +41,25 @@ class DailyPriceControllerTest(
     @BeforeEach
     fun setUp() {
         dailyPrice1 = DailyPrice(
-                DailyPriceId(
-                        CompanyCode("000000"),
-                        LocalDate.of(1991, 3, 26)
-                ),
-                Price(1),
-                Price(2),
-                Price(3),
-                Price(4)
+            DailyPriceId(
+                CompanyCode("000000"),
+                LocalDate.of(1991, 3, 26)
+            ),
+            Price(1),
+            Price(2),
+            Price(3),
+            Price(4)
         )
 
         dailyPrice2 = DailyPrice(
-                DailyPriceId(
-                        CompanyCode("000000"),
-                        LocalDate.of(1991, 3, 27)
-                ),
-                Price(10),
-                Price(20),
-                Price(30),
-                Price(40)
+            DailyPriceId(
+                CompanyCode("000000"),
+                LocalDate.of(1991, 3, 27)
+            ),
+            Price(10),
+            Price(20),
+            Price(30),
+            Price(40)
         )
     }
 
@@ -68,34 +68,34 @@ class DailyPriceControllerTest(
         // given
         val companyCode = CompanyCode("000000")
         val points = listOf(dailyPrice1, dailyPrice2)
-                .map { source ->
-                    Point(
-                            x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                            y = source.close.value,
-                            open = source.open.value,
-                            high = source.high.value,
-                            low = source.low.value,
-                            close = source.close.value
-                    )
-                }
-                .toList()
+            .map { source ->
+                Point(
+                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                    y = source.close.value,
+                    open = source.open.value,
+                    high = source.high.value,
+                    low = source.low.value,
+                    close = source.close.value
+                )
+            }
+            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonDailyPricesResponseDto = objectMapper.writeValueAsString(pointResDto)
 
         given(dailyPriceFindService.findDailyStockValue(companyCode, PagingReqDto()))
-                .willReturn(pointResDto)
+            .willReturn(pointResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/daily/price/companies/{companyCode}", companyCode.value)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
+            get("/api/daily/price/companies/{companyCode}", companyCode.value)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
         )
 
         // then
         resultActions.andExpect { status().isOk }
-                .andExpect(content().json(jsonDailyPricesResponseDto))
-                .andDo { print() }
+            .andExpect(content().json(jsonDailyPricesResponseDto))
+            .andDo { print() }
     }
 
     @Test
@@ -103,36 +103,35 @@ class DailyPriceControllerTest(
         // given
         val companyCode = CompanyCode("000000")
         val points = listOf(dailyPrice1, dailyPrice2)
-                .map { source ->
-                    Point(
-                            x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                            y = source.close.value,
-                            open = source.open.value,
-                            high = source.high.value,
-                            low = source.low.value,
-                            close = source.close.value
-                    )
-                }
-                .toList()
+            .map { source ->
+                Point(
+                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                    y = source.close.value,
+                    open = source.open.value,
+                    high = source.high.value,
+                    low = source.low.value,
+                    close = source.close.value
+                )
+            }
+            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonDailyPricesResponseDto = objectMapper.writeValueAsString(pointResDto)
 
         given(dailyPriceFindService.findDailyStockValue(companyCode, PagingReqDto()))
-                .willReturn(pointResDto)
+            .willReturn(pointResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/daily/price/companies/{companyCode}", companyCode.value)
-                        .param("page", "1")
-                        .param("pageSize", "10")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
+            get("/api/daily/price/companies/{companyCode}", companyCode.value)
+                .param("page", "1")
+                .param("pageSize", "10")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
         )
 
         // then
         resultActions.andExpect { status().isOk }
-                .andExpect(content().string(jsonDailyPricesResponseDto))
-                .andDo { print() }
+            .andExpect(content().string(jsonDailyPricesResponseDto))
+            .andDo { print() }
     }
-
 }

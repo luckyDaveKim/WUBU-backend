@@ -15,5 +15,4 @@ class WubuApplicationTests {
 
         // then
     }
-
 }

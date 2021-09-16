@@ -12,12 +12,13 @@ import java.time.LocalDate
 
 @Service
 class DailyPriceFindService(
-        private val dailyPriceRepository: DailyPriceRepository,
-        private val dailyPriceToPointConverter: DailyPriceToPointConverter
+    private val dailyPriceRepository: DailyPriceRepository,
+    private val dailyPriceToPointConverter: DailyPriceToPointConverter
 ) : DailyStockValueFindService {
 
     override fun findDailyStockValue(companyCode: CompanyCode, pagingReqDto: PagingReqDto): PointResDto {
-        val points = dailyPriceRepository.findAllByIdCompanyCodeOrderByIdDateDesc(companyCode, pagingReqDto.getPageable())
+        val points =
+            dailyPriceRepository.findAllByIdCompanyCodeOrderByIdDateDesc(companyCode, pagingReqDto.getPageable())
                 .reversed()
                 .map(dailyPriceToPointConverter::convert)
                 .toList()
@@ -28,10 +29,11 @@ class DailyPriceFindService(
     override fun findThisWeekStockValue(companyCode: CompanyCode, date: LocalDate): PointResDto {
         val startDateOfThisWeek = DateUtil.getStartDateOfWeek(date)
         val points = dailyPriceRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
-                companyCode,
-                startDateOfThisWeek)
-                .map(dailyPriceToPointConverter::convert)
-                .toList()
+            companyCode,
+            startDateOfThisWeek
+        )
+            .map(dailyPriceToPointConverter::convert)
+            .toList()
 
         return PointResDto.of(points)
     }

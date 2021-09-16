@@ -22,8 +22,8 @@ import java.time.LocalDate
 
 @WebMvcTest(CompanyController::class)
 class CompanyControllerTest(
-        @Autowired
-        private val mockMvc: MockMvc
+    @Autowired
+    private val mockMvc: MockMvc
 ) {
 
     @MockBean
@@ -35,29 +35,31 @@ class CompanyControllerTest(
     fun `회사 리스트 조회 테스트`() {
         // given
         val company1 = Company(
-                id = CompanyId(CompanyCode("000001")),
-                name = "company name1",
-                date = LocalDate.of(1991, 3, 26))
+            id = CompanyId(CompanyCode("000001")),
+            name = "company name1",
+            date = LocalDate.of(1991, 3, 26)
+        )
         val company2 = Company(
-                id = CompanyId(CompanyCode("000002")),
-                name = "company name2",
-                date = LocalDate.of(1991, 3, 26))
+            id = CompanyId(CompanyCode("000002")),
+            name = "company name2",
+            date = LocalDate.of(1991, 3, 26)
+        )
         val companiesResDto = CompaniesResDto.of(listOf(company1, company2))
         val jsonCompaniesResDto = objectMapper.writeValueAsString(companiesResDto)
 
         given(companyFindService.findCompanies())
-                .willReturn(companiesResDto)
+            .willReturn(companiesResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/companies")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+            MockMvcRequestBuilders.get("/api/companies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        )
 
         // then
         resultActions.andExpect { status().isOk }
-                .andExpect(content().json(jsonCompaniesResDto))
-                .andDo { print() }
+            .andExpect(content().json(jsonCompaniesResDto))
+            .andDo { print() }
     }
-
 }

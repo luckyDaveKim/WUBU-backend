@@ -75,5 +75,4 @@ class CompanyIdTest {
         // then
         Assertions.assertThat(companyId1.hashCode()).isNotEqualTo(companyId2.hashCode())
     }
-
 }

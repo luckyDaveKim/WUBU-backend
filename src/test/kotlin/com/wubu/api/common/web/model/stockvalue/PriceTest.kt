@@ -30,7 +30,7 @@ class PriceTest {
 
         // then
         Assertions.assertThatThrownBy { Price(priceValue) }
-                .isInstanceOf(InvalidPriceException::class.java)
+            .isInstanceOf(InvalidPriceException::class.java)
     }
 
     @Test
@@ -145,5 +145,4 @@ class PriceTest {
         // then
         assertThat(dbPrice).isEqualTo(0)
     }
-
 }

@@ -19,7 +19,7 @@ class CompanyCodeTest {
     @Test
     fun `코드가 6자리가 아닌 오류 테스트`() {
         assertThatThrownBy { CompanyCode("12345") }
-                .isInstanceOf(InvalidLengthCompanyCodeException::class.java)
+            .isInstanceOf(InvalidLengthCompanyCodeException::class.java)
     }
 
     @Test
@@ -67,5 +67,4 @@ class CompanyCodeTest {
 
         assertThat(dbCodeText).isNull()
     }
-
 }

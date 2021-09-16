@@ -40,15 +40,15 @@ class DailyPriceConverterTest {
         val low = 3L
         val close = 4L
         val dailyPriceId = DailyPriceId(
-                CompanyCode("000000"),
-                date
+            CompanyCode("000000"),
+            date
         )
         val dailyPrice = DailyPrice(
-                dailyPriceId,
-                Price(open),
-                Price(high),
-                Price(low),
-                Price(close)
+            dailyPriceId,
+            Price(open),
+            Price(high),
+            Price(low),
+            Price(close)
         )
 
         // when
@@ -63,5 +63,4 @@ class DailyPriceConverterTest {
         assertThat(point.low).isEqualTo(low)
         assertThat(point.close).isEqualTo(close)
     }
-
 }

@@ -9,9 +9,9 @@ import javax.persistence.Embeddable
 
 @Embeddable
 class CompanyId(
-        @Column(name = "company_id", nullable = false)
-        @Convert(converter = CodeConverter::class)
-        var companyCode: CompanyCode
+    @Column(name = "company_id", nullable = false)
+    @Convert(converter = CodeConverter::class)
+    var companyCode: CompanyCode
 ) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

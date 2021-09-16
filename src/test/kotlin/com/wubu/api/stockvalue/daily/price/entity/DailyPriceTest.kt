@@ -62,17 +62,19 @@ class DailyPriceTest {
 
         // when
         val dailyPrice1 = DailyPrice(
-                DailyPriceId(companyCode1, date1),
-                open1,
-                high1,
-                low1,
-                close1)
+            DailyPriceId(companyCode1, date1),
+            open1,
+            high1,
+            low1,
+            close1
+        )
         val dailyPrice2 = DailyPrice(
-                DailyPriceId(companyCode1, date1),
-                open1,
-                high1,
-                low1,
-                close1)
+            DailyPriceId(companyCode1, date1),
+            open1,
+            high1,
+            low1,
+            close1
+        )
 
         // then
         assertThat(dailyPrice1).isEqualTo(dailyPrice2)
@@ -84,17 +86,19 @@ class DailyPriceTest {
 
         // when
         val dailyPrice1 = DailyPrice(
-                DailyPriceId(companyCode1, date1),
-                open1,
-                high1,
-                low1,
-                close1)
+            DailyPriceId(companyCode1, date1),
+            open1,
+            high1,
+            low1,
+            close1
+        )
         val dailyPrice2 = DailyPrice(
-                DailyPriceId(companyCode2, date2),
-                open2,
-                high2,
-                low2,
-                close2)
+            DailyPriceId(companyCode2, date2),
+            open2,
+            high2,
+            low2,
+            close2
+        )
 
         // then
         assertThat(dailyPrice1).isNotEqualTo(dailyPrice2)
@@ -106,17 +110,19 @@ class DailyPriceTest {
 
         // when
         val dailyPrice1 = DailyPrice(
-                DailyPriceId(companyCode1, date1),
-                open1,
-                high1,
-                low1,
-                close1)
+            DailyPriceId(companyCode1, date1),
+            open1,
+            high1,
+            low1,
+            close1
+        )
         val dailyPrice2 = DailyPrice(
-                DailyPriceId(companyCode1, date1),
-                open1,
-                high1,
-                low1,
-                close1)
+            DailyPriceId(companyCode1, date1),
+            open1,
+            high1,
+            low1,
+            close1
+        )
 
         // then
         assertThat(dailyPrice1.hashCode()).isEqualTo(dailyPrice2.hashCode())
@@ -128,20 +134,21 @@ class DailyPriceTest {
 
         // when
         val dailyPrice1 = DailyPrice(
-                DailyPriceId(companyCode1, date1),
-                open1,
-                high1,
-                low1,
-                close1)
+            DailyPriceId(companyCode1, date1),
+            open1,
+            high1,
+            low1,
+            close1
+        )
         val dailyPrice2 = DailyPrice(
-                DailyPriceId(companyCode2, date2),
-                open2,
-                high2,
-                low2,
-                close2)
+            DailyPriceId(companyCode2, date2),
+            open2,
+            high2,
+            low2,
+            close2
+        )
 
         // then
         assertThat(dailyPrice1.hashCode()).isNotEqualTo(dailyPrice2.hashCode())
     }
-
 }

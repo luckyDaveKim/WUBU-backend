@@ -81,5 +81,4 @@ class DailyVolumeIdTest {
         // then
         assertThat(dailyVolumeId1.hashCode()).isNotEqualTo(dailyVolumeId2.hashCode())
     }
-
 }

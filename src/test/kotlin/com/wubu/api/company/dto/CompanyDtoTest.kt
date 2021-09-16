@@ -16,13 +16,15 @@ class CompanyDtoTest {
     @BeforeEach
     fun setUp() {
         company1 = Company(
-                id = CompanyId(CompanyCode("000001")),
-                name = "company name1",
-                date = LocalDate.of(1991, 3, 26))
+            id = CompanyId(CompanyCode("000001")),
+            name = "company name1",
+            date = LocalDate.of(1991, 3, 26)
+        )
         company2 = Company(
-                id = CompanyId(CompanyCode("000002")),
-                name = "company name2",
-                date = LocalDate.of(1991, 3, 27))
+            id = CompanyId(CompanyCode("000002")),
+            name = "company name2",
+            date = LocalDate.of(1991, 3, 27)
+        )
     }
 
     @Test
@@ -33,8 +35,8 @@ class CompanyDtoTest {
 
         // when
         val companyDto = CompanyDto(
-                value = value,
-                label = label
+            value = value,
+            label = label
         )
 
         // then
@@ -77,5 +79,4 @@ class CompanyDtoTest {
         // then
         assertThat(companyDto1).isNotEqualTo(companyDto2)
     }
-
 }

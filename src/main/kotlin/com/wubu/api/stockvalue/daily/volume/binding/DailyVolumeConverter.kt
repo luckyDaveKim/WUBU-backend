@@ -12,10 +12,9 @@ class DailyVolumeConverter {
     class DailyVolumeToPointConverter : Converter<DailyVolume, Point> {
         override fun convert(source: DailyVolume): Point {
             return Point(
-                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                    y = source.volume.value
+                x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                y = source.volume.value
             )
         }
     }
-
 }

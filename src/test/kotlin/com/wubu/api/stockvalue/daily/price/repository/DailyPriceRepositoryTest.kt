@@ -20,8 +20,8 @@ import java.time.LocalDate
 @ContextConfiguration(initializers = [ConfigDataApplicationContextInitializer::class])
 @ActiveProfiles("test")
 class DailyPriceRepositoryTest(
-        @Autowired
-        private val dailyPriceRepository: DailyPriceRepository
+    @Autowired
+    private val dailyPriceRepository: DailyPriceRepository
 ) {
 
     lateinit var dailyPrice1: DailyPrice
@@ -31,29 +31,35 @@ class DailyPriceRepositoryTest(
     @BeforeEach
     fun setUp() {
         dailyPrice1 = DailyPrice(
-                DailyPriceId(
-                        CompanyCode("000001"),
-                        LocalDate.of(1991, 3, 24)),
-                Price(1),
-                Price(2),
-                Price(3),
-                Price(4))
+            DailyPriceId(
+                CompanyCode("000001"),
+                LocalDate.of(1991, 3, 24)
+            ),
+            Price(1),
+            Price(2),
+            Price(3),
+            Price(4)
+        )
         dailyPrice2 = DailyPrice(
-                DailyPriceId(
-                        CompanyCode("000001"),
-                        LocalDate.of(1991, 3, 28)),
-                Price(10),
-                Price(20),
-                Price(30),
-                Price(40))
+            DailyPriceId(
+                CompanyCode("000001"),
+                LocalDate.of(1991, 3, 28)
+            ),
+            Price(10),
+            Price(20),
+            Price(30),
+            Price(40)
+        )
         dailyPrice3 = DailyPrice(
-                DailyPriceId(
-                        CompanyCode("000001"),
-                        LocalDate.of(1991, 3, 27)),
-                Price(100),
-                Price(200),
-                Price(300),
-                Price(400))
+            DailyPriceId(
+                CompanyCode("000001"),
+                LocalDate.of(1991, 3, 27)
+            ),
+            Price(100),
+            Price(200),
+            Price(300),
+            Price(400)
+        )
 
         dailyPriceRepository.deleteAll()
 
@@ -135,9 +141,11 @@ class DailyPriceRepositoryTest(
         for (dailyPrice in getPricesBefore6DaysUntilToday()) {
             dailyPriceRepository.save(dailyPrice)
         }
-        val foundThisWeekDailyPrices = dailyPriceRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+        val foundThisWeekDailyPrices =
+            dailyPriceRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
                 code,
-                startDateOfWeek)
+                startDateOfWeek
+            )
 
         // then
         assertThat(foundThisWeekDailyPrices.size).isEqualTo(thisWeekDataSize)
@@ -150,13 +158,15 @@ class DailyPriceRepositoryTest(
         for (i: Long in -6..0L) {
             val targetDate = today.plusDays(i)
             val dailyPrice = DailyPrice(
-                    DailyPriceId(
-                            CompanyCode("000001"),
-                            targetDate),
-                    Price(1),
-                    Price(2),
-                    Price(3),
-                    Price(4))
+                DailyPriceId(
+                    CompanyCode("000001"),
+                    targetDate
+                ),
+                Price(1),
+                Price(2),
+                Price(3),
+                Price(4)
+            )
             prices.add(dailyPrice)
         }
 

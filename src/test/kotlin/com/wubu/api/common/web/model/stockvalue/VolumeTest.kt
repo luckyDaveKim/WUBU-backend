@@ -30,7 +30,7 @@ class VolumeTest {
 
         // then
         Assertions.assertThatThrownBy { Volume(volumeValue) }
-                .isInstanceOf(InvalidVolumeException::class.java)
+            .isInstanceOf(InvalidVolumeException::class.java)
     }
 
     @Test
@@ -145,5 +145,4 @@ class VolumeTest {
         // then
         assertThat(dbVolume).isEqualTo(0)
     }
-
 }

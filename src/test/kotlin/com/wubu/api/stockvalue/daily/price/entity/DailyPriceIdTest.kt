@@ -81,5 +81,4 @@ class DailyPriceIdTest {
         // then
         assertThat(dailPriceId1.hashCode()).isNotEqualTo(dailPriceId2.hashCode())
     }
-
 }

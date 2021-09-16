@@ -19,21 +19,25 @@ class CompaniesResDtoTest {
     @BeforeEach
     fun setUp() {
         company1 = Company(
-                id = CompanyId(CompanyCode("000001")),
-                name = "company name1",
-                date = LocalDate.of(1991, 3, 26))
+            id = CompanyId(CompanyCode("000001")),
+            name = "company name1",
+            date = LocalDate.of(1991, 3, 26)
+        )
         company2 = Company(
-                id = CompanyId(CompanyCode("000002")),
-                name = "company name2",
-                date = LocalDate.of(1991, 3, 27))
+            id = CompanyId(CompanyCode("000002")),
+            name = "company name2",
+            date = LocalDate.of(1991, 3, 27)
+        )
         company3 = Company(
-                id = CompanyId(CompanyCode("000003")),
-                name = "company name3",
-                date = LocalDate.of(1991, 3, 28))
+            id = CompanyId(CompanyCode("000003")),
+            name = "company name3",
+            date = LocalDate.of(1991, 3, 28)
+        )
         company4 = Company(
-                id = CompanyId(CompanyCode("000004")),
-                name = "company name4",
-                date = LocalDate.of(1991, 3, 29))
+            id = CompanyId(CompanyCode("000004")),
+            name = "company name4",
+            date = LocalDate.of(1991, 3, 29)
+        )
     }
 
     @Test
@@ -99,5 +103,4 @@ class CompaniesResDtoTest {
         // then
         assertThat(companiesResDto1).isNotEqualTo(companiesResDto2)
     }
-
 }

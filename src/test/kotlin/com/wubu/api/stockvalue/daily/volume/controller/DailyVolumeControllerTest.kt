@@ -27,8 +27,8 @@ import java.time.ZoneOffset
 
 @WebMvcTest(DailyVolumeController::class)
 class DailyVolumeControllerTest(
-        @Autowired
-        private val mockMvc: MockMvc
+    @Autowired
+    private val mockMvc: MockMvc
 ) {
 
     @MockBean
@@ -41,16 +41,20 @@ class DailyVolumeControllerTest(
     @BeforeEach
     fun setUp() {
         dailyVolume1 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000000"),
-                        LocalDate.of(1991, 3, 26)),
-                Volume(1))
+            DailyVolumeId(
+                CompanyCode("000000"),
+                LocalDate.of(1991, 3, 26)
+            ),
+            Volume(1)
+        )
 
         dailyVolume2 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000000"),
-                        LocalDate.of(1991, 3, 27)),
-                Volume(1))
+            DailyVolumeId(
+                CompanyCode("000000"),
+                LocalDate.of(1991, 3, 27)
+            ),
+            Volume(1)
+        )
     }
 
     @Test
@@ -58,30 +62,30 @@ class DailyVolumeControllerTest(
         // given
         val companyCode = CompanyCode("000000")
         val points = listOf(dailyVolume1, dailyVolume2)
-                .map { source ->
-                    Point(
-                            x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                            y = source.volume.value
-                    )
-                }
-                .toList()
+            .map { source ->
+                Point(
+                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                    y = source.volume.value
+                )
+            }
+            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonDailyVolumesResponseDto = objectMapper.writeValueAsString(pointResDto)
 
         given(dailyVolumeFindService.findDailyStockValue(companyCode, PagingReqDto()))
-                .willReturn(pointResDto)
+            .willReturn(pointResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/daily/volume/companies/{companyCode}", companyCode.value)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
+            get("/api/daily/volume/companies/{companyCode}", companyCode.value)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
         )
 
         // then
         resultActions.andExpect { status().isOk }
-                .andExpect(content().json(jsonDailyVolumesResponseDto))
-                .andDo { print() }
+            .andExpect(content().json(jsonDailyVolumesResponseDto))
+            .andDo { print() }
     }
 
     @Test
@@ -89,32 +93,31 @@ class DailyVolumeControllerTest(
         // given
         val companyCode = CompanyCode("000000")
         val points = listOf(dailyVolume1, dailyVolume2)
-                .map { source ->
-                    Point(
-                            x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                            y = source.volume.value
-                    )
-                }
-                .toList()
+            .map { source ->
+                Point(
+                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                    y = source.volume.value
+                )
+            }
+            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonDailyVolumesResponseDto = objectMapper.writeValueAsString(pointResDto)
 
         given(dailyVolumeFindService.findDailyStockValue(companyCode, PagingReqDto()))
-                .willReturn(pointResDto)
+            .willReturn(pointResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/daily/volume/companies/{companyCode}", companyCode.value)
-                        .param("page", "1")
-                        .param("pageSize", "10")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
+            get("/api/daily/volume/companies/{companyCode}", companyCode.value)
+                .param("page", "1")
+                .param("pageSize", "10")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
         )
 
         // then
         resultActions.andExpect { status().isOk }
-                .andExpect(content().string(jsonDailyVolumesResponseDto))
-                .andDo { print() }
+            .andExpect(content().string(jsonDailyVolumesResponseDto))
+            .andDo { print() }
     }
-
 }

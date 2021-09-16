@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository
 interface CompanyRepository : JpaRepository<Company, CompanyId> {
 
     fun findAllByOrderByNameAsc(): List<Company>
-
 }

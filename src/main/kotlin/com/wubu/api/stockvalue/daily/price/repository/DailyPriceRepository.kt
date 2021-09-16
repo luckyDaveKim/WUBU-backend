@@ -11,10 +11,12 @@ import java.time.LocalDate
 @Repository
 interface DailyPriceRepository : JpaRepository<DailyPrice, DailyPriceId> {
     fun findAllByIdCompanyCodeOrderByIdDateDesc(
-            companyCode: CompanyCode,
-            pageable: Pageable): List<DailyPrice>
+        companyCode: CompanyCode,
+        pageable: Pageable
+    ): List<DailyPrice>
 
     fun findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
-            companyCode: CompanyCode,
-            date: LocalDate): List<DailyPrice>
+        companyCode: CompanyCode,
+        date: LocalDate
+    ): List<DailyPrice>
 }

@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-
 class CompanyTest {
 
     lateinit var id1: CompanyId
@@ -32,9 +31,10 @@ class CompanyTest {
 
         // when
         val company = Company(
-                id1,
-                name1,
-                date1)
+            id1,
+            name1,
+            date1
+        )
 
         // then
         assertThat(company.id).isEqualTo(id1)
@@ -48,13 +48,15 @@ class CompanyTest {
 
         // when
         val company1 = Company(
-                id1,
-                name1,
-                date1)
+            id1,
+            name1,
+            date1
+        )
         val company2 = Company(
-                id1,
-                name1,
-                date1)
+            id1,
+            name1,
+            date1
+        )
 
         // then
         assertThat(company1).isEqualTo(company2)
@@ -66,13 +68,15 @@ class CompanyTest {
 
         // when
         val company1 = Company(
-                id1,
-                name1,
-                date1)
+            id1,
+            name1,
+            date1
+        )
         val company2 = Company(
-                id2,
-                name2,
-                date2)
+            id2,
+            name2,
+            date2
+        )
 
         // then
         assertThat(company1).isNotEqualTo(company2)
@@ -84,13 +88,15 @@ class CompanyTest {
 
         // when
         val company1 = Company(
-                id1,
-                name1,
-                date1)
+            id1,
+            name1,
+            date1
+        )
         val company2 = Company(
-                id1,
-                name1,
-                date1)
+            id1,
+            name1,
+            date1
+        )
 
         // then
         assertThat(company1.hashCode()).isEqualTo(company2.hashCode())
@@ -102,16 +108,17 @@ class CompanyTest {
 
         // when
         val company1 = Company(
-                id1,
-                name1,
-                date1)
+            id1,
+            name1,
+            date1
+        )
         val company2 = Company(
-                id2,
-                name2,
-                date2)
+            id2,
+            name2,
+            date2
+        )
 
         // then
         assertThat(company1.hashCode()).isNotEqualTo(company2.hashCode())
     }
-
 }

@@ -41,39 +41,44 @@ class DailyVolumeFindServiceTest {
     @BeforeEach
     fun setUp() {
         dailyVolume1 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000000"),
-                        LocalDate.of(1991, 3, 24)
-                ),
-                Volume(1))
+            DailyVolumeId(
+                CompanyCode("000000"),
+                LocalDate.of(1991, 3, 24)
+            ),
+            Volume(1)
+        )
 
         dailyVolume2 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000000"),
-                        LocalDate.of(1991, 3, 25)
-                ),
-                Volume(1))
+            DailyVolumeId(
+                CompanyCode("000000"),
+                LocalDate.of(1991, 3, 25)
+            ),
+            Volume(1)
+        )
 
         dailyVolume3 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000000"),
-                        LocalDate.of(1991, 3, 26)
-                ),
-                Volume(1))
+            DailyVolumeId(
+                CompanyCode("000000"),
+                LocalDate.of(1991, 3, 26)
+            ),
+            Volume(1)
+        )
 
         dailyVolume4 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000000"),
-                        LocalDate.of(1991, 3, 27)
-                ),
-                Volume(1))
+            DailyVolumeId(
+                CompanyCode("000000"),
+                LocalDate.of(1991, 3, 27)
+            ),
+            Volume(1)
+        )
 
         dailyVolume5 = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000000"),
-                        LocalDate.of(1991, 3, 28)
-                ),
-                Volume(1))
+            DailyVolumeId(
+                CompanyCode("000000"),
+                LocalDate.of(1991, 3, 28)
+            ),
+            Volume(1)
+        )
     }
 
     @Test
@@ -84,11 +89,11 @@ class DailyVolumeFindServiceTest {
         val reversedDailyVolumes = listOf(dailyVolume4, dailyVolume3, dailyVolume2, dailyVolume1)
         val dailyVolumes = reversedDailyVolumes.reversed()
         val volumes = dailyVolumes.map(dailyVolumeToPointConverter::convert)
-                .toList()
+            .toList()
         val pointResDto = PointResDto.of(volumes)
 
         given(dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(companyCode, pagingReqDto.getPageable()))
-                .willReturn(reversedDailyVolumes)
+            .willReturn(reversedDailyVolumes)
 
         // when
         val foundDailyChartsResponseDto = dailyVolumeFindService.findDailyStockValue(companyCode, pagingReqDto)
@@ -104,25 +109,32 @@ class DailyVolumeFindServiceTest {
         val date = LocalDate.now()
         val thisMondayDate = DateUtil.getStartDateOfWeek(date)
         val thisMondayVolume = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000000"),
-                        thisMondayDate),
-                Volume(1))
+            DailyVolumeId(
+                CompanyCode("000000"),
+                thisMondayDate
+            ),
+            Volume(1)
+        )
         val thisTuesdayVolume = DailyVolume(
-                DailyVolumeId(
-                        CompanyCode("000000"),
-                        thisMondayDate.plusDays(1)),
-                Volume(10))
+            DailyVolumeId(
+                CompanyCode("000000"),
+                thisMondayDate.plusDays(1)
+            ),
+            Volume(10)
+        )
         val reversedDailyVolumes = listOf(thisTuesdayVolume, thisMondayVolume)
         val dailyVolumes = reversedDailyVolumes.reversed()
         val points = dailyVolumes.map(dailyVolumeToPointConverter::convert)
-                .toList()
+            .toList()
         val pointResDto = PointResDto.of(points)
 
-        given(dailyVolumeRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+        given(
+            dailyVolumeRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
                 companyCode,
-                thisMondayDate))
-                .willReturn(dailyVolumes)
+                thisMondayDate
+            )
+        )
+            .willReturn(dailyVolumes)
 
         // when
         val foundDailyVolumesResponseDto = dailyVolumeFindService.findThisWeekStockValue(companyCode)
@@ -130,5 +142,4 @@ class DailyVolumeFindServiceTest {
         // then
         assertThat(foundDailyVolumesResponseDto).isEqualTo(pointResDto)
     }
-
 }

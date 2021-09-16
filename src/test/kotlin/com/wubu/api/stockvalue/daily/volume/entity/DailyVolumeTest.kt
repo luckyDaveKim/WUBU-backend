@@ -32,8 +32,9 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume = DailyVolume(
-                DailyVolumeId(companyCode1, date1),
-                volume1)
+            DailyVolumeId(companyCode1, date1),
+            volume1
+        )
 
         // then
         assertThat(dailyVolume).isNotNull
@@ -49,11 +50,13 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume1 = DailyVolume(
-                DailyVolumeId(companyCode1, date1),
-                volume1)
+            DailyVolumeId(companyCode1, date1),
+            volume1
+        )
         val dailyVolume2 = DailyVolume(
-                DailyVolumeId(companyCode1, date1),
-                volume1)
+            DailyVolumeId(companyCode1, date1),
+            volume1
+        )
 
         // then
         assertThat(dailyVolume1).isEqualTo(dailyVolume2)
@@ -65,11 +68,13 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume1 = DailyVolume(
-                DailyVolumeId(companyCode1, date1),
-                volume1)
+            DailyVolumeId(companyCode1, date1),
+            volume1
+        )
         val dailyVolume2 = DailyVolume(
-                DailyVolumeId(companyCode2, date2),
-                volume2)
+            DailyVolumeId(companyCode2, date2),
+            volume2
+        )
 
         // then
         assertThat(dailyVolume1).isNotEqualTo(dailyVolume2)
@@ -81,11 +86,13 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume1 = DailyVolume(
-                DailyVolumeId(companyCode1, date1),
-                volume1)
+            DailyVolumeId(companyCode1, date1),
+            volume1
+        )
         val dailyVolume2 = DailyVolume(
-                DailyVolumeId(companyCode1, date1),
-                volume1)
+            DailyVolumeId(companyCode1, date1),
+            volume1
+        )
 
         // then
         assertThat(dailyVolume1.hashCode()).isEqualTo(dailyVolume2.hashCode())
@@ -97,14 +104,15 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume1 = DailyVolume(
-                DailyVolumeId(companyCode1, date1),
-                volume1)
+            DailyVolumeId(companyCode1, date1),
+            volume1
+        )
         val dailyVolume2 = DailyVolume(
-                DailyVolumeId(companyCode2, date2),
-                volume2)
+            DailyVolumeId(companyCode2, date2),
+            volume2
+        )
 
         // then
         assertThat(dailyVolume1.hashCode()).isNotEqualTo(dailyVolume2.hashCode())
     }
-
 }
