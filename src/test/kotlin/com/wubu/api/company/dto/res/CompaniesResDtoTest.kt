@@ -1,6 +1,6 @@
 package com.wubu.api.company.dto.res
 
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.dto.CompanyDto
 import com.wubu.api.company.entity.Company
 import com.wubu.api.company.entity.CompanyId
@@ -19,19 +19,19 @@ class CompaniesResDtoTest {
     @BeforeEach
     fun setUp() {
         company1 = Company(
-                id = CompanyId(Code("000001")),
+                id = CompanyId(CompanyCode("000001")),
                 name = "company name1",
                 date = LocalDate.of(1991, 3, 26))
         company2 = Company(
-                id = CompanyId(Code("000002")),
+                id = CompanyId(CompanyCode("000002")),
                 name = "company name2",
                 date = LocalDate.of(1991, 3, 27))
         company3 = Company(
-                id = CompanyId(Code("000003")),
+                id = CompanyId(CompanyCode("000003")),
                 name = "company name3",
                 date = LocalDate.of(1991, 3, 28))
         company4 = Company(
-                id = CompanyId(Code("000004")),
+                id = CompanyId(CompanyCode("000004")),
                 name = "company name4",
                 date = LocalDate.of(1991, 3, 29))
     }

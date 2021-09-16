@@ -1,6 +1,6 @@
 package com.wubu.api.stockvalue.daily.price.repository
 
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
 import com.wubu.api.stockvalue.daily.price.entity.DailyPriceId
 import org.springframework.data.domain.Pageable
@@ -10,11 +10,11 @@ import java.time.LocalDate
 
 @Repository
 interface DailyPriceRepository : JpaRepository<DailyPrice, DailyPriceId> {
-    fun findAllByIdCodeOrderByIdDateDesc(
-            code: Code,
+    fun findAllByIdCompanyCodeOrderByIdDateDesc(
+            companyCode: CompanyCode,
             pageable: Pageable): List<DailyPrice>
 
-    fun findAllByIdCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
-            code: Code,
+    fun findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+            companyCode: CompanyCode,
             date: LocalDate): List<DailyPrice>
 }

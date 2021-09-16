@@ -2,7 +2,7 @@ package com.wubu.api.stockvalue.daily.price.controller
 
 import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.dto.res.PointResDto
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.stockvalue.daily.price.service.DailyPriceFindService
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -15,13 +15,13 @@ class DailyPriceController(
 ) {
 
     @GetMapping(
-            "/companies/{code}",
+            "/companies/{companyCode}",
             produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(HttpStatus.OK)
     fun findDailyPrices(
-            @PathVariable(value = "code") code: Code,
+            @PathVariable(value = "companyCode") companyCode: CompanyCode,
             @ModelAttribute pagingReqDto: PagingReqDto): PointResDto {
-        return dailyPriceFindService.findDailyStockValue(code, pagingReqDto)
+        return dailyPriceFindService.findDailyStockValue(companyCode, pagingReqDto)
     }
 
 }

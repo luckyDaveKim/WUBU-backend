@@ -1,36 +1,36 @@
 package com.wubu.api.common.web.model
 
-import com.wubu.api.common.error.exception.InvalidLengthCodeException
-import com.wubu.api.common.web.model.Code.CodeConverter
+import com.wubu.api.common.error.exception.InvalidLengthCompanyCodeException
+import com.wubu.api.common.web.model.CompanyCode.CodeConverter
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
-class CodeTest {
+class CompanyCodeTest {
 
     @Test
     fun `생성 테스트`() {
         val codeText = "123456"
-        val code = Code("123456")
+        val companyCode = CompanyCode("123456")
 
-        assertThat(code.value).isEqualTo(codeText)
+        assertThat(companyCode.value).isEqualTo(codeText)
     }
 
     @Test
     fun `코드가 6자리가 아닌 오류 테스트`() {
-        assertThatThrownBy { Code("12345") }
-                .isInstanceOf(InvalidLengthCodeException::class.java)
+        assertThatThrownBy { CompanyCode("12345") }
+                .isInstanceOf(InvalidLengthCompanyCodeException::class.java)
     }
 
     @Test
     fun `동등성 비교 테스트`() {
         val codeText = "000000"
-        val code1 = Code(codeText)
-        val code2 = Code(codeText)
+        val companyCode1 = CompanyCode(codeText)
+        val companyCode2 = CompanyCode(codeText)
 
-        assertThat(code1).isEqualTo(code2)
-        assertThat(code1.value).isEqualTo(codeText)
-        assertThat(code2.value).isEqualTo(codeText)
+        assertThat(companyCode1).isEqualTo(companyCode2)
+        assertThat(companyCode1.value).isEqualTo(codeText)
+        assertThat(companyCode2.value).isEqualTo(codeText)
     }
 
     @Test
@@ -54,8 +54,8 @@ class CodeTest {
     @Test
     fun `Object to DB 테스트`() {
         val codeText = "000000"
-        val code = Code(codeText)
-        val dbCodeText = CodeConverter().convertToDatabaseColumn(code)
+        val companyCode = CompanyCode(codeText)
+        val dbCodeText = CodeConverter().convertToDatabaseColumn(companyCode)
 
         assertThat(dbCodeText).isEqualTo(codeText)
     }

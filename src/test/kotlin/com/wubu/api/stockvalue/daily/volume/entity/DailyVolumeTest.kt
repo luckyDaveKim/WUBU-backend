@@ -1,6 +1,6 @@
 package com.wubu.api.stockvalue.daily.volume.entity
 
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Volume
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -9,8 +9,8 @@ import java.time.LocalDate
 
 class DailyVolumeTest {
 
-    lateinit var code1: Code
-    lateinit var code2: Code
+    lateinit var companyCode1: CompanyCode
+    lateinit var companyCode2: CompanyCode
     lateinit var date1: LocalDate
     lateinit var date2: LocalDate
     lateinit var volume1: Volume
@@ -18,8 +18,8 @@ class DailyVolumeTest {
 
     @BeforeEach
     fun setUp() {
-        code1 = Code("000001")
-        code2 = Code("000002")
+        companyCode1 = CompanyCode("000001")
+        companyCode2 = CompanyCode("000002")
         date1 = LocalDate.of(1991, 3, 26)
         date2 = LocalDate.of(1991, 3, 27)
         volume1 = Volume(1)
@@ -32,13 +32,13 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume = DailyVolume(
-                DailyVolumeId(code1, date1),
+                DailyVolumeId(companyCode1, date1),
                 volume1)
 
         // then
         assertThat(dailyVolume).isNotNull
         assertThat(dailyVolume.id).isNotNull
-        assertThat(dailyVolume.id.code).isEqualTo(code1)
+        assertThat(dailyVolume.id.companyCode).isEqualTo(companyCode1)
         assertThat(dailyVolume.id.date).isEqualTo(date1)
         assertThat(dailyVolume.volume).isEqualTo(volume1)
     }
@@ -49,10 +49,10 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume1 = DailyVolume(
-                DailyVolumeId(code1, date1),
+                DailyVolumeId(companyCode1, date1),
                 volume1)
         val dailyVolume2 = DailyVolume(
-                DailyVolumeId(code1, date1),
+                DailyVolumeId(companyCode1, date1),
                 volume1)
 
         // then
@@ -65,10 +65,10 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume1 = DailyVolume(
-                DailyVolumeId(code1, date1),
+                DailyVolumeId(companyCode1, date1),
                 volume1)
         val dailyVolume2 = DailyVolume(
-                DailyVolumeId(code2, date2),
+                DailyVolumeId(companyCode2, date2),
                 volume2)
 
         // then
@@ -81,10 +81,10 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume1 = DailyVolume(
-                DailyVolumeId(code1, date1),
+                DailyVolumeId(companyCode1, date1),
                 volume1)
         val dailyVolume2 = DailyVolume(
-                DailyVolumeId(code1, date1),
+                DailyVolumeId(companyCode1, date1),
                 volume1)
 
         // then
@@ -97,10 +97,10 @@ class DailyVolumeTest {
 
         // when
         val dailyVolume1 = DailyVolume(
-                DailyVolumeId(code1, date1),
+                DailyVolumeId(companyCode1, date1),
                 volume1)
         val dailyVolume2 = DailyVolume(
-                DailyVolumeId(code2, date2),
+                DailyVolumeId(companyCode2, date2),
                 volume2)
 
         // then

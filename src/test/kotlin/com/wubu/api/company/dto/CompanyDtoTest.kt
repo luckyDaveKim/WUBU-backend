@@ -1,6 +1,6 @@
 package com.wubu.api.company.dto
 
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.entity.Company
 import com.wubu.api.company.entity.CompanyId
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +16,11 @@ class CompanyDtoTest {
     @BeforeEach
     fun setUp() {
         company1 = Company(
-                id = CompanyId(Code("000001")),
+                id = CompanyId(CompanyCode("000001")),
                 name = "company name1",
                 date = LocalDate.of(1991, 3, 26))
         company2 = Company(
-                id = CompanyId(Code("000002")),
+                id = CompanyId(CompanyCode("000002")),
                 name = "company name2",
                 date = LocalDate.of(1991, 3, 27))
     }
@@ -50,8 +50,8 @@ class CompanyDtoTest {
         val companyDto = CompanyDto.of(company1)
 
         // then
-        assertThat(companyDto.value).isEqualTo(company1.id.code.value)
-        assertThat(companyDto.label).isEqualTo("${company1.name} (${company1.id.code.value})")
+        assertThat(companyDto.value).isEqualTo(company1.id.companyCode.value)
+        assertThat(companyDto.label).isEqualTo("${company1.name} (${company1.id.companyCode.value})")
     }
 
     @Test

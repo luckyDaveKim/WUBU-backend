@@ -1,6 +1,6 @@
 package com.wubu.api.company.service
 
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.dto.res.CompaniesResDto
 import com.wubu.api.company.entity.Company
 import com.wubu.api.company.entity.CompanyId
@@ -27,11 +27,11 @@ class CompanyFindServiceTest {
     fun `회사 리스트 조회 테스트`() {
         // given
         val company1 = Company(
-                id = CompanyId(Code("000001")),
+                id = CompanyId(CompanyCode("000001")),
                 name = "company name1",
                 date = LocalDate.of(1991, 3, 26))
         val company2 = Company(
-                id = CompanyId(Code("000002")),
+                id = CompanyId(CompanyCode("000002")),
                 name = "company name2",
                 date = LocalDate.of(1991, 3, 26))
         val companies = listOf(company1, company2)

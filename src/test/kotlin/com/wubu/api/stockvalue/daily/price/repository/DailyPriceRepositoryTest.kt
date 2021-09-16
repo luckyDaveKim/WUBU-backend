@@ -1,7 +1,7 @@
 package com.wubu.api.stockvalue.daily.price.repository
 
 import com.wubu.api.common.web.dto.req.PagingReqDto
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.util.date.DateUtil
 import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
@@ -32,7 +32,7 @@ class DailyPriceRepositoryTest(
     fun setUp() {
         dailyPrice1 = DailyPrice(
                 DailyPriceId(
-                        Code("000001"),
+                        CompanyCode("000001"),
                         LocalDate.of(1991, 3, 24)),
                 Price(1),
                 Price(2),
@@ -40,7 +40,7 @@ class DailyPriceRepositoryTest(
                 Price(4))
         dailyPrice2 = DailyPrice(
                 DailyPriceId(
-                        Code("000001"),
+                        CompanyCode("000001"),
                         LocalDate.of(1991, 3, 28)),
                 Price(10),
                 Price(20),
@@ -48,7 +48,7 @@ class DailyPriceRepositoryTest(
                 Price(40))
         dailyPrice3 = DailyPrice(
                 DailyPriceId(
-                        Code("000001"),
+                        CompanyCode("000001"),
                         LocalDate.of(1991, 3, 27)),
                 Price(100),
                 Price(200),
@@ -77,11 +77,11 @@ class DailyPriceRepositoryTest(
     @Test
     fun `code 기준 리스트 조회 테스트`() {
         // given
-        val code = dailyPrice1.id.code
+        val code = dailyPrice1.id.companyCode
         val pageable = PagingReqDto().getPageable()
 
         // when
-        val foundDailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
+        val foundDailyPrices = dailyPriceRepository.findAllByIdCompanyCodeOrderByIdDateDesc(code, pageable)
 
         // then
         assertThat(foundDailyPrices[0]).isEqualTo(dailyPrice2)
@@ -92,13 +92,13 @@ class DailyPriceRepositoryTest(
     @Test
     fun `페이징 테스트`() {
         // given
-        val code = dailyPrice1.id.code
+        val code = dailyPrice1.id.companyCode
         val page = 2
         val pageSize = 1
         val pageable = PagingReqDto(page, pageSize).getPageable()
 
         // when
-        val foundDailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
+        val foundDailyPrices = dailyPriceRepository.findAllByIdCompanyCodeOrderByIdDateDesc(code, pageable)
 
         // then
         assertThat(foundDailyPrices.size).isEqualTo(pageSize)
@@ -108,13 +108,13 @@ class DailyPriceRepositoryTest(
     @Test
     fun `페이징 사이즈 테스트`() {
         // given
-        val code = dailyPrice1.id.code
+        val code = dailyPrice1.id.companyCode
         val page = 1
         val pageSize = 2
         val pageable = PagingReqDto(page, pageSize).getPageable()
 
         // when
-        val foundDailyPrices = dailyPriceRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
+        val foundDailyPrices = dailyPriceRepository.findAllByIdCompanyCodeOrderByIdDateDesc(code, pageable)
 
         // then
         assertThat(foundDailyPrices.size).isEqualTo(pageSize)
@@ -126,7 +126,7 @@ class DailyPriceRepositoryTest(
     @Test
     fun `코드 및 날짜 기준 리스트 조회 테스트`() {
         // given
-        val code = dailyPrice2.id.code
+        val code = dailyPrice2.id.companyCode
         val today = LocalDate.now()
         val startDateOfWeek = DateUtil.getStartDateOfWeek(today)
         val thisWeekDataSize = today.dayOfWeek.value
@@ -135,7 +135,7 @@ class DailyPriceRepositoryTest(
         for (dailyPrice in getPricesBefore6DaysUntilToday()) {
             dailyPriceRepository.save(dailyPrice)
         }
-        val foundThisWeekDailyPrices = dailyPriceRepository.findAllByIdCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+        val foundThisWeekDailyPrices = dailyPriceRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
                 code,
                 startDateOfWeek)
 
@@ -151,7 +151,7 @@ class DailyPriceRepositoryTest(
             val targetDate = today.plusDays(i)
             val dailyPrice = DailyPrice(
                     DailyPriceId(
-                            Code("000001"),
+                            CompanyCode("000001"),
                             targetDate),
                     Price(1),
                     Price(2),

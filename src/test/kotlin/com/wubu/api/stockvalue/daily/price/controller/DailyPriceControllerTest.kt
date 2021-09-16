@@ -3,7 +3,7 @@ package com.wubu.api.stockvalue.daily.price.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.dto.res.PointResDto
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.Point
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
@@ -42,7 +42,7 @@ class DailyPriceControllerTest(
     fun setUp() {
         dailyPrice1 = DailyPrice(
                 DailyPriceId(
-                        Code("000000"),
+                        CompanyCode("000000"),
                         LocalDate.of(1991, 3, 26)
                 ),
                 Price(1),
@@ -53,7 +53,7 @@ class DailyPriceControllerTest(
 
         dailyPrice2 = DailyPrice(
                 DailyPriceId(
-                        Code("000000"),
+                        CompanyCode("000000"),
                         LocalDate.of(1991, 3, 27)
                 ),
                 Price(10),
@@ -66,7 +66,7 @@ class DailyPriceControllerTest(
     @Test
     fun `데이터 조회 테스트`() {
         // given
-        val code = Code("000000")
+        val companyCode = CompanyCode("000000")
         val points = listOf(dailyPrice1, dailyPrice2)
                 .map { source ->
                     Point(
@@ -82,12 +82,12 @@ class DailyPriceControllerTest(
         val pointResDto = PointResDto.of(points)
         val jsonDailyPricesResponseDto = objectMapper.writeValueAsString(pointResDto)
 
-        given(dailyPriceFindService.findDailyStockValue(code, PagingReqDto()))
+        given(dailyPriceFindService.findDailyStockValue(companyCode, PagingReqDto()))
                 .willReturn(pointResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/daily/price/companies/{code}", code.value)
+                get("/api/daily/price/companies/{companyCode}", companyCode.value)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         )
@@ -101,7 +101,7 @@ class DailyPriceControllerTest(
     @Test
     fun `페이징 데이터 조회 테스트`() {
         // given
-        val code = Code("000000")
+        val companyCode = CompanyCode("000000")
         val points = listOf(dailyPrice1, dailyPrice2)
                 .map { source ->
                     Point(
@@ -117,12 +117,12 @@ class DailyPriceControllerTest(
         val pointResDto = PointResDto.of(points)
         val jsonDailyPricesResponseDto = objectMapper.writeValueAsString(pointResDto)
 
-        given(dailyPriceFindService.findDailyStockValue(code, PagingReqDto()))
+        given(dailyPriceFindService.findDailyStockValue(companyCode, PagingReqDto()))
                 .willReturn(pointResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-                get("/api/daily/price/companies/{code}", code.value)
+                get("/api/daily/price/companies/{companyCode}", companyCode.value)
                         .param("page", "1")
                         .param("pageSize", "10")
                         .contentType(MediaType.APPLICATION_JSON)

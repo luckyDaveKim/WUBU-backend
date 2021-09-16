@@ -1,13 +1,9 @@
 package com.wubu.api.company.entity
 
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
 import java.time.LocalDate
 
 
@@ -22,8 +18,8 @@ class CompanyTest {
 
     @BeforeEach
     fun setUp() {
-        id1 = CompanyId(Code("000000"))
-        id2 = CompanyId(Code("000001"))
+        id1 = CompanyId(CompanyCode("000000"))
+        id2 = CompanyId(CompanyCode("000001"))
         name1 = "company name1"
         name2 = "company name2"
         date1 = LocalDate.of(1991, 3, 26)

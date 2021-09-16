@@ -1,6 +1,6 @@
 package com.wubu.api.stockvalue.daily.price.binding
 
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.stockvalue.daily.price.binding.DailyPriceConverter.DailyPriceToPointConverter
 import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
@@ -40,7 +40,7 @@ class DailyPriceConverterTest {
         val low = 3L
         val close = 4L
         val dailyPriceId = DailyPriceId(
-                Code("000000"),
+                CompanyCode("000000"),
                 date
         )
         val dailyPrice = DailyPrice(

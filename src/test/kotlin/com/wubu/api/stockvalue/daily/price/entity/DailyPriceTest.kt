@@ -1,6 +1,6 @@
 package com.wubu.api.stockvalue.daily.price.entity
 
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -9,8 +9,8 @@ import java.time.LocalDate
 
 class DailyPriceTest {
 
-    lateinit var code1: Code
-    lateinit var code2: Code
+    lateinit var companyCode1: CompanyCode
+    lateinit var companyCode2: CompanyCode
     lateinit var date1: LocalDate
     lateinit var date2: LocalDate
     lateinit var open1: Price
@@ -24,8 +24,8 @@ class DailyPriceTest {
 
     @BeforeEach
     fun setUp() {
-        code1 = Code("000001")
-        code2 = Code("000002")
+        companyCode1 = CompanyCode("000001")
+        companyCode2 = CompanyCode("000002")
         date1 = LocalDate.of(1991, 3, 26)
         date2 = LocalDate.of(1991, 3, 27)
         open1 = Price(1)
@@ -43,12 +43,12 @@ class DailyPriceTest {
         // given
 
         // when
-        val dailyPrice = DailyPrice(DailyPriceId(code1, date1), open1, high1, low1, close1)
+        val dailyPrice = DailyPrice(DailyPriceId(companyCode1, date1), open1, high1, low1, close1)
 
         // then
         assertThat(dailyPrice).isNotNull
         assertThat(dailyPrice.id).isNotNull
-        assertThat(dailyPrice.id.code).isEqualTo(code1)
+        assertThat(dailyPrice.id.companyCode).isEqualTo(companyCode1)
         assertThat(dailyPrice.id.date).isEqualTo(date1)
         assertThat(dailyPrice.open).isEqualTo(open1)
         assertThat(dailyPrice.high).isEqualTo(high1)
@@ -62,13 +62,13 @@ class DailyPriceTest {
 
         // when
         val dailyPrice1 = DailyPrice(
-                DailyPriceId(code1, date1),
+                DailyPriceId(companyCode1, date1),
                 open1,
                 high1,
                 low1,
                 close1)
         val dailyPrice2 = DailyPrice(
-                DailyPriceId(code1, date1),
+                DailyPriceId(companyCode1, date1),
                 open1,
                 high1,
                 low1,
@@ -84,13 +84,13 @@ class DailyPriceTest {
 
         // when
         val dailyPrice1 = DailyPrice(
-                DailyPriceId(code1, date1),
+                DailyPriceId(companyCode1, date1),
                 open1,
                 high1,
                 low1,
                 close1)
         val dailyPrice2 = DailyPrice(
-                DailyPriceId(code2, date2),
+                DailyPriceId(companyCode2, date2),
                 open2,
                 high2,
                 low2,
@@ -106,13 +106,13 @@ class DailyPriceTest {
 
         // when
         val dailyPrice1 = DailyPrice(
-                DailyPriceId(code1, date1),
+                DailyPriceId(companyCode1, date1),
                 open1,
                 high1,
                 low1,
                 close1)
         val dailyPrice2 = DailyPrice(
-                DailyPriceId(code1, date1),
+                DailyPriceId(companyCode1, date1),
                 open1,
                 high1,
                 low1,
@@ -128,13 +128,13 @@ class DailyPriceTest {
 
         // when
         val dailyPrice1 = DailyPrice(
-                DailyPriceId(code1, date1),
+                DailyPriceId(companyCode1, date1),
                 open1,
                 high1,
                 low1,
                 close1)
         val dailyPrice2 = DailyPrice(
-                DailyPriceId(code2, date2),
+                DailyPriceId(companyCode2, date2),
                 open2,
                 high2,
                 low2,

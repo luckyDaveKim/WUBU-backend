@@ -9,8 +9,8 @@ data class CompanyDto(
     companion object {
         fun of(company: Company): CompanyDto {
             return CompanyDto(
-                    value = company.id.code.value,
-                    label = "${company.name} (${company.id.code.value})"
+                    value = company.id.companyCode.value,
+                    label = "${company.name} (${company.id.companyCode.value})"
             )
         }
     }

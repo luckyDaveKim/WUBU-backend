@@ -1,7 +1,7 @@
 package com.wubu.api.stockvalue.daily.volume.repository
 
 import com.wubu.api.common.web.dto.req.PagingReqDto
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.common.web.util.date.DateUtil
 import com.wubu.api.stockvalue.daily.volume.entity.DailyVolume
@@ -32,17 +32,17 @@ class DailyVolumeRepositoryTest(
     fun setUp() {
         dailyVolume1 = DailyVolume(
                 DailyVolumeId(
-                        Code("000001"),
+                        CompanyCode("000001"),
                         LocalDate.of(1991, 3, 24)),
                 Volume(1))
         dailyVolume2 = DailyVolume(
                 DailyVolumeId(
-                        Code("000001"),
+                        CompanyCode("000001"),
                         LocalDate.of(1991, 3, 26)),
                 Volume(10))
         dailyVolume3 = DailyVolume(
                 DailyVolumeId(
-                        Code("000001"),
+                        CompanyCode("000001"),
                         LocalDate.of(1991, 3, 27)),
                 Volume(100))
 
@@ -68,11 +68,11 @@ class DailyVolumeRepositoryTest(
     @Test
     fun `code 기준 리스트 조회 테스트`() {
         // given
-        val code = dailyVolume1.id.code
+        val code = dailyVolume1.id.companyCode
         val pageable = PagingReqDto().getPageable()
 
         // when
-        val foundDailyVolume = dailyVolumeRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
+        val foundDailyVolume = dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(code, pageable)
 
         // then
         Assertions.assertThat(foundDailyVolume[0]).isEqualTo(dailyVolume3)
@@ -83,13 +83,13 @@ class DailyVolumeRepositoryTest(
     @Test
     fun `페이징 테스트`() {
         // given
-        val code = dailyVolume1.id.code
+        val code = dailyVolume1.id.companyCode
         val page = 2
         val pageSize = 1
         val pageable = PagingReqDto(page, pageSize).getPageable()
 
         // when
-        val foundDailyVolumes = dailyVolumeRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
+        val foundDailyVolumes = dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(code, pageable)
 
         // then
         Assertions.assertThat(foundDailyVolumes.size).isEqualTo(pageSize)
@@ -99,13 +99,13 @@ class DailyVolumeRepositoryTest(
     @Test
     fun `페이징 사이즈 테스트`() {
         // given
-        val code = dailyVolume1.id.code
+        val code = dailyVolume1.id.companyCode
         val page = 1
         val pageSize = 2
         val pageable = PagingReqDto(page, pageSize).getPageable()
 
         // when
-        val foundDailyVolumes = dailyVolumeRepository.findAllByIdCodeOrderByIdDateDesc(code, pageable)
+        val foundDailyVolumes = dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(code, pageable)
 
         // then
         Assertions.assertThat(foundDailyVolumes.size).isEqualTo(pageSize)
@@ -116,7 +116,7 @@ class DailyVolumeRepositoryTest(
     @Test
     fun `코드 및 날짜 기준 리스트 조회 테스트`() {
         // given
-        val code = dailyVolume2.id.code
+        val code = dailyVolume2.id.companyCode
         val today = LocalDate.now()
         val startDateOfWeek = DateUtil.getStartDateOfWeek(today)
         val thisWeekDataSize = today.dayOfWeek.value
@@ -125,7 +125,7 @@ class DailyVolumeRepositoryTest(
         for (dailyVolume in getVolumeBefore6DaysUntilToday()) {
             dailyVolumeRepository.save(dailyVolume)
         }
-        val foundThisWeekDailyVolumes = dailyVolumeRepository.findAllByIdCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+        val foundThisWeekDailyVolumes = dailyVolumeRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
                 code,
                 startDateOfWeek)
 
@@ -141,7 +141,7 @@ class DailyVolumeRepositoryTest(
             val targetDate = today.plusDays(i)
             val dailyVolume = DailyVolume(
                     DailyVolumeId(
-                            Code("000001"),
+                            CompanyCode("000001"),
                             targetDate),
                     Volume(1))
             volumes.add(dailyVolume)

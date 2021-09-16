@@ -2,7 +2,7 @@ package com.wubu.api.stockvalue.daily.price.service
 
 import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.dto.res.PointResDto
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.util.date.DateUtil
 import com.wubu.api.stockvalue.daily.price.binding.DailyPriceConverter.DailyPriceToPointConverter
@@ -42,7 +42,7 @@ class DailyPriceFindServiceTest {
     fun setUp() {
         dailyPrice1 = DailyPrice(
                 DailyPriceId(
-                        Code("000000"),
+                        CompanyCode("000000"),
                         LocalDate.of(1991, 3, 24)
                 ),
                 Price(1),
@@ -53,7 +53,7 @@ class DailyPriceFindServiceTest {
 
         dailyPrice2 = DailyPrice(
                 DailyPriceId(
-                        Code("000000"),
+                        CompanyCode("000000"),
                         LocalDate.of(1991, 3, 25)
                 ),
                 Price(10),
@@ -64,7 +64,7 @@ class DailyPriceFindServiceTest {
 
         dailyPrice3 = DailyPrice(
                 DailyPriceId(
-                        Code("000000"),
+                        CompanyCode("000000"),
                         LocalDate.of(1991, 3, 26)
                 ),
                 Price(100),
@@ -75,7 +75,7 @@ class DailyPriceFindServiceTest {
 
         dailyPrice4 = DailyPrice(
                 DailyPriceId(
-                        Code("000000"),
+                        CompanyCode("000000"),
                         LocalDate.of(1991, 3, 27)
                 ),
                 Price(1000),
@@ -86,7 +86,7 @@ class DailyPriceFindServiceTest {
 
         dailyPrice5 = DailyPrice(
                 DailyPriceId(
-                        Code("000000"),
+                        CompanyCode("000000"),
                         LocalDate.of(1991, 3, 28)
                 ),
                 Price(1),
@@ -99,7 +99,7 @@ class DailyPriceFindServiceTest {
     @Test
     fun `일별 데이터 조회 테스트`() {
         // given
-        val code = Code("000000")
+        val companyCode = CompanyCode("000000")
         val pagingReqDto = PagingReqDto()
         val reversedDailyPrices = listOf(dailyPrice4, dailyPrice3, dailyPrice2, dailyPrice1)
         val dailyPrices = reversedDailyPrices.reversed()
@@ -107,11 +107,11 @@ class DailyPriceFindServiceTest {
                 .toList()
         val pointResDto = PointResDto.of(points)
 
-        given(dailyPriceRepository.findAllByIdCodeOrderByIdDateDesc(code, pagingReqDto.getPageable()))
+        given(dailyPriceRepository.findAllByIdCompanyCodeOrderByIdDateDesc(companyCode, pagingReqDto.getPageable()))
                 .willReturn(reversedDailyPrices)
 
         // when
-        val foundDailyChartsResponseDto = dailyPriceFindService.findDailyStockValue(code, pagingReqDto)
+        val foundDailyChartsResponseDto = dailyPriceFindService.findDailyStockValue(companyCode, pagingReqDto)
 
         // then
         assertThat(foundDailyChartsResponseDto).isEqualTo(pointResDto)
@@ -120,7 +120,7 @@ class DailyPriceFindServiceTest {
     @Test
     fun `주 데이터 조회 테스트`() {
         // given
-        val code = Code("000000")
+        val companyCode = CompanyCode("000000")
         val date = LocalDate.now()
         val mondayDate = DateUtil.getStartDateOfWeek(date)
         val dailyPrices = listOf(dailyPrice2, dailyPrice3)
@@ -128,13 +128,13 @@ class DailyPriceFindServiceTest {
                 .toList()
         val pointResDto = PointResDto.of(points)
 
-        given(dailyPriceRepository.findAllByIdCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
-                code,
+        given(dailyPriceRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+                companyCode,
                 mondayDate))
                 .willReturn(dailyPrices)
 
         // when
-        val foundDailyChartsResponseDto = dailyPriceFindService.findThisWeekStockValue(code, date)
+        val foundDailyChartsResponseDto = dailyPriceFindService.findThisWeekStockValue(companyCode, date)
 
         // then
         assertThat(foundDailyChartsResponseDto).isEqualTo(pointResDto)
@@ -143,12 +143,12 @@ class DailyPriceFindServiceTest {
     @Test
     fun `default date 주 데이터 조회 테스트`() {
         // given
-        val code = Code("000000")
+        val companyCode = CompanyCode("000000")
         val date = LocalDate.now()
         val thisMondayDate = DateUtil.getStartDateOfWeek(date)
         val thisMondayPrice = DailyPrice(
                 DailyPriceId(
-                        Code("000000"),
+                        CompanyCode("000000"),
                         thisMondayDate
                 ),
                 Price(1),
@@ -158,7 +158,7 @@ class DailyPriceFindServiceTest {
         )
         val thisTuesdayPrice = DailyPrice(
                 DailyPriceId(
-                        Code("000000"),
+                        CompanyCode("000000"),
                         thisMondayDate.plusDays(1)
                 ),
                 Price(10),
@@ -172,13 +172,13 @@ class DailyPriceFindServiceTest {
                 .toList()
         val pointResDto = PointResDto.of(points)
 
-        given(dailyPriceRepository.findAllByIdCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
-                code,
+        given(dailyPriceRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+                companyCode,
                 thisMondayDate))
                 .willReturn(dailyPrices)
 
         // when
-        val foundDailyPricesResponseDto = dailyPriceFindService.findThisWeekStockValue(code)
+        val foundDailyPricesResponseDto = dailyPriceFindService.findThisWeekStockValue(companyCode)
 
         // then
         assertThat(foundDailyPricesResponseDto).isEqualTo(pointResDto)

@@ -1,6 +1,6 @@
 package com.wubu.api.stockvalue.daily.volume.binding
 
-import com.wubu.api.common.web.model.Code
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.stockvalue.daily.volume.binding.DailyVolumeConverter.DailyVolumeToPointConverter
 import com.wubu.api.stockvalue.daily.volume.entity.DailyVolume
@@ -37,7 +37,7 @@ class DailyVolumeConverterTest {
         val date = LocalDate.of(1991, 3, 26)
         val volume = 1L
         val dailyVolumeId = DailyVolumeId(
-                Code("000000"),
+                CompanyCode("000000"),
                 date
         )
         val dailyVolume = DailyVolume(
