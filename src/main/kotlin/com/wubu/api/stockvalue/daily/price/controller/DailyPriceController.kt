@@ -18,7 +18,7 @@ class DailyPriceController(
             "/companies/{code}",
             produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(HttpStatus.OK)
-    fun findDailyChart(
+    fun findDailyPrices(
             @PathVariable(value = "code") code: Code,
             @ModelAttribute pagingReqDto: PagingReqDto): PointResDto {
         return dailyPriceFindService.findDailyStockValue(code, pagingReqDto)
