@@ -3,6 +3,7 @@ package com.wubu.api.company.repository
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.entity.Company
 import com.wubu.api.company.entity.CompanyId
+import com.wubu.api.favorite.company.repository.FavoriteCompanyRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -18,7 +19,9 @@ import java.time.LocalDate
 @ActiveProfiles("test")
 class CompanyRepositoryTest(
     @Autowired
-    private val companyRepository: CompanyRepository
+    private val companyRepository: CompanyRepository,
+    @Autowired
+    private val favoriteCompanyRepository: FavoriteCompanyRepository
 ) {
 
     lateinit var company1: Company
@@ -28,6 +31,9 @@ class CompanyRepositoryTest(
 
     @BeforeEach
     fun setUp() {
+        favoriteCompanyRepository.deleteAll()
+        companyRepository.deleteAll()
+
         company1 = Company(
             id = CompanyId(CompanyCode("000001")),
             name = "company name1",
@@ -48,8 +54,6 @@ class CompanyRepositoryTest(
             name = "company name4",
             date = LocalDate.of(1991, 3, 29)
         )
-
-        companyRepository.deleteAll()
 
         companyRepository.save(company4)
         companyRepository.save(company3)
