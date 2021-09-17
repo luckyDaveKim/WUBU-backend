@@ -9,7 +9,7 @@ import javax.persistence.Embeddable
 
 @Embeddable
 class CompanyId(
-    @Column(name = "company_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @Convert(converter = CodeConverter::class)
     var companyCode: CompanyCode
 ) : Serializable {
