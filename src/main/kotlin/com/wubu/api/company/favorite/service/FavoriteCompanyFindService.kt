@@ -1,7 +1,7 @@
-package com.wubu.api.favorite.company.service
+package com.wubu.api.company.favorite.service
 
-import com.wubu.api.favorite.company.dto.res.FavoriteCompaniesResDto
-import com.wubu.api.favorite.company.repository.FavoriteCompanyRepository
+import com.wubu.api.company.favorite.dto.res.FavoriteCompaniesResDto
+import com.wubu.api.company.favorite.repository.FavoriteCompanyRepository
 import org.springframework.stereotype.Service
 
 @Service

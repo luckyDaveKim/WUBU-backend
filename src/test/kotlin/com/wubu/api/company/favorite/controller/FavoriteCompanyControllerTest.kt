@@ -1,10 +1,10 @@
-package com.wubu.api.favorite.company.controller
+package com.wubu.api.company.favorite.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wubu.api.common.web.model.CompanyCode
-import com.wubu.api.favorite.company.dto.FavoriteCompanyDto
-import com.wubu.api.favorite.company.dto.res.FavoriteCompaniesResDto
-import com.wubu.api.favorite.company.service.FavoriteCompanyFindService
+import com.wubu.api.company.favorite.dto.FavoriteCompanyDto
+import com.wubu.api.company.favorite.dto.res.FavoriteCompaniesResDto
+import com.wubu.api.company.favorite.service.FavoriteCompanyFindService
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired

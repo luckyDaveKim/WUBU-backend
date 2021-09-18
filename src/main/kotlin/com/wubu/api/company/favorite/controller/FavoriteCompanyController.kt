@@ -1,8 +1,8 @@
-package com.wubu.api.favorite.company.controller
+package com.wubu.api.company.favorite.controller
 
 import com.wubu.api.common.web.dto.req.PagingReqDto
-import com.wubu.api.favorite.company.dto.res.FavoriteCompaniesResDto
-import com.wubu.api.favorite.company.service.FavoriteCompanyFindService
+import com.wubu.api.company.favorite.dto.res.FavoriteCompaniesResDto
+import com.wubu.api.company.favorite.service.FavoriteCompanyFindService
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping

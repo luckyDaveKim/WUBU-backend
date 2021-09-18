@@ -1,11 +1,11 @@
-package com.wubu.api.favorite.company.service
+package com.wubu.api.company.favorite.service
 
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.entity.Company
 import com.wubu.api.company.entity.CompanyId
-import com.wubu.api.favorite.company.dto.res.FavoriteCompaniesResDto
-import com.wubu.api.favorite.company.entity.FavoriteCompany
-import com.wubu.api.favorite.company.repository.FavoriteCompanyRepository
+import com.wubu.api.company.favorite.dto.res.FavoriteCompaniesResDto
+import com.wubu.api.company.favorite.entity.FavoriteCompany
+import com.wubu.api.company.favorite.repository.FavoriteCompanyRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

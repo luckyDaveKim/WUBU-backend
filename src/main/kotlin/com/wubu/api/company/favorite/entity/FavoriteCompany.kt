@@ -1,4 +1,4 @@
-package com.wubu.api.favorite.company.entity
+package com.wubu.api.company.favorite.entity
 
 import com.wubu.api.company.entity.Company
 import javax.persistence.Column

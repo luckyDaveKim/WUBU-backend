@@ -1,8 +1,8 @@
-package com.wubu.api.favorite.company.dto
+package com.wubu.api.company.favorite.dto
 
 import com.fasterxml.jackson.annotation.JsonValue
 import com.wubu.api.common.web.model.CompanyCode
-import com.wubu.api.favorite.company.entity.FavoriteCompany
+import com.wubu.api.company.favorite.entity.FavoriteCompany
 
 data class FavoriteCompanyDto(
     @JsonValue

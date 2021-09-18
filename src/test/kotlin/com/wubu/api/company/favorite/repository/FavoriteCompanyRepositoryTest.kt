@@ -1,9 +1,9 @@
-package com.wubu.api.favorite.company.repository
+package com.wubu.api.company.favorite.repository
 
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.entity.Company
 import com.wubu.api.company.entity.CompanyId
-import com.wubu.api.favorite.company.entity.FavoriteCompany
+import com.wubu.api.company.favorite.entity.FavoriteCompany
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
