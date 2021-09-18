@@ -30,18 +30,18 @@ class CompanyDtoTest {
     @Test
     fun `생성 테스트`() {
         // given
-        val value = "value"
-        val label = "label"
+        val companyCode = CompanyCode("000001")
+        val companyName = "company name"
 
         // when
         val companyDto = CompanyDto(
-            value = value,
-            label = label
+            code = companyCode,
+            name = companyName
         )
 
         // then
-        assertThat(companyDto.value).isEqualTo(value)
-        assertThat(companyDto.label).isEqualTo(label)
+        assertThat(companyDto.code).isEqualTo(companyCode)
+        assertThat(companyDto.name).isEqualTo(companyName)
     }
 
     @Test
@@ -52,8 +52,8 @@ class CompanyDtoTest {
         val companyDto = CompanyDto.of(company1)
 
         // then
-        assertThat(companyDto.value).isEqualTo(company1.id.companyCode.value)
-        assertThat(companyDto.label).isEqualTo("${company1.name} (${company1.id.companyCode.value})")
+        assertThat(companyDto.code).isEqualTo(company1.id.companyCode)
+        assertThat(companyDto.name).isEqualTo(company1.name)
     }
 
     @Test
