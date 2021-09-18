@@ -5,9 +5,11 @@ import com.wubu.api.company.entity.Company
 import com.wubu.api.company.entity.CompanyId
 import com.wubu.api.company.favorite.dto.req.FavoriteCompanyReqDto
 import com.wubu.api.company.favorite.entity.FavoriteCompany
+import com.wubu.api.company.favorite.exception.NotFoundCompanyException
 import com.wubu.api.company.favorite.repository.FavoriteCompanyRepository
 import com.wubu.api.company.repository.CompanyRepository
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -82,5 +84,22 @@ class FavoriteCompanySaveServiceTest {
         assertThat(savedFavoriteCompanies[0].company).isEqualTo(company1)
         assertThat(savedFavoriteCompanies[1]).isNotNull
         assertThat(savedFavoriteCompanies[1].company).isEqualTo(company2)
+    }
+
+    @Test
+    fun `즐겨찾기 회사 저장 실패 테스트`() {
+        // given
+        val companyCode = CompanyCode("999999")
+        val companyCodes = listOf(companyCode)
+        val favoriteCompanyReqDto = FavoriteCompanyReqDto(companyCodes = companyCodes)
+
+        given(companyRepository.findById(CompanyId(companyCode = companyCode)))
+            .willThrow(NotFoundCompanyException(companyCode))
+
+        // when
+
+        // then
+        assertThatThrownBy { favoriteCompanySaveService.saveCompanies(favoriteCompanyReqDto) }
+            .isInstanceOf(NotFoundCompanyException::class.java)
     }
 }
