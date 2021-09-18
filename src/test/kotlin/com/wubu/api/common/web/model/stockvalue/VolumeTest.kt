@@ -3,8 +3,8 @@ package com.wubu.api.common.web.model.stockvalue
 import com.wubu.api.common.error.exception.InvalidVolumeException
 import com.wubu.api.common.web.model.SingleValue
 import com.wubu.api.common.web.model.stockvalue.Volume.VolumeConverter
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
 class VolumeTest {
@@ -29,7 +29,7 @@ class VolumeTest {
         // when
 
         // then
-        Assertions.assertThatThrownBy { Volume(volumeValue) }
+        assertThatThrownBy { Volume(volumeValue) }
             .isInstanceOf(InvalidVolumeException::class.java)
     }
 

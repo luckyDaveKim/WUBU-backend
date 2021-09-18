@@ -3,8 +3,8 @@ package com.wubu.api.common.web.model.stockvalue
 import com.wubu.api.common.error.exception.InvalidPriceException
 import com.wubu.api.common.web.model.SingleValue
 import com.wubu.api.common.web.model.stockvalue.Price.PriceConverter
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
 class PriceTest {
@@ -29,7 +29,7 @@ class PriceTest {
         // when
 
         // then
-        Assertions.assertThatThrownBy { Price(priceValue) }
+        assertThatThrownBy { Price(priceValue) }
             .isInstanceOf(InvalidPriceException::class.java)
     }
 

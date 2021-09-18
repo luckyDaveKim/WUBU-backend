@@ -1,7 +1,7 @@
 package com.wubu.api.company.entity
 
 import com.wubu.api.common.web.model.CompanyCode
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -24,8 +24,8 @@ class CompanyIdTest {
         val companyId = CompanyId(companyCode1)
 
         // then
-        Assertions.assertThat(companyId).isNotNull
-        Assertions.assertThat(companyId.companyCode).isEqualTo(companyCode1)
+        assertThat(companyId).isNotNull
+        assertThat(companyId.companyCode).isEqualTo(companyCode1)
     }
 
     @Test
@@ -37,7 +37,7 @@ class CompanyIdTest {
         val companyId2 = CompanyId(companyCode1)
 
         // then
-        Assertions.assertThat(companyId1).isEqualTo(companyId2)
+        assertThat(companyId1).isEqualTo(companyId2)
     }
 
     @Test
@@ -49,7 +49,7 @@ class CompanyIdTest {
         val companyId2 = CompanyId(companyCode2)
 
         // then
-        Assertions.assertThat(companyId1).isNotEqualTo(companyId2)
+        assertThat(companyId1).isNotEqualTo(companyId2)
     }
 
     @Test
@@ -61,7 +61,7 @@ class CompanyIdTest {
         val companyId2 = CompanyId(companyCode1)
 
         // then
-        Assertions.assertThat(companyId1.hashCode()).isEqualTo(companyId2.hashCode())
+        assertThat(companyId1.hashCode()).isEqualTo(companyId2.hashCode())
     }
 
     @Test
@@ -73,6 +73,6 @@ class CompanyIdTest {
         val companyId2 = CompanyId(companyCode2)
 
         // then
-        Assertions.assertThat(companyId1.hashCode()).isNotEqualTo(companyId2.hashCode())
+        assertThat(companyId1.hashCode()).isNotEqualTo(companyId2.hashCode())
     }
 }
