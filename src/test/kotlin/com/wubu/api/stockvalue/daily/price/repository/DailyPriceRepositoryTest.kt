@@ -24,9 +24,9 @@ class DailyPriceRepositoryTest(
     private val dailyPriceRepository: DailyPriceRepository
 ) {
 
-    lateinit var dailyPrice1: DailyPrice
-    lateinit var dailyPrice2: DailyPrice
-    lateinit var dailyPrice3: DailyPrice
+    private lateinit var dailyPrice1: DailyPrice
+    private lateinit var dailyPrice2: DailyPrice
+    private lateinit var dailyPrice3: DailyPrice
 
     @BeforeEach
     fun setUp() {
@@ -137,10 +137,11 @@ class DailyPriceRepositoryTest(
         val startDateOfWeek = DateUtil.getStartDateOfWeek(today)
         val thisWeekDataSize = today.dayOfWeek.value
 
-        // when
         for (dailyPrice in getPricesBefore6DaysUntilToday()) {
             dailyPriceRepository.save(dailyPrice)
         }
+
+        // when
         val foundThisWeekDailyPrices =
             dailyPriceRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
                 code,

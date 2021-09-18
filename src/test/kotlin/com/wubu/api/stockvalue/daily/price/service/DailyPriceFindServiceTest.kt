@@ -24,19 +24,19 @@ import java.time.LocalDate
 class DailyPriceFindServiceTest {
 
     @Mock
-    lateinit var dailyPriceRepository: DailyPriceRepository
+    private lateinit var dailyPriceRepository: DailyPriceRepository
 
     @Spy
-    lateinit var dailyPriceToPointConverter: DailyPriceToPointConverter
+    private lateinit var dailyPriceToPointConverter: DailyPriceToPointConverter
 
     @InjectMocks
-    lateinit var dailyPriceFindService: DailyPriceFindService
+    private lateinit var dailyPriceFindService: DailyPriceFindService
 
-    lateinit var dailyPrice1: DailyPrice
-    lateinit var dailyPrice2: DailyPrice
-    lateinit var dailyPrice3: DailyPrice
-    lateinit var dailyPrice4: DailyPrice
-    lateinit var dailyPrice5: DailyPrice
+    private lateinit var dailyPrice1: DailyPrice
+    private lateinit var dailyPrice2: DailyPrice
+    private lateinit var dailyPrice3: DailyPrice
+    private lateinit var dailyPrice4: DailyPrice
+    private lateinit var dailyPrice5: DailyPrice
 
     @BeforeEach
     fun setUp() {
@@ -111,10 +111,10 @@ class DailyPriceFindServiceTest {
             .willReturn(reversedDailyPrices)
 
         // when
-        val foundDailyChartsResponseDto = dailyPriceFindService.findDailyStockValue(companyCode, pagingReqDto)
+        val foundDailyPricesResDto = dailyPriceFindService.findDailyStockValue(companyCode, pagingReqDto)
 
         // then
-        assertThat(foundDailyChartsResponseDto).isEqualTo(pointResDto)
+        assertThat(foundDailyPricesResDto).isEqualTo(pointResDto)
     }
 
     @Test
@@ -137,10 +137,10 @@ class DailyPriceFindServiceTest {
             .willReturn(dailyPrices)
 
         // when
-        val foundDailyChartsResponseDto = dailyPriceFindService.findThisWeekStockValue(companyCode, date)
+        val foundDailyPricesResDto = dailyPriceFindService.findThisWeekStockValue(companyCode, date)
 
         // then
-        assertThat(foundDailyChartsResponseDto).isEqualTo(pointResDto)
+        assertThat(foundDailyPricesResDto).isEqualTo(pointResDto)
     }
 
     @Test

@@ -8,12 +8,12 @@ import java.time.LocalDate
 
 class CompanyTest {
 
-    lateinit var id1: CompanyId
-    lateinit var id2: CompanyId
-    lateinit var name1: String
-    lateinit var name2: String
-    lateinit var date1: LocalDate
-    lateinit var date2: LocalDate
+    private lateinit var id1: CompanyId
+    private lateinit var id2: CompanyId
+    private lateinit var name1: String
+    private lateinit var name2: String
+    private lateinit var date1: LocalDate
+    private lateinit var date2: LocalDate
 
     @BeforeEach
     fun setUp() {

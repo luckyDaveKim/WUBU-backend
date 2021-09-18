@@ -9,12 +9,12 @@ import java.time.LocalDate
 
 class DailyVolumeTest {
 
-    lateinit var companyCode1: CompanyCode
-    lateinit var companyCode2: CompanyCode
-    lateinit var date1: LocalDate
-    lateinit var date2: LocalDate
-    lateinit var volume1: Volume
-    lateinit var volume2: Volume
+    private lateinit var companyCode1: CompanyCode
+    private lateinit var companyCode2: CompanyCode
+    private lateinit var date1: LocalDate
+    private lateinit var date2: LocalDate
+    private lateinit var volume1: Volume
+    private lateinit var volume2: Volume
 
     @BeforeEach
     fun setUp() {

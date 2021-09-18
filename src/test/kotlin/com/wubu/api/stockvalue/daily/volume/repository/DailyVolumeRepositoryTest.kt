@@ -24,9 +24,9 @@ class DailyVolumeRepositoryTest(
     private val dailyVolumeRepository: DailyVolumeRepository
 ) {
 
-    lateinit var dailyVolume1: DailyVolume
-    lateinit var dailyVolume2: DailyVolume
-    lateinit var dailyVolume3: DailyVolume
+    private lateinit var dailyVolume1: DailyVolume
+    private lateinit var dailyVolume2: DailyVolume
+    private lateinit var dailyVolume3: DailyVolume
 
     @BeforeEach
     fun setUp() {

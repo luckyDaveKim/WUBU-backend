@@ -27,7 +27,7 @@ class CompanyControllerTest(
 ) {
 
     @MockBean
-    lateinit var companyFindService: CompanyFindService
+    private lateinit var companyFindService: CompanyFindService
 
     private val objectMapper = ObjectMapper()
 

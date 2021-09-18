@@ -18,10 +18,10 @@ import java.time.LocalDate
 class CompanyFindServiceTest {
 
     @Mock
-    lateinit var companyRepository: CompanyRepository
+    private lateinit var companyRepository: CompanyRepository
 
     @InjectMocks
-    lateinit var companyFindService: CompanyFindService
+    private lateinit var companyFindService: CompanyFindService
 
     @Test
     fun `회사 리스트 조회 테스트`() {

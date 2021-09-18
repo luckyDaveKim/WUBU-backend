@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test
 
 class CompanyIdTest {
 
-    lateinit var companyCode1: CompanyCode
-    lateinit var companyCode2: CompanyCode
+    private lateinit var companyCode1: CompanyCode
+    private lateinit var companyCode2: CompanyCode
 
     @BeforeEach
     fun setUp() {

@@ -10,8 +10,8 @@ import java.time.LocalDate
 
 class CompanyDtoTest {
 
-    lateinit var company1: Company
-    lateinit var company2: Company
+    private lateinit var company1: Company
+    private lateinit var company2: Company
 
     @BeforeEach
     fun setUp() {

@@ -13,7 +13,7 @@ import java.time.ZoneOffset
 
 class DailyVolumeConverterTest {
 
-    lateinit var dailyVolumeToPointConverter: DailyVolumeToPointConverter
+    private lateinit var dailyVolumeToPointConverter: DailyVolumeToPointConverter
 
     @BeforeEach
     fun setUp() {

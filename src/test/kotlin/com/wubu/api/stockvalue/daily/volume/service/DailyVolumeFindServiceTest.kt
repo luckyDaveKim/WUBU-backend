@@ -24,19 +24,19 @@ import java.time.LocalDate
 class DailyVolumeFindServiceTest {
 
     @Mock
-    lateinit var dailyVolumeRepository: DailyVolumeRepository
+    private lateinit var dailyVolumeRepository: DailyVolumeRepository
 
     @Spy
-    lateinit var dailyVolumeToPointConverter: DailyVolumeToPointConverter
+    private lateinit var dailyVolumeToPointConverter: DailyVolumeToPointConverter
 
     @InjectMocks
-    lateinit var dailyVolumeFindService: DailyVolumeFindService
+    private lateinit var dailyVolumeFindService: DailyVolumeFindService
 
-    lateinit var dailyVolume1: DailyVolume
-    lateinit var dailyVolume2: DailyVolume
-    lateinit var dailyVolume3: DailyVolume
-    lateinit var dailyVolume4: DailyVolume
-    lateinit var dailyVolume5: DailyVolume
+    private lateinit var dailyVolume1: DailyVolume
+    private lateinit var dailyVolume2: DailyVolume
+    private lateinit var dailyVolume3: DailyVolume
+    private lateinit var dailyVolume4: DailyVolume
+    private lateinit var dailyVolume5: DailyVolume
 
     @BeforeEach
     fun setUp() {
@@ -96,10 +96,10 @@ class DailyVolumeFindServiceTest {
             .willReturn(reversedDailyVolumes)
 
         // when
-        val foundDailyChartsResponseDto = dailyVolumeFindService.findDailyStockValue(companyCode, pagingReqDto)
+        val foundDailyVolumesResDto = dailyVolumeFindService.findDailyStockValue(companyCode, pagingReqDto)
 
         // then
-        assertThat(foundDailyChartsResponseDto).isEqualTo(pointResDto)
+        assertThat(foundDailyVolumesResDto).isEqualTo(pointResDto)
     }
 
     @Test

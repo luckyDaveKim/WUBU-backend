@@ -13,7 +13,7 @@ import java.time.ZoneOffset
 
 class DailyPriceConverterTest {
 
-    lateinit var dailyPriceToPointConverter: DailyPriceToPointConverter
+    private lateinit var dailyPriceToPointConverter: DailyPriceToPointConverter
 
     @BeforeEach
     fun setUp() {

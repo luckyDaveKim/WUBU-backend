@@ -6,6 +6,7 @@ import com.wubu.api.common.web.dto.res.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.Point
 import com.wubu.api.common.web.model.stockvalue.Price
+import com.wubu.api.stockvalue.daily.price.binding.DailyPriceConverter.DailyPriceToPointConverter
 import com.wubu.api.stockvalue.daily.price.entity.DailyPrice
 import com.wubu.api.stockvalue.daily.price.entity.DailyPriceId
 import com.wubu.api.stockvalue.daily.price.service.DailyPriceFindService
@@ -32,11 +33,12 @@ class DailyPriceControllerTest(
 ) {
 
     @MockBean
-    lateinit var dailyPriceFindService: DailyPriceFindService
+    private lateinit var dailyPriceFindService: DailyPriceFindService
 
+    private val dailyPriceToPointConverter = DailyPriceToPointConverter()
     private val objectMapper = ObjectMapper()
-    lateinit var dailyPrice1: DailyPrice
-    lateinit var dailyPrice2: DailyPrice
+    private lateinit var dailyPrice1: DailyPrice
+    private lateinit var dailyPrice2: DailyPrice
 
     @BeforeEach
     fun setUp() {
@@ -68,19 +70,10 @@ class DailyPriceControllerTest(
         // given
         val companyCode = CompanyCode("000000")
         val points = listOf(dailyPrice1, dailyPrice2)
-            .map { source ->
-                Point(
-                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                    y = source.close.value,
-                    open = source.open.value,
-                    high = source.high.value,
-                    low = source.low.value,
-                    close = source.close.value
-                )
-            }
+            .map(dailyPriceToPointConverter::convert)
             .toList()
         val pointResDto = PointResDto.of(points)
-        val jsonDailyPricesResponseDto = objectMapper.writeValueAsString(pointResDto)
+        val jsonDailyPricesResDto = objectMapper.writeValueAsString(pointResDto)
 
         given(dailyPriceFindService.findDailyStockValue(companyCode, PagingReqDto()))
             .willReturn(pointResDto)
@@ -94,7 +87,7 @@ class DailyPriceControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-            .andExpect(content().json(jsonDailyPricesResponseDto))
+            .andExpect(content().json(jsonDailyPricesResDto))
             .andDo { print() }
     }
 

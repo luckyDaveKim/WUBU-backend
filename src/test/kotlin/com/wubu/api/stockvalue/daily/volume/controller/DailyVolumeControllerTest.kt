@@ -32,11 +32,11 @@ class DailyVolumeControllerTest(
 ) {
 
     @MockBean
-    lateinit var dailyVolumeFindService: DailyVolumeFindService
+    private lateinit var dailyVolumeFindService: DailyVolumeFindService
 
     private val objectMapper = ObjectMapper()
-    lateinit var dailyVolume1: DailyVolume
-    lateinit var dailyVolume2: DailyVolume
+    private lateinit var dailyVolume1: DailyVolume
+    private lateinit var dailyVolume2: DailyVolume
 
     @BeforeEach
     fun setUp() {

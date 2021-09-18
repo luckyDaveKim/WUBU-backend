@@ -8,10 +8,10 @@ import java.time.LocalDate
 
 class DailyPriceIdTest {
 
-    lateinit var companyCode1: CompanyCode
-    lateinit var companyCode2: CompanyCode
-    lateinit var date1: LocalDate
-    lateinit var date2: LocalDate
+    private lateinit var companyCode1: CompanyCode
+    private lateinit var companyCode2: CompanyCode
+    private lateinit var date1: LocalDate
+    private lateinit var date2: LocalDate
 
     @BeforeEach
     fun setUp() {

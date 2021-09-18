@@ -24,10 +24,10 @@ class CompanyRepositoryTest(
     private val favoriteCompanyRepository: FavoriteCompanyRepository
 ) {
 
-    lateinit var company1: Company
-    lateinit var company2: Company
-    lateinit var company3: Company
-    lateinit var company4: Company
+    private lateinit var company1: Company
+    private lateinit var company2: Company
+    private lateinit var company3: Company
+    private lateinit var company4: Company
 
     @BeforeEach
     fun setUp() {

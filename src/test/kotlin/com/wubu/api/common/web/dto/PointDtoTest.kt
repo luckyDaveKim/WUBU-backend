@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test
 
 class PointDtoTest {
 
-    lateinit var point1: Point
-    lateinit var point2: Point
+    private lateinit var point1: Point
+    private lateinit var point2: Point
 
     @BeforeEach
     fun setUp() {

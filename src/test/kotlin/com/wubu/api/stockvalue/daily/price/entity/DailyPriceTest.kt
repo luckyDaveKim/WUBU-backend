@@ -9,18 +9,18 @@ import java.time.LocalDate
 
 class DailyPriceTest {
 
-    lateinit var companyCode1: CompanyCode
-    lateinit var companyCode2: CompanyCode
-    lateinit var date1: LocalDate
-    lateinit var date2: LocalDate
-    lateinit var open1: Price
-    lateinit var open2: Price
-    lateinit var high1: Price
-    lateinit var high2: Price
-    lateinit var low1: Price
-    lateinit var low2: Price
-    lateinit var close1: Price
-    lateinit var close2: Price
+    private lateinit var companyCode1: CompanyCode
+    private lateinit var companyCode2: CompanyCode
+    private lateinit var date1: LocalDate
+    private lateinit var date2: LocalDate
+    private lateinit var open1: Price
+    private lateinit var open2: Price
+    private lateinit var high1: Price
+    private lateinit var high2: Price
+    private lateinit var low1: Price
+    private lateinit var low2: Price
+    private lateinit var close1: Price
+    private lateinit var close2: Price
 
     @BeforeEach
     fun setUp() {
