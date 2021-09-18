@@ -3,17 +3,21 @@ package com.wubu.api.company.favorite.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.dto.CompanyDto
+import com.wubu.api.company.favorite.dto.req.FavoriteCompanyReqDto
 import com.wubu.api.company.favorite.dto.res.FavoriteCompaniesResDto
 import com.wubu.api.company.favorite.service.FavoriteCompanyFindService
+import com.wubu.api.company.favorite.service.FavoriteCompanySaveService
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
+import org.mockito.BDDMockito.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -26,6 +30,9 @@ class FavoriteCompanyControllerTest(
 
     @MockBean
     private lateinit var favoriteCompanyFindService: FavoriteCompanyFindService
+
+    @MockBean
+    private lateinit var favoriteCompanySaveService: FavoriteCompanySaveService
 
     private val objectMapper = ObjectMapper()
 
@@ -48,7 +55,7 @@ class FavoriteCompanyControllerTest(
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-            MockMvcRequestBuilders.get("/api/companies/favorite")
+            get("/api/companies/favorite")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         )
@@ -56,6 +63,30 @@ class FavoriteCompanyControllerTest(
         // then
         resultActions.andExpect { status().isOk }
             .andExpect(content().json(jsonFavoriteCompaniesResDto))
+            .andDo { print() }
+    }
+
+    @Test
+    fun `즐겨찾기 회사 리스트 저장 테스트`() {
+        // given
+        val reqCompanyCodes = HashMap<String, Any>()
+        reqCompanyCodes["companyCodes"] = listOf("000001")
+        val jsonReqCompanyCodes = objectMapper.writeValueAsString(reqCompanyCodes)
+
+        val favoriteCompanyReqDto = FavoriteCompanyReqDto(listOf(CompanyCode("000001")))
+
+        // when
+        val resultActions: ResultActions = mockMvc.perform(
+            put("/api/companies/favorite")
+                .content(jsonReqCompanyCodes)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        )
+
+        // then
+        verify(favoriteCompanySaveService)
+            .saveCompanies(favoriteCompanyReqDto)
+        resultActions.andExpect { status().isOk }
             .andDo { print() }
     }
 }
