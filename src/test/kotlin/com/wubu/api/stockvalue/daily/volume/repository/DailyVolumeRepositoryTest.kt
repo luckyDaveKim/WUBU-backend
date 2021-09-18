@@ -6,7 +6,7 @@ import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.common.web.util.date.DateUtil
 import com.wubu.api.stockvalue.daily.volume.entity.DailyVolume
 import com.wubu.api.stockvalue.daily.volume.entity.DailyVolumeId
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -68,7 +68,7 @@ class DailyVolumeRepositoryTest(
         val foundDailVolume = dailyVolumeRepository.findById(id)
 
         // then
-        Assertions.assertThat(foundDailVolume.get()).isEqualTo(dailyVolume1)
+        assertThat(foundDailVolume.get()).isEqualTo(dailyVolume1)
     }
 
     @Test
@@ -81,9 +81,9 @@ class DailyVolumeRepositoryTest(
         val foundDailyVolume = dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(code, pageable)
 
         // then
-        Assertions.assertThat(foundDailyVolume[0]).isEqualTo(dailyVolume3)
-        Assertions.assertThat(foundDailyVolume[1]).isEqualTo(dailyVolume2)
-        Assertions.assertThat(foundDailyVolume[2]).isEqualTo(dailyVolume1)
+        assertThat(foundDailyVolume[0]).isEqualTo(dailyVolume3)
+        assertThat(foundDailyVolume[1]).isEqualTo(dailyVolume2)
+        assertThat(foundDailyVolume[2]).isEqualTo(dailyVolume1)
     }
 
     @Test
@@ -98,8 +98,8 @@ class DailyVolumeRepositoryTest(
         val foundDailyVolumes = dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(code, pageable)
 
         // then
-        Assertions.assertThat(foundDailyVolumes.size).isEqualTo(pageSize)
-        Assertions.assertThat(foundDailyVolumes[0]).isEqualTo(dailyVolume2)
+        assertThat(foundDailyVolumes.size).isEqualTo(pageSize)
+        assertThat(foundDailyVolumes[0]).isEqualTo(dailyVolume2)
     }
 
     @Test
@@ -114,9 +114,9 @@ class DailyVolumeRepositoryTest(
         val foundDailyVolumes = dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(code, pageable)
 
         // then
-        Assertions.assertThat(foundDailyVolumes.size).isEqualTo(pageSize)
-        Assertions.assertThat(foundDailyVolumes[0]).isEqualTo(dailyVolume3)
-        Assertions.assertThat(foundDailyVolumes[1]).isEqualTo(dailyVolume2)
+        assertThat(foundDailyVolumes.size).isEqualTo(pageSize)
+        assertThat(foundDailyVolumes[0]).isEqualTo(dailyVolume3)
+        assertThat(foundDailyVolumes[1]).isEqualTo(dailyVolume2)
     }
 
     @Test
@@ -138,7 +138,7 @@ class DailyVolumeRepositoryTest(
             )
 
         // then
-        Assertions.assertThat(foundThisWeekDailyVolumes.size).isEqualTo(thisWeekDataSize)
+        assertThat(foundThisWeekDailyVolumes.size).isEqualTo(thisWeekDataSize)
     }
 
     private fun getVolumeBefore6DaysUntilToday(): List<DailyVolume> {
