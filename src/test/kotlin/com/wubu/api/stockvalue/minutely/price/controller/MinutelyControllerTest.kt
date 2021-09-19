@@ -65,7 +65,7 @@ class MinutelyControllerTest(
     }
 
     @Test
-    fun `하루 데이터 조회 테스트`() {
+    fun `특정일 데이터 조회 테스트`() {
         // given
         val date = LocalDate.of(1991, 3, 26)
         val points = listOf(minutelyPrice1, minutelyPrice2)

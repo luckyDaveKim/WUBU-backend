@@ -3,13 +3,13 @@ package com.wubu.api.common.web.dto
 import com.wubu.api.common.web.model.Point
 
 data class PointDto(
-    val x: Long,
-    val y: Long,
-    val z: Long,
-    val open: Long,
-    val high: Long,
-    val low: Long,
-    val close: Long
+    val x: Number,
+    val y: Number,
+    val z: Number,
+    val open: Number,
+    val high: Number,
+    val low: Number,
+    val close: Number
 ) {
     companion object {
         fun of(point: Point): PointDto {

@@ -33,7 +33,7 @@ class PointDtoTest {
     }
 
     @Test
-    fun `생성 테스트`() {
+    fun `int 생성 테스트`() {
         // given
 
         // when
@@ -59,11 +59,99 @@ class PointDtoTest {
     }
 
     @Test
-    fun `of 생성 테스트`() {
+    fun `long 생성 테스트`() {
         // given
 
         // when
-        val pointDto = PointDto.of(point1)
+        val pointDto = PointDto(
+            x = 1L,
+            y = 2L,
+            z = 3L,
+            open = 4L,
+            high = 5L,
+            low = 6L,
+            close = 7L
+        )
+
+        // then
+        assertThat(pointDto).isNotNull
+        assertThat(pointDto.x).isEqualTo(1L)
+        assertThat(pointDto.y).isEqualTo(2L)
+        assertThat(pointDto.z).isEqualTo(3L)
+        assertThat(pointDto.open).isEqualTo(4L)
+        assertThat(pointDto.high).isEqualTo(5L)
+        assertThat(pointDto.low).isEqualTo(6L)
+        assertThat(pointDto.close).isEqualTo(7L)
+    }
+
+    @Test
+    fun `float 생성 테스트`() {
+        // given
+
+        // when
+        val pointDto = PointDto(
+            x = 1F,
+            y = 2F,
+            z = 3F,
+            open = 4F,
+            high = 5F,
+            low = 6F,
+            close = 7F
+        )
+
+        // then
+        assertThat(pointDto).isNotNull
+        assertThat(pointDto.x).isEqualTo(1F)
+        assertThat(pointDto.y).isEqualTo(2F)
+        assertThat(pointDto.z).isEqualTo(3F)
+        assertThat(pointDto.open).isEqualTo(4F)
+        assertThat(pointDto.high).isEqualTo(5F)
+        assertThat(pointDto.low).isEqualTo(6F)
+        assertThat(pointDto.close).isEqualTo(7F)
+    }
+
+    @Test
+    fun `double 생성 테스트`() {
+        // given
+
+        // when
+        val pointDto = PointDto(
+            x = 1.1,
+            y = 2.1,
+            z = 3.1,
+            open = 4.1,
+            high = 5.1,
+            low = 6.1,
+            close = 7.1
+        )
+
+        // then
+        assertThat(pointDto).isNotNull
+        assertThat(pointDto.x).isEqualTo(1.1)
+        assertThat(pointDto.y).isEqualTo(2.1)
+        assertThat(pointDto.z).isEqualTo(3.1)
+        assertThat(pointDto.open).isEqualTo(4.1)
+        assertThat(pointDto.high).isEqualTo(5.1)
+        assertThat(pointDto.low).isEqualTo(6.1)
+        assertThat(pointDto.close).isEqualTo(7.1)
+    }
+
+    @Test
+    fun `of int 생성 테스트`() {
+        // given
+
+        // when
+        val pointDto = PointDto.of(
+            Point(
+                x = 1,
+                y = 2,
+                z = 3,
+                open = 4,
+                high = 5,
+                low = 6,
+                close = 7
+            )
+        )
 
         // then
         assertThat(pointDto).isNotNull
@@ -74,6 +162,90 @@ class PointDtoTest {
         assertThat(pointDto.high).isEqualTo(5)
         assertThat(pointDto.low).isEqualTo(6)
         assertThat(pointDto.close).isEqualTo(7)
+    }
+
+    @Test
+    fun `of long 생성 테스트`() {
+        // given
+
+        // when
+        val pointDto = PointDto.of(
+            Point(
+                x = 1L,
+                y = 2L,
+                z = 3L,
+                open = 4L,
+                high = 5L,
+                low = 6L,
+                close = 7L
+            )
+        )
+
+        // then
+        assertThat(pointDto).isNotNull
+        assertThat(pointDto.x).isEqualTo(1L)
+        assertThat(pointDto.y).isEqualTo(2L)
+        assertThat(pointDto.z).isEqualTo(3L)
+        assertThat(pointDto.open).isEqualTo(4L)
+        assertThat(pointDto.high).isEqualTo(5L)
+        assertThat(pointDto.low).isEqualTo(6L)
+        assertThat(pointDto.close).isEqualTo(7L)
+    }
+
+    @Test
+    fun `of float 생성 테스트`() {
+        // given
+
+        // when
+        val pointDto = PointDto.of(
+            Point(
+                x = 1F,
+                y = 2F,
+                z = 3F,
+                open = 4F,
+                high = 5F,
+                low = 6F,
+                close = 7F
+            )
+        )
+
+        // then
+        assertThat(pointDto).isNotNull
+        assertThat(pointDto.x).isEqualTo(1F)
+        assertThat(pointDto.y).isEqualTo(2F)
+        assertThat(pointDto.z).isEqualTo(3F)
+        assertThat(pointDto.open).isEqualTo(4F)
+        assertThat(pointDto.high).isEqualTo(5F)
+        assertThat(pointDto.low).isEqualTo(6F)
+        assertThat(pointDto.close).isEqualTo(7F)
+    }
+
+    @Test
+    fun `of double 생성 테스트`() {
+        // given
+
+        // when
+        val pointDto = PointDto.of(
+            Point(
+                x = 1.1,
+                y = 2.1,
+                z = 3.1,
+                open = 4.1,
+                high = 5.1,
+                low = 6.1,
+                close = 7.1
+            )
+        )
+
+        // then
+        assertThat(pointDto).isNotNull
+        assertThat(pointDto.x).isEqualTo(1.1)
+        assertThat(pointDto.y).isEqualTo(2.1)
+        assertThat(pointDto.z).isEqualTo(3.1)
+        assertThat(pointDto.open).isEqualTo(4.1)
+        assertThat(pointDto.high).isEqualTo(5.1)
+        assertThat(pointDto.low).isEqualTo(6.1)
+        assertThat(pointDto.close).isEqualTo(7.1)
     }
 
     @Test

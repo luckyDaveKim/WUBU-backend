@@ -60,12 +60,12 @@ class MinutelyPriceFindServiceTest {
     }
 
     @Test
-    fun `분별 데이터 조회 테스트`() {
+    fun `특정일 분별 데이터 조회 테스트`() {
         // given
         val companyCode = CompanyCode("000001")
-        val today = LocalDate.of(1991, 3, 26)
-        val afterEqualDateTime = today.atStartOfDay()
-        val beforeDateTime = today.plusDays(1).atStartOfDay()
+        val date = LocalDate.of(1991, 3, 26)
+        val afterEqualDateTime = date.atStartOfDay()
+        val beforeDateTime = date.plusDays(1).atStartOfDay()
         val minutelyPrices = listOf(minutelyPrice1, minutelyPrice2)
         val reversedMinutelyPrices = minutelyPrices.reversed()
         val points = minutelyPrices.map(minutelyPriceToPointConverter::convert)
@@ -81,13 +81,13 @@ class MinutelyPriceFindServiceTest {
         ).willReturn(reversedMinutelyPrices)
 
         // when
-        val foundMinutelyPricesResDto = minutelyPriceFindService.findMinutelyStockValueAtDate(
+        val foundPointResDto = minutelyPriceFindService.findMinutelyStockValueAtDate(
             companyCode = companyCode,
-            date = today
+            date = date
         )
 
         // then
-        assertThat(foundMinutelyPricesResDto).isNotNull
-        assertThat(foundMinutelyPricesResDto).isEqualTo(pointResDto)
+        assertThat(foundPointResDto).isNotNull
+        assertThat(foundPointResDto).isEqualTo(pointResDto)
     }
 }

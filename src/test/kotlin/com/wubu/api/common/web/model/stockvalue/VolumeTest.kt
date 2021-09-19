@@ -44,8 +44,20 @@ class VolumeTest {
 
         // then
         assertThat(volume1).isEqualTo(volume2)
-        assertThat(volume1.value).isEqualTo(volumeValue)
-        assertThat(volume2.value).isEqualTo(volumeValue)
+    }
+
+    @Test
+    fun `동등성 비교 실패 테스트`() {
+        // given
+        val volumeValue1 = 1L
+        val volumeValue2 = 2L
+
+        // when
+        val volume1 = Volume(volumeValue1)
+        val volume2 = Volume(volumeValue2)
+
+        // then
+        assertThat(volume1).isNotEqualTo(volume2)
     }
 
     @Test
@@ -54,10 +66,10 @@ class VolumeTest {
         val volumeValue = 123456L
 
         // when
-        val singleValue: SingleValue<Long> = Volume(volumeValue)
+        val volume = Volume(volumeValue)
 
         // then
-        assertThat(singleValue.value).isEqualTo(volumeValue)
+        assertThat(volume).isInstanceOf(SingleValue::class.java)
     }
 
     @Test
@@ -66,10 +78,10 @@ class VolumeTest {
         val volumeValue = 123456L
 
         // when
-        val stockValue: StockValue = Volume(volumeValue)
+        val volume = Volume(volumeValue)
 
         // then
-        assertThat(stockValue).isNotNull
+        assertThat(volume).isInstanceOf(StockValue::class.java)
     }
 
     @Test
