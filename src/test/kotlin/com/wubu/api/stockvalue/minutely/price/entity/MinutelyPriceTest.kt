@@ -11,8 +11,8 @@ class MinutelyPriceTest {
 
     private lateinit var companyCode1: CompanyCode
     private lateinit var companyCode2: CompanyCode
-    private lateinit var date1: LocalDateTime
-    private lateinit var date2: LocalDateTime
+    private lateinit var dateTime1: LocalDateTime
+    private lateinit var dateTime2: LocalDateTime
     private lateinit var open1: Price
     private lateinit var open2: Price
     private lateinit var high1: Price
@@ -26,8 +26,8 @@ class MinutelyPriceTest {
     fun setUp() {
         companyCode1 = CompanyCode("000001")
         companyCode2 = CompanyCode("000002")
-        date1 = LocalDateTime.of(1991, 3, 26, 9, 0)
-        date2 = LocalDateTime.of(1991, 3, 26, 9, 1)
+        dateTime1 = LocalDateTime.of(1991, 3, 26, 9, 0)
+        dateTime2 = LocalDateTime.of(1991, 3, 26, 9, 1)
         open1 = Price(1)
         open2 = Price(10)
         high1 = Price(2)
@@ -44,7 +44,7 @@ class MinutelyPriceTest {
 
         // when
         val minutelyPrice = MinutelyPrice(
-            id = MinutelyPriceId(companyCode = companyCode1, dateTime = date1),
+            id = MinutelyPriceId(companyCode = companyCode1, dateTime = dateTime1),
             open = open1,
             high = high1,
             low = low1,
@@ -55,7 +55,7 @@ class MinutelyPriceTest {
         assertThat(minutelyPrice).isNotNull
         assertThat(minutelyPrice.id).isNotNull
         assertThat(minutelyPrice.id.companyCode).isEqualTo(companyCode1)
-        assertThat(minutelyPrice.id.dateTime).isEqualTo(date1)
+        assertThat(minutelyPrice.id.dateTime).isEqualTo(dateTime1)
         assertThat(minutelyPrice.open).isEqualTo(open1)
         assertThat(minutelyPrice.high).isEqualTo(high1)
         assertThat(minutelyPrice.low).isEqualTo(low1)
@@ -68,14 +68,14 @@ class MinutelyPriceTest {
 
         // when
         val minutelyPrice1 = MinutelyPrice(
-            id = MinutelyPriceId(companyCode = companyCode1, dateTime = date1),
+            id = MinutelyPriceId(companyCode = companyCode1, dateTime = dateTime1),
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
         val minutelyPrice2 = MinutelyPrice(
-            id = MinutelyPriceId(companyCode = companyCode1, dateTime = date1),
+            id = MinutelyPriceId(companyCode = companyCode1, dateTime = dateTime1),
             open = open1,
             high = high1,
             low = low1,
@@ -92,14 +92,14 @@ class MinutelyPriceTest {
 
         // when
         val minutelyPrice1 = MinutelyPrice(
-            id = MinutelyPriceId(companyCode = companyCode1, dateTime = date1),
+            id = MinutelyPriceId(companyCode = companyCode1, dateTime = dateTime1),
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
         val minutelyPrice2 = MinutelyPrice(
-            id = MinutelyPriceId(companyCode = companyCode2, dateTime = date2),
+            id = MinutelyPriceId(companyCode = companyCode2, dateTime = dateTime2),
             open = open2,
             high = high2,
             low = low2,
@@ -116,14 +116,14 @@ class MinutelyPriceTest {
 
         // when
         val minutelyPrice1 = MinutelyPrice(
-            id = MinutelyPriceId(companyCode = companyCode1, dateTime = date1),
+            id = MinutelyPriceId(companyCode = companyCode1, dateTime = dateTime1),
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
         val minutelyPrice2 = MinutelyPrice(
-            id = MinutelyPriceId(companyCode = companyCode1, dateTime = date1),
+            id = MinutelyPriceId(companyCode = companyCode1, dateTime = dateTime1),
             open = open1,
             high = high1,
             low = low1,
@@ -140,14 +140,14 @@ class MinutelyPriceTest {
 
         // when
         val minutelyPrice1 = MinutelyPrice(
-            id = MinutelyPriceId(companyCode = companyCode1, dateTime = date1),
+            id = MinutelyPriceId(companyCode = companyCode1, dateTime = dateTime1),
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
         val minutelyPrice2 = MinutelyPrice(
-            id = MinutelyPriceId(companyCode = companyCode2, dateTime = date2),
+            id = MinutelyPriceId(companyCode = companyCode2, dateTime = dateTime2),
             open = open2,
             high = high2,
             low = low2,

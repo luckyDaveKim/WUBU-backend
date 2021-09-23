@@ -97,7 +97,7 @@ class DailyPriceFindServiceTest {
     }
 
     @Test
-    fun `일별 데이터 조회 테스트`() {
+    fun `데이터 조회 테스트`() {
         // given
         val companyCode = CompanyCode("000000")
         val pagingReqDto = PagingReqDto()

@@ -48,6 +48,113 @@ class MinutelyVolumeTest {
     }
 
     @Test
+    fun `plus 테스트`() {
+        // given
+        val minutelyVolume1 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 0)
+            ),
+            volume = Volume(1)
+        )
+        val minutelyVolume2 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
+            ),
+            volume = Volume(10)
+        )
+
+        // when
+        val addedMinutelyVolume = minutelyVolume1 + minutelyVolume2
+
+        // then
+        val expectedMinutelyVolume = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
+            ),
+            volume = Volume(11)
+        )
+        assertThat(addedMinutelyVolume).isEqualTo(expectedMinutelyVolume)
+    }
+
+    @Test
+    fun `plus 실패 테스트`() {
+        // given
+        val minutelyVolume1 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 0)
+            ),
+            volume = Volume(1)
+        )
+        val minutelyVolume2 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
+            ),
+            volume = Volume(10)
+        )
+
+        // when
+        val addedMinutelyVolume = minutelyVolume1 + minutelyVolume2
+
+        // then
+        val expectedMinutelyVolume = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
+            ),
+            volume = Volume(20)
+        )
+        assertThat(addedMinutelyVolume).isNotEqualTo(expectedMinutelyVolume)
+    }
+
+    @Test
+    fun `toStacked 테스트`() {
+        // given
+        val minutelyVolume1 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 0)
+            ),
+            volume = Volume(1)
+        )
+        val minutelyVolume2 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
+            ),
+            volume = Volume(10)
+        )
+        val minutelyVolumes = listOf(minutelyVolume1, minutelyVolume2)
+
+        // when
+        val stackedMinutelyVolumes: List<MinutelyVolume> = minutelyVolumes.stream()
+            .collect(MinutelyVolume.toStacked())
+
+        // then
+        val stackedMinutelyVolume1 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 0)
+            ),
+            volume = Volume(1)
+        )
+        val stackedMinutelyVolume2 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
+            ),
+            volume = Volume(11)
+        )
+        val expectedMinutelyVolumes =
+            listOf(stackedMinutelyVolume1, stackedMinutelyVolume2)
+        assertThat(stackedMinutelyVolumes).isEqualTo(expectedMinutelyVolumes)
+    }
+
+    @Test
     fun `동등성 비교 테스트`() {
         // given
 
