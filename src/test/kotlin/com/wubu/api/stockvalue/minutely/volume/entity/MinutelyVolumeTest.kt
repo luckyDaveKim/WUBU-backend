@@ -69,46 +69,7 @@ class MinutelyVolumeTest {
         val addedMinutelyVolume = minutelyVolume1 + minutelyVolume2
 
         // then
-        val expectedMinutelyVolume = MinutelyVolume(
-            id = MinutelyVolumeId(
-                companyCode = CompanyCode("000001"),
-                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
-            ),
-            volume = Volume(11)
-        )
-        assertThat(addedMinutelyVolume).isEqualTo(expectedMinutelyVolume)
-    }
-
-    @Test
-    fun `plus 실패 테스트`() {
-        // given
-        val minutelyVolume1 = MinutelyVolume(
-            id = MinutelyVolumeId(
-                companyCode = CompanyCode("000001"),
-                dateTime = LocalDateTime.of(1991, 3, 26, 9, 0)
-            ),
-            volume = Volume(1)
-        )
-        val minutelyVolume2 = MinutelyVolume(
-            id = MinutelyVolumeId(
-                companyCode = CompanyCode("000001"),
-                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
-            ),
-            volume = Volume(10)
-        )
-
-        // when
-        val addedMinutelyVolume = minutelyVolume1 + minutelyVolume2
-
-        // then
-        val expectedMinutelyVolume = MinutelyVolume(
-            id = MinutelyVolumeId(
-                companyCode = CompanyCode("000001"),
-                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
-            ),
-            volume = Volume(20)
-        )
-        assertThat(addedMinutelyVolume).isNotEqualTo(expectedMinutelyVolume)
+        assertThat(addedMinutelyVolume.volume).isEqualTo(Volume(11))
     }
 
     @Test
@@ -135,23 +96,10 @@ class MinutelyVolumeTest {
             .collect(MinutelyVolume.toStacked())
 
         // then
-        val stackedMinutelyVolume1 = MinutelyVolume(
-            id = MinutelyVolumeId(
-                companyCode = CompanyCode("000001"),
-                dateTime = LocalDateTime.of(1991, 3, 26, 9, 0)
-            ),
-            volume = Volume(1)
-        )
-        val stackedMinutelyVolume2 = MinutelyVolume(
-            id = MinutelyVolumeId(
-                companyCode = CompanyCode("000001"),
-                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
-            ),
-            volume = Volume(11)
-        )
-        val expectedMinutelyVolumes =
-            listOf(stackedMinutelyVolume1, stackedMinutelyVolume2)
-        assertThat(stackedMinutelyVolumes).isEqualTo(expectedMinutelyVolumes)
+        assertThat(stackedMinutelyVolumes).isNotNull
+        assertThat(stackedMinutelyVolumes.size).isEqualTo(2)
+        assertThat(stackedMinutelyVolumes[0].volume).isEqualTo(Volume(1))
+        assertThat(stackedMinutelyVolumes[1].volume).isEqualTo(Volume(11))
     }
 
     @Test
@@ -179,6 +127,30 @@ class MinutelyVolumeTest {
     }
 
     @Test
+    fun `같은 id 동등성 비교 테스트`() {
+        // given
+
+        // when
+        val minutelyVolume1 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = companyCode1,
+                dateTime = dateTime1
+            ),
+            volume = volume1
+        )
+        val minutelyVolume2 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = companyCode1,
+                dateTime = dateTime1
+            ),
+            volume = volume2
+        )
+
+        // then
+        assertThat(minutelyVolume1).isEqualTo(minutelyVolume2)
+    }
+
+    @Test
     fun `동등성 비교 실패 테스트`() {
         // given
 
@@ -196,6 +168,30 @@ class MinutelyVolumeTest {
                 dateTime = dateTime2
             ),
             volume = volume2
+        )
+
+        // then
+        assertThat(minutelyVolume1).isNotEqualTo(minutelyVolume2)
+    }
+
+    @Test
+    fun `다른 id 동등성 비교 실패 테스트`() {
+        // given
+
+        // when
+        val minutelyVolume1 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = companyCode1,
+                dateTime = dateTime1
+            ),
+            volume = volume1
+        )
+        val minutelyVolume2 = MinutelyVolume(
+            id = MinutelyVolumeId(
+                companyCode = companyCode2,
+                dateTime = dateTime2
+            ),
+            volume = volume1
         )
 
         // then

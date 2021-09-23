@@ -57,14 +57,11 @@ class MinutelyVolume(
         other as MinutelyVolume
 
         if (id != other.id) return false
-        if (volume != other.volume) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + volume.hashCode()
-        return result
+        return id.hashCode()
     }
 }
