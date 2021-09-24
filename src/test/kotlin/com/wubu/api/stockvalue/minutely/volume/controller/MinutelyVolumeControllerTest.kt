@@ -77,8 +77,7 @@ class MinutelyVolumeControllerTest(
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-            get("/api/minutely/volume/companies/{companyCode}", companyCode.value)
-                .param("date", date.toString())
+            get("/api/minutely/volume/{date}/companies/{companyCode}", date, companyCode.value)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         )
