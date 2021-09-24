@@ -1,5 +1,6 @@
 package com.wubu.api.stockvalue.minutely.price.service
 
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.dto.res.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
@@ -33,6 +34,7 @@ class MinutelyPriceFindServiceTest {
 
     private lateinit var minutelyPrice1: MinutelyPrice
     private lateinit var minutelyPrice2: MinutelyPrice
+    private lateinit var minutelyPrice3: MinutelyPrice
 
     @BeforeEach
     fun setUp() {
@@ -57,6 +59,51 @@ class MinutelyPriceFindServiceTest {
             low = Price(30),
             close = Price(40)
         )
+
+        minutelyPrice3 = MinutelyPrice(
+            id = MinutelyPriceId(
+                companyCode = CompanyCode("000001"),
+                dateTime = LocalDateTime.of(1991, 3, 26, 9, 2)
+            ),
+            open = Price(100),
+            high = Price(200),
+            low = Price(300),
+            close = Price(400)
+        )
+    }
+
+    @Test
+    fun `분별 데이터 조회 테스트`() {
+        // given
+        val companyCode = CompanyCode("000001")
+        val pagingReqDto = PagingReqDto(
+            page = 1,
+            pageSize = 2
+        )
+
+        val minutelyPrices = listOf(minutelyPrice2, minutelyPrice3)
+        val reversedMinutelyPrices = minutelyPrices.reversed()
+        val pointResDto = PointResDto.of(
+            minutelyPrices.map(minutelyPriceToPointConverter::convert)
+                .toList()
+        )
+
+        given(
+            minutelyPriceRepository.findAllById_CompanyCodeOrderById_DateTimeDesc(
+                companyCode = companyCode,
+                pageable = pagingReqDto.getPageable()
+            )
+        ).willReturn(reversedMinutelyPrices)
+
+        // when
+        val foundPointResDto = minutelyPriceFindService.findMinutelyStockValue(
+            companyCode = companyCode,
+            pagingReqDto = pagingReqDto
+        )
+
+        // then
+        assertThat(foundPointResDto).isNotNull
+        assertThat(foundPointResDto).isEqualTo(pointResDto)
     }
 
     @Test
@@ -66,7 +113,7 @@ class MinutelyPriceFindServiceTest {
         val date = LocalDate.of(1991, 3, 26)
         val afterEqualDateTime = date.atStartOfDay()
         val beforeDateTime = date.plusDays(1).atStartOfDay()
-        val minutelyPrices = listOf(minutelyPrice1, minutelyPrice2)
+        val minutelyPrices = listOf(minutelyPrice2, minutelyPrice3)
         val reversedMinutelyPrices = minutelyPrices.reversed()
         val points = minutelyPrices.map(minutelyPriceToPointConverter::convert)
             .toList()

@@ -1,5 +1,6 @@
 package com.wubu.api.stockvalue.minutely.price.repository
 
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.stockvalue.minutely.price.entity.MinutelyPrice
@@ -76,6 +77,31 @@ class MinutelyPriceRepositoryTest(
 
         // then
         assertThat(foundMinutelyPrice.get()).isEqualTo(minutelyPrice1)
+    }
+
+    @Test
+    fun `코드 기준 리스트 조회 테스트`() {
+        // given
+        val companyCode = CompanyCode("000001")
+        val page = 1
+        val pageSize = 2
+        val pageable = PagingReqDto(
+            page = page,
+            pageSize = pageSize
+        ).getPageable()
+
+        // when
+        val foundMinutelyPrices =
+            minutelyPriceRepository.findAllById_CompanyCodeOrderById_DateTimeDesc(
+                companyCode = companyCode,
+                pageable = pageable
+            )
+
+        // then
+        assertThat(foundMinutelyPrices).isNotNull
+        assertThat(foundMinutelyPrices.size).isEqualTo(pageSize)
+        assertThat(foundMinutelyPrices[0]).isEqualTo(minutelyPrice3)
+        assertThat(foundMinutelyPrices[1]).isEqualTo(minutelyPrice2)
     }
 
     @Test

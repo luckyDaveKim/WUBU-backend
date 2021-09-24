@@ -89,7 +89,7 @@ class MinutelyVolumeRepositoryTest(
 
         // then
         assertThat(foundMinutelyVolumes).isNotNull
-        assertThat(foundMinutelyVolumes.size).isEqualTo(2)
+        assertThat(foundMinutelyVolumes.size).isEqualTo(pageSize)
         assertThat(foundMinutelyVolumes[0]).isEqualTo(minutelyVolume3)
         assertThat(foundMinutelyVolumes[1]).isEqualTo(minutelyVolume2)
     }

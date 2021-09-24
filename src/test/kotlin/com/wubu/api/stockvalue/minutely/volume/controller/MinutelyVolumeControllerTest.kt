@@ -96,6 +96,35 @@ class MinutelyVolumeControllerTest(
     }
 
     @Test
+    fun `default 페이징 정보 기반 특정 회사 데이터 조회 테스트`() {
+        // given
+        val points = listOf(minutelyVolume1, minutelyVolume2)
+            .map(converter::convert)
+            .toList()
+        val pointResDto = PointResDto.of(points)
+        val jsonMinutelyVolumeResDto = objectMapper.writeValueAsString(pointResDto)
+
+        given(
+            minutelyVolumeFindService.findMinutelyStockValue(
+                companyCode = companyCode,
+                pagingReqDto = PagingReqDto()
+            )
+        ).willReturn(pointResDto)
+
+        // when
+        val resultActions: ResultActions = mockMvc.perform(
+            get("/api/minutely/volume/companies/{companyCode}", companyCode.value)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        )
+
+        // then
+        resultActions.andExpect { status().isOk }
+            .andExpect(content().json(jsonMinutelyVolumeResDto))
+            .andDo { print() }
+    }
+
+    @Test
     fun `특정 회사 및 특정일 데이터 조회 테스트`() {
         // given
         val date = LocalDate.of(1991, 3, 26)
