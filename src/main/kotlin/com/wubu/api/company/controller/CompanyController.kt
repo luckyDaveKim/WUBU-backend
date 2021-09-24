@@ -25,6 +25,6 @@ class CompanyController(
     fun findCompanies(
         @ModelAttribute pagingReqDto: PagingReqDto
     ): CompaniesResDto {
-        return companyFindService.findCompanies()
+        return companyFindService.findCompanies(pagingReqDto)
     }
 }

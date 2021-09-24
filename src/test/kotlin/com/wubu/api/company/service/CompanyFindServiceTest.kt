@@ -1,5 +1,6 @@
 package com.wubu.api.company.service
 
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.dto.res.CompaniesResDto
 import com.wubu.api.company.entity.Company
@@ -26,6 +27,13 @@ class CompanyFindServiceTest {
     @Test
     fun `회사 리스트 조회 테스트`() {
         // given
+        val page = 1
+        val pageSize = 2
+        val pagingReqDto = PagingReqDto(
+            page = page,
+            pageSize = pageSize
+        )
+
         val company1 = Company(
             id = CompanyId(CompanyCode("000001")),
             name = "company name1",
@@ -39,11 +47,15 @@ class CompanyFindServiceTest {
         val companies = listOf(company1, company2)
         val companiesResDto = CompaniesResDto.of(companies)
 
-        given(companyRepository.findAllByOrderByNameAsc())
+        given(
+            companyRepository.findAllByOrderByNameAsc(
+                pageable = pagingReqDto.getPageable()
+            )
+        )
             .willReturn(companies)
 
         // when
-        val foundCompanies = companyFindService.findCompanies()
+        val foundCompanies = companyFindService.findCompanies(pagingReqDto)
 
         // then
         assertThat(foundCompanies).isEqualTo(companiesResDto)

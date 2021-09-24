@@ -1,6 +1,7 @@
 package com.wubu.api.company.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.dto.res.CompaniesResDto
 import com.wubu.api.company.entity.Company
@@ -34,6 +35,12 @@ class CompanyControllerTest(
     @Test
     fun `회사 리스트 조회 테스트`() {
         // given
+        val page = 1
+        val pageSize = 2
+        val pagingReqDto = PagingReqDto(
+            page = page,
+            pageSize = pageSize
+        )
         val company1 = Company(
             id = CompanyId(CompanyCode("000001")),
             name = "company name1",
@@ -47,7 +54,49 @@ class CompanyControllerTest(
         val companiesResDto = CompaniesResDto.of(listOf(company1, company2))
         val jsonCompaniesResDto = objectMapper.writeValueAsString(companiesResDto)
 
-        given(companyFindService.findCompanies())
+        given(
+            companyFindService.findCompanies(
+                pagingReqDto = pagingReqDto
+            )
+        )
+            .willReturn(companiesResDto)
+
+        // when
+        val resultActions: ResultActions = mockMvc.perform(
+            get("/api/companies")
+                .param("page", page.toString())
+                .param("pageSize", pageSize.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        )
+
+        // then
+        resultActions.andExpect { status().isOk }
+            .andExpect(content().json(jsonCompaniesResDto))
+            .andDo { print() }
+    }
+
+    @Test
+    fun `default 페이징 정보 기반 회사 리스트 조회 테스트`() {
+        // given
+        val company1 = Company(
+            id = CompanyId(CompanyCode("000001")),
+            name = "company name1",
+            date = LocalDate.of(1991, 3, 26)
+        )
+        val company2 = Company(
+            id = CompanyId(CompanyCode("000002")),
+            name = "company name2",
+            date = LocalDate.of(1991, 3, 26)
+        )
+        val companiesResDto = CompaniesResDto.of(listOf(company1, company2))
+        val jsonCompaniesResDto = objectMapper.writeValueAsString(companiesResDto)
+
+        given(
+            companyFindService.findCompanies(
+                pagingReqDto = PagingReqDto()
+            )
+        )
             .willReturn(companiesResDto)
 
         // when

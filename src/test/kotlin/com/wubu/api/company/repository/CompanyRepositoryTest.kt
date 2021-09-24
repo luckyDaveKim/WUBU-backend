@@ -1,5 +1,6 @@
 package com.wubu.api.company.repository
 
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.entity.Company
 import com.wubu.api.company.entity.CompanyId
@@ -76,16 +77,22 @@ class CompanyRepositoryTest(
     @Test
     fun `전체 조회 테스트`() {
         // given
+        val page = 1
+        val pageSize = 2
+        val pagingReqDto = PagingReqDto(
+            page = page,
+            pageSize = pageSize
+        )
 
         // when
-        val foundCompanies = companyRepository.findAllByOrderByNameAsc()
+        val foundCompanies = companyRepository.findAllByOrderByNameAsc(
+            pageable = pagingReqDto.getPageable()
+        )
 
         // then
         assertThat(foundCompanies).isNotNull
-        assertThat(foundCompanies.size).isEqualTo(4)
+        assertThat(foundCompanies.size).isEqualTo(pageSize)
         assertThat(foundCompanies[0]).isEqualTo(company1)
         assertThat(foundCompanies[1]).isEqualTo(company2)
-        assertThat(foundCompanies[2]).isEqualTo(company3)
-        assertThat(foundCompanies[3]).isEqualTo(company4)
     }
 }
