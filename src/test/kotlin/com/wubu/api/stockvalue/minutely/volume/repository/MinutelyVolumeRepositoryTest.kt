@@ -1,5 +1,6 @@
 package com.wubu.api.stockvalue.minutely.volume.repository
 
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.stockvalue.minutely.volume.entity.MinutelyVolume
@@ -67,6 +68,30 @@ class MinutelyVolumeRepositoryTest(
 
         // then
         assertThat(foundMinutelyVolume.get()).isEqualTo(minutelyVolume1)
+    }
+
+    @Test
+    fun `코드 기준 리스트 조회 테스트`() {
+        // given
+        val companyCode = CompanyCode("000001")
+        val page = 1
+        val pageSize = 2
+        val pageable = PagingReqDto(
+            page = page,
+            pageSize = pageSize
+        ).getPageable()
+
+        // when
+        val foundMinutelyVolumes = minutelyVolumeRepository.findAllById_CompanyCodeOrderById_DateTimeDesc(
+            companyCode = companyCode,
+            pageable = pageable
+        )
+
+        // then
+        assertThat(foundMinutelyVolumes).isNotNull
+        assertThat(foundMinutelyVolumes.size).isEqualTo(2)
+        assertThat(foundMinutelyVolumes[0]).isEqualTo(minutelyVolume3)
+        assertThat(foundMinutelyVolumes[1]).isEqualTo(minutelyVolume2)
     }
 
     @Test

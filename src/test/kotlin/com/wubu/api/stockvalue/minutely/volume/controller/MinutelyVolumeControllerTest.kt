@@ -1,6 +1,7 @@
 package com.wubu.api.stockvalue.minutely.volume.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.dto.res.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Volume
@@ -59,7 +60,43 @@ class MinutelyVolumeControllerTest(
     }
 
     @Test
-    fun `특정일 데이터 조회 테스트`() {
+    fun `특정 회사 데이터 조회 테스트`() {
+        // given
+        val pagingReqDto = PagingReqDto(
+            page = 1,
+            pageSize = 2
+        )
+
+        val points = listOf(minutelyVolume1, minutelyVolume2)
+            .map(converter::convert)
+            .toList()
+        val pointResDto = PointResDto.of(points)
+        val jsonMinutelyVolumeResDto = objectMapper.writeValueAsString(pointResDto)
+
+        given(
+            minutelyVolumeFindService.findMinutelyStockValue(
+                companyCode = companyCode,
+                pagingReqDto = pagingReqDto
+            )
+        ).willReturn(pointResDto)
+
+        // when
+        val resultActions: ResultActions = mockMvc.perform(
+            get("/api/minutely/volume/companies/{companyCode}", companyCode.value)
+                .param("page", "1")
+                .param("pageSize", "2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        )
+
+        // then
+        resultActions.andExpect { status().isOk }
+            .andExpect(content().json(jsonMinutelyVolumeResDto))
+            .andDo { print() }
+    }
+
+    @Test
+    fun `특정 회사 및 특정일 데이터 조회 테스트`() {
         // given
         val date = LocalDate.of(1991, 3, 26)
         val points = listOf(minutelyVolume1, minutelyVolume2)

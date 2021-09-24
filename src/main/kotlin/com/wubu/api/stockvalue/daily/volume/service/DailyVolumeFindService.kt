@@ -15,6 +15,7 @@ class DailyVolumeFindService(
     private val dailyVolumeRepository: DailyVolumeRepository,
     private val dailyVolumeToPointConverter: DailyVolumeToPointConverter
 ) : DailyStockValueFindService {
+
     override fun findDailyStockValue(companyCode: CompanyCode, pagingReqDto: PagingReqDto): PointResDto {
         val points =
             dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(companyCode, pagingReqDto.getPageable())

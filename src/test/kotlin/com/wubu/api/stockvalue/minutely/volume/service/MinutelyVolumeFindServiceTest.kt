@@ -1,5 +1,6 @@
 package com.wubu.api.stockvalue.minutely.volume.service
 
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.dto.res.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Volume
@@ -58,6 +59,40 @@ class MinutelyVolumeFindServiceTest {
             ),
             volume = Volume(3)
         )
+    }
+
+    @Test
+    fun `분별 데이터 조회 테스트`() {
+        // given
+        val companyCode = CompanyCode("000001")
+        val pagingReqDto = PagingReqDto(
+            page = 1,
+            pageSize = 2
+        )
+
+        val minutelyVolumes = listOf(minutelyVolume2, minutelyVolume3)
+        val reversedMinutelyVolumes = minutelyVolumes.reversed()
+        val pointResDto = PointResDto.of(
+            minutelyVolumes.map(converter::convert)
+                .toList()
+        )
+
+        given(
+            minutelyVolumeRepository.findAllById_CompanyCodeOrderById_DateTimeDesc(
+                companyCode = companyCode,
+                pageable = pagingReqDto.getPageable()
+            )
+        ).willReturn(reversedMinutelyVolumes)
+
+        // when
+        val foundPointResDto = minutelyVolumeFindService.findMinutelyStockValue(
+            companyCode = companyCode,
+            pagingReqDto = pagingReqDto
+        )
+
+        // then
+        assertThat(foundPointResDto).isNotNull
+        assertThat(foundPointResDto).isEqualTo(pointResDto)
     }
 
     @Test
