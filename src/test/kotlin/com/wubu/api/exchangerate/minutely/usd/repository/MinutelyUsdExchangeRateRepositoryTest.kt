@@ -82,6 +82,42 @@ class MinutelyUsdExchangeRateRepositoryTest(
     }
 
     @Test
+    fun `날짜 기준 Top 조회 테스트`() {
+        // given
+        val date = LocalDate.of(1991, 3, 26)
+        val afterEqualDateTime = date.atStartOfDay()
+        val beforeDateTime = date.plusDays(1).atStartOfDay()
+
+        // when
+        val foundMinutelyUsdExchangeRates =
+            minutelyUsdExchangeRateRepository.findTopById_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeDesc(
+                afterEqualDateTime = afterEqualDateTime,
+                beforeDateTime = beforeDateTime
+            )
+
+        // then
+        assertThat(foundMinutelyUsdExchangeRates).isEqualTo(minutelyUsdExchangeRate4)
+    }
+
+    @Test
+    fun `미존재 데이터 날짜 기준 Top 조회 테스트`() {
+        // given
+        val date = LocalDate.of(1981, 3, 26)
+        val afterEqualDateTime = date.atStartOfDay()
+        val beforeDateTime = date.plusDays(1).atStartOfDay()
+
+        // when
+        val foundMinutelyUsdExchangeRates =
+            minutelyUsdExchangeRateRepository.findTopById_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeDesc(
+                afterEqualDateTime = afterEqualDateTime,
+                beforeDateTime = beforeDateTime
+            )
+
+        // then
+        assertThat(foundMinutelyUsdExchangeRates).isNull()
+    }
+
+    @Test
     fun `날짜 기준 조회 테스트`() {
         // given
         val date = LocalDate.of(1991, 3, 26)
@@ -101,5 +137,24 @@ class MinutelyUsdExchangeRateRepositoryTest(
         assertThat(foundMinutelyUsdExchangeRates[0]).isEqualTo(minutelyUsdExchangeRate4)
         assertThat(foundMinutelyUsdExchangeRates[1]).isEqualTo(minutelyUsdExchangeRate3)
         assertThat(foundMinutelyUsdExchangeRates[2]).isEqualTo(minutelyUsdExchangeRate2)
+    }
+
+    @Test
+    fun `미존재 데이터 날짜 기준 조회 테스트`() {
+        // given
+        val date = LocalDate.of(1981, 3, 26)
+        val afterEqualDateTime = date.atStartOfDay()
+        val beforeDateTime = date.plusDays(1).atStartOfDay()
+
+        // when
+        val foundMinutelyUsdExchangeRates =
+            minutelyUsdExchangeRateRepository.findAllById_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeDesc(
+                afterEqualDateTime = afterEqualDateTime,
+                beforeDateTime = beforeDateTime
+            )
+
+        // then
+        assertThat(foundMinutelyUsdExchangeRates).isNotNull
+        assertThat(foundMinutelyUsdExchangeRates.size).isEqualTo(0)
     }
 }

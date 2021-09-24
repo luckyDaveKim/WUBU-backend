@@ -8,6 +8,11 @@ import java.time.LocalDateTime
 
 @Repository
 interface MinutelyUsdExchangeRateRepository : JpaRepository<MinutelyUsdExchangeRate, MinutelyUsdExchangeRateId> {
+    fun findTopById_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeDesc(
+        afterEqualDateTime: LocalDateTime,
+        beforeDateTime: LocalDateTime
+    ): MinutelyUsdExchangeRate?
+
     fun findAllById_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeDesc(
         afterEqualDateTime: LocalDateTime,
         beforeDateTime: LocalDateTime
