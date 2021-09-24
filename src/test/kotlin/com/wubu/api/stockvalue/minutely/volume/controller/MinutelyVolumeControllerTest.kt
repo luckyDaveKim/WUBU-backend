@@ -17,7 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -77,7 +77,7 @@ class MinutelyVolumeControllerTest(
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-            MockMvcRequestBuilders.get("/api/minutely/volume/companies/{companyCode}", companyCode.value)
+            get("/api/minutely/volume/companies/{companyCode}", companyCode.value)
                 .param("date", date.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
