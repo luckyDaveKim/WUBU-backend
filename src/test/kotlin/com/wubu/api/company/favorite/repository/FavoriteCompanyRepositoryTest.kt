@@ -1,5 +1,6 @@
 package com.wubu.api.company.favorite.repository
 
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.entity.Company
 import com.wubu.api.company.entity.CompanyId
@@ -92,12 +93,22 @@ class FavoriteCompanyRepositoryTest(
     @Test
     fun `전체 조회 테스트`() {
         // given
+        val page = 1
+        val pageSize = 2
+        val pagingReqDto = PagingReqDto(
+            page = page,
+            pageSize = pageSize
+        )
 
         // when
-        val foundFavoriteCompanies = favoriteCompanyRepository.findAll()
+        val foundFavoriteCompanies = favoriteCompanyRepository.findAllByOrderByCompany_NameAsc(
+            pageable = pagingReqDto.getPageable()
+        )
 
         // then
         assertThat(foundFavoriteCompanies).isNotNull
-        assertThat(foundFavoriteCompanies.size).isEqualTo(4)
+        assertThat(foundFavoriteCompanies.size).isEqualTo(2)
+        assertThat(foundFavoriteCompanies[0]).isEqualTo(favoriteCompany1)
+        assertThat(foundFavoriteCompanies[1]).isEqualTo(favoriteCompany2)
     }
 }

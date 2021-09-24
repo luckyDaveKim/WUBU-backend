@@ -1,6 +1,7 @@
 package com.wubu.api.company.favorite.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.wubu.api.common.web.dto.req.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.company.dto.CompanyDto
 import com.wubu.api.company.favorite.dto.req.FavoriteCompanyReqDto
@@ -39,6 +40,13 @@ class FavoriteCompanyControllerTest(
     @Test
     fun `즐겨찾기 회사 리스트 조회 테스트`() {
         // given
+        val page = 1
+        val pageSize = 2
+        val pagingReqDto = PagingReqDto(
+            page = page,
+            pageSize = pageSize
+        )
+
         val companyDto1 = CompanyDto(
             code = CompanyCode("000001"),
             name = "company name1"
@@ -50,12 +58,18 @@ class FavoriteCompanyControllerTest(
         val favoriteCompaniesResDto = FavoriteCompaniesResDto(setOf(companyDto1, companyDto2))
         val jsonFavoriteCompaniesResDto = objectMapper.writeValueAsString(favoriteCompaniesResDto)
 
-        given(favoriteCompanyFindService.findCompanies())
+        given(
+            favoriteCompanyFindService.findCompanies(
+                pagingReqDto = pagingReqDto
+            )
+        )
             .willReturn(favoriteCompaniesResDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
             get("/api/companies/favorite")
+                .param("page", page.toString())
+                .param("pageSize", pageSize.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         )
