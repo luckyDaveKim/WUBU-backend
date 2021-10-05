@@ -1,6 +1,6 @@
 package com.wubu.api.common.web.model
 
-import com.wubu.api.common.error.exception.InvalidPercentageException
+import com.wubu.api.common.exception.InvalidPercentageException
 
 data class Percentage(private val percentage: Double) : SingleValue<Double>(percentage) {
     private fun validate(percentage: Double) {

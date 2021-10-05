@@ -1,6 +1,6 @@
 package com.wubu.api.common.web.model.exchangerate
 
-import com.wubu.api.common.error.exception.InvalidRateException
+import com.wubu.api.common.exception.InvalidRateException
 import com.wubu.api.common.web.model.SingleValue
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat

@@ -1,6 +1,6 @@
 package com.wubu.api.common.web.model
 
-import com.wubu.api.common.error.exception.InvalidPercentageException
+import com.wubu.api.common.exception.InvalidPercentageException
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

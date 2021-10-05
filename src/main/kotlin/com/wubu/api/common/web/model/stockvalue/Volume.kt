@@ -1,6 +1,6 @@
 package com.wubu.api.common.web.model.stockvalue
 
-import com.wubu.api.common.error.exception.InvalidVolumeException
+import com.wubu.api.common.exception.InvalidVolumeException
 import com.wubu.api.common.web.model.SingleValue
 import javax.persistence.AttributeConverter
 

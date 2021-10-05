@@ -1,0 +1,3 @@
+package com.wubu.api.application
+
+interface MinutelyStackedStockValueFindService : StackedStockValueFindService

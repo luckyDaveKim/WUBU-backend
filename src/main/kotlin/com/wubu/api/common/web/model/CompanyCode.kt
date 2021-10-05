@@ -1,6 +1,6 @@
 package com.wubu.api.common.web.model
 
-import com.wubu.api.common.error.exception.InvalidLengthCompanyCodeException
+import com.wubu.api.common.exception.InvalidLengthCompanyCodeException
 import java.io.Serializable
 import javax.persistence.AttributeConverter
 

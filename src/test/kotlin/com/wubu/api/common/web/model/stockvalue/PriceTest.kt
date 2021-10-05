@@ -1,6 +1,6 @@
 package com.wubu.api.common.web.model.stockvalue
 
-import com.wubu.api.common.error.exception.InvalidPriceException
+import com.wubu.api.common.exception.InvalidPriceException
 import com.wubu.api.common.web.model.SingleValue
 import com.wubu.api.common.web.model.stockvalue.Price.PriceConverter
 import org.assertj.core.api.Assertions.assertThat
