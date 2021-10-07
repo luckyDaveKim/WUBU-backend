@@ -27,7 +27,7 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 
 @WebMvcTest(DailyPriceController::class)
-class DailyPriceControllerTest(
+internal class DailyPriceControllerTest(
     @Autowired
     private val mockMvc: MockMvc
 ) {

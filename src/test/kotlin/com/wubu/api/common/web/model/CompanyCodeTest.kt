@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
-class CompanyCodeTest {
+internal class CompanyCodeTest {
 
     @Test
     fun `생성 테스트`() {

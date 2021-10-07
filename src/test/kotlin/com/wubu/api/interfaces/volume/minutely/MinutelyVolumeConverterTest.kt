@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-class MinutelyVolumeConverterTest {
+internal class MinutelyVolumeConverterTest {
 
     private lateinit var converter: MinutelyVolumeToPointConverter
 

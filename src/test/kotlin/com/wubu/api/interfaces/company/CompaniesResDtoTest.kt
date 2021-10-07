@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-class CompaniesResDtoTest {
+internal class CompaniesResDtoTest {
 
     private lateinit var company1: Company
     private lateinit var company2: Company

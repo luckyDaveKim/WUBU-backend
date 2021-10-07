@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 
 @WebMvcTest(UsdExchangeRateStatusController::class)
-class UsdExchangeRateStatusControllerTest(
+internal class UsdExchangeRateStatusControllerTest(
     @Autowired
     private val mockMvc: MockMvc
 ) {

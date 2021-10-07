@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RateTest {
+internal class RateTest {
 
     @Test
     fun `생성 테스트`() {

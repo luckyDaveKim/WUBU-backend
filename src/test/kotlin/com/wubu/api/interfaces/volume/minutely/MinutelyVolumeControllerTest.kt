@@ -26,7 +26,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @WebMvcTest(MinutelyVolumeController::class)
-class MinutelyVolumeControllerTest(
+internal class MinutelyVolumeControllerTest(
     @Autowired
     private val mockMvc: MockMvc
 ) {

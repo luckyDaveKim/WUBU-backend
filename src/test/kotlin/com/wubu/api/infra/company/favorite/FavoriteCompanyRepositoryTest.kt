@@ -18,7 +18,7 @@ import java.time.LocalDate
 @SpringBootTest
 @ContextConfiguration(initializers = [ConfigDataApplicationContextInitializer::class])
 @ActiveProfiles("test")
-class FavoriteCompanyRepositoryTest(
+internal class FavoriteCompanyRepositoryTest(
     @Autowired
     private val favoriteCompanyRepository: FavoriteCompanyRepository
 ) {

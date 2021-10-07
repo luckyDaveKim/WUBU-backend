@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 
 @WebMvcTest(CompanyController::class)
-class CompanyControllerTest(
+internal class CompanyControllerTest(
     @Autowired
     private val mockMvc: MockMvc
 ) {

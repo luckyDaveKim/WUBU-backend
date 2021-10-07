@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
 
 @ExtendWith(MockitoExtension::class)
-class FavoriteCompanyFindServiceTest {
+internal class FavoriteCompanyFindServiceTest {
 
     @Mock
     private lateinit var favoriteCompanyRepository: FavoriteCompanyRepository

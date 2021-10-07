@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-class MinutelyPriceConverterTest {
+internal class MinutelyPriceConverterTest {
 
     private lateinit var minutelyPriceToPointConverter: MinutelyPriceToPointConverter
 

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import java.time.DayOfWeek
 import java.time.LocalDate
 
-class DateUtilTest {
+internal class DateUtilTest {
 
     @Test
     fun `생성 테스트`() {
