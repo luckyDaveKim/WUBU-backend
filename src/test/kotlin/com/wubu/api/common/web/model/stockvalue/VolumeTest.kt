@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
-class VolumeTest {
+internal class VolumeTest {
 
     @Test
     fun `생성 테스트`() {

@@ -19,7 +19,7 @@ import java.time.LocalDate
 @SpringBootTest
 @ContextConfiguration(initializers = [ConfigDataApplicationContextInitializer::class])
 @ActiveProfiles("test")
-class DailyPriceRepositoryTest(
+internal class DailyPriceRepositoryTest(
     @Autowired
     private val dailyPriceRepository: DailyPriceRepository
 ) {

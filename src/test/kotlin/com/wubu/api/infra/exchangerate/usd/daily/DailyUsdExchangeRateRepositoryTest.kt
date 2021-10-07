@@ -17,7 +17,7 @@ import java.time.LocalDate
 @SpringBootTest
 @ContextConfiguration(initializers = [ConfigDataApplicationContextInitializer::class])
 @ActiveProfiles("test")
-class DailyUsdExchangeRateRepositoryTest(
+internal class DailyUsdExchangeRateRepositoryTest(
     @Autowired
     private val dailyUsdExchangeRateRepository: DailyUsdExchangeRateRepository
 ) {

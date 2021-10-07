@@ -21,7 +21,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @ExtendWith(MockitoExtension::class)
-class MinutelyPriceFindServiceTest {
+internal class MinutelyPriceFindServiceTest {
 
     @Mock
     private lateinit var minutelyPriceRepository: MinutelyPriceRepository

@@ -21,7 +21,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @ExtendWith(MockitoExtension::class)
-class MinutelyVolumeFindServiceTest {
+internal class MinutelyVolumeFindServiceTest {
 
     @Mock
     private lateinit var minutelyVolumeRepository: MinutelyVolumeRepository

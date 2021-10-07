@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
-class MinutelyUsdExchangeRateIdTest {
+internal class MinutelyUsdExchangeRateIdTest {
 
     private lateinit var dateTime1: LocalDateTime
     private lateinit var dateTime2: LocalDateTime

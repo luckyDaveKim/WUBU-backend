@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(FavoriteCompanyController::class)
-class FavoriteCompanyControllerTest(
+internal class FavoriteCompanyControllerTest(
     @Autowired
     private val mockMvc: MockMvc
 ) {

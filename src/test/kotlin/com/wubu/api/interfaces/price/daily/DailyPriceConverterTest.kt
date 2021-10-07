@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.ZoneOffset
 
-class DailyPriceConverterTest {
+internal class DailyPriceConverterTest {
 
     private lateinit var dailyPriceToPointConverter: DailyPriceToPointConverter
 

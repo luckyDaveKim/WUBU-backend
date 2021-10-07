@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.ZoneOffset
 
-class DailyUsdExchangeRateConverterTest {
+internal class DailyUsdExchangeRateConverterTest {
 
     private lateinit var converter: DailyUsdExchangeRateToPointConverter
 

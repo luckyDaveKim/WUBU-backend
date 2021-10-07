@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class PointTest {
+internal class PointTest {
 
     private lateinit var x1: Number
     private lateinit var y1: Number

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-class DailyUsdExchangeRateTest {
+internal class DailyUsdExchangeRateTest {
 
     private lateinit var id1: DailyUsdExchangeRateId
     private lateinit var id2: DailyUsdExchangeRateId

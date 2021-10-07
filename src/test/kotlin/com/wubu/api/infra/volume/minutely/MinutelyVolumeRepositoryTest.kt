@@ -19,7 +19,7 @@ import java.time.LocalDateTime
 @SpringBootTest
 @ContextConfiguration(initializers = [ConfigDataApplicationContextInitializer::class])
 @ActiveProfiles("test")
-class MinutelyVolumeRepositoryTest(
+internal class MinutelyVolumeRepositoryTest(
     @Autowired
     private val minutelyVolumeRepository: MinutelyVolumeRepository
 ) {

@@ -24,7 +24,7 @@ import java.time.LocalDate
 import java.util.Optional
 
 @ExtendWith(MockitoExtension::class)
-class FavoriteCompanySaveServiceTest {
+internal class FavoriteCompanySaveServiceTest {
 
     @Mock
     private lateinit var favoriteCompanyRepository: FavoriteCompanyRepository

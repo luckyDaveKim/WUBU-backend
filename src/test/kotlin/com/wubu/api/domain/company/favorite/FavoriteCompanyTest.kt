@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-class FavoriteCompanyTest {
+internal class FavoriteCompanyTest {
 
     private lateinit var userId: String
     private lateinit var company1: Company

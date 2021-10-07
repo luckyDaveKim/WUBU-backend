@@ -19,7 +19,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @ExtendWith(MockitoExtension::class)
-class MinutelyUsdExchangeRateFindServiceTest {
+internal class MinutelyUsdExchangeRateFindServiceTest {
 
     @Mock
     private lateinit var minutelyUsdExchangeRateRepository: MinutelyUsdExchangeRateRepository
