@@ -17,7 +17,7 @@ internal class FavoriteCompaniesResDtoTest {
     private lateinit var companyName1: String
     private lateinit var companyName2: String
     private lateinit var companyDto1: CompanyDto
-    private lateinit var CompanyDto2: CompanyDto
+    private lateinit var companyDto2: CompanyDto
 
     @BeforeEach
     fun setUp() {
@@ -29,7 +29,7 @@ internal class FavoriteCompaniesResDtoTest {
             code = companyCode1,
             name = companyName1
         )
-        CompanyDto2 = CompanyDto(
+        companyDto2 = CompanyDto(
             code = companyCode2,
             name = companyName2
         )
@@ -38,7 +38,7 @@ internal class FavoriteCompaniesResDtoTest {
     @Test
     fun `생성 테스트`() {
         // given
-        val favoriteCompanyDtoSet = setOf(companyDto1, CompanyDto2)
+        val favoriteCompanyDtoSet = setOf(companyDto1, companyDto2)
 
         // when
         val favoriteCompaniesResDto = FavoriteCompaniesResDto(favoriteCompanyDtoSet)
@@ -46,7 +46,7 @@ internal class FavoriteCompaniesResDtoTest {
         // then
         assertThat(favoriteCompaniesResDto).isNotNull
         assertThat(favoriteCompaniesResDto.companyDtoSet).isEqualTo(favoriteCompanyDtoSet)
-        assertThat(favoriteCompaniesResDto.companyDtoSet).contains(companyDto1, CompanyDto2)
+        assertThat(favoriteCompaniesResDto.companyDtoSet).contains(companyDto1, companyDto2)
         assertThat(favoriteCompaniesResDto.companyDtoSet.size).isEqualTo(2)
     }
 
@@ -98,7 +98,7 @@ internal class FavoriteCompaniesResDtoTest {
     fun `동등성 비교 실패 테스트`() {
         // given
         val favoriteCompanyDtoSet1 = setOf(companyDto1)
-        val favoriteCompanyDtoSet2 = setOf(CompanyDto2)
+        val favoriteCompanyDtoSet2 = setOf(companyDto2)
 
         // when
         val favoriteCompaniesResDto1 = FavoriteCompaniesResDto(favoriteCompanyDtoSet1)
