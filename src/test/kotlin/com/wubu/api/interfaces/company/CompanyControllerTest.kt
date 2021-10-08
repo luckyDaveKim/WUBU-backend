@@ -50,15 +50,15 @@ internal class CompanyControllerTest(
             name = "company name2",
             date = LocalDate.of(1991, 3, 26)
         )
-        val companiesResDto = CompaniesResDto.of(listOf(company1, company2))
-        val jsonCompaniesResDto = objectMapper.writeValueAsString(companiesResDto)
+        val companyResList = listOf(company1, company2).map { company -> CompanyRes.of(company) }
+        val jsonCompaniesResDto = objectMapper.writeValueAsString(companyResList)
 
         given(
             companyFindService.findCompanies(
                 pagingReqDto = pagingReqDto
             )
         )
-            .willReturn(companiesResDto)
+            .willReturn(companyResList)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -88,15 +88,15 @@ internal class CompanyControllerTest(
             name = "company name2",
             date = LocalDate.of(1991, 3, 26)
         )
-        val companiesResDto = CompaniesResDto.of(listOf(company1, company2))
-        val jsonCompaniesResDto = objectMapper.writeValueAsString(companiesResDto)
+        val companyResList = listOf(company1, company2).map { company -> CompanyRes.of(company) }
+        val jsonCompaniesResDto = objectMapper.writeValueAsString(companyResList)
 
         given(
             companyFindService.findCompanies(
                 pagingReqDto = PagingReqDto()
             )
         )
-            .willReturn(companiesResDto)
+            .willReturn(companyResList)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(

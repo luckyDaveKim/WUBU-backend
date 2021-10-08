@@ -5,7 +5,7 @@ import com.wubu.api.application.company.favorite.FavoriteCompanyFindService
 import com.wubu.api.application.company.favorite.FavoriteCompanySaveService
 import com.wubu.api.common.web.dto.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
-import com.wubu.api.interfaces.company.CompanyDto
+import com.wubu.api.interfaces.company.CompanyRes
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.verify
@@ -45,15 +45,15 @@ internal class FavoriteCompanyControllerTest(
             pageSize = pageSize
         )
 
-        val companyDto1 = CompanyDto(
+        val companyRes1 = CompanyRes(
             code = CompanyCode("000001"),
             name = "company name1"
         )
-        val companyDto2 = CompanyDto(
+        val companyRes2 = CompanyRes(
             code = CompanyCode("000002"),
             name = "company name2"
         )
-        val favoriteCompaniesResDto = FavoriteCompaniesResDto(setOf(companyDto1, companyDto2))
+        val favoriteCompaniesResDto = FavoriteCompaniesResDto(setOf(companyRes1, companyRes2))
         val jsonFavoriteCompaniesResDto = objectMapper.writeValueAsString(favoriteCompaniesResDto)
 
         given(

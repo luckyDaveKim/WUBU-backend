@@ -23,7 +23,7 @@ class CompanyController(
     @ResponseStatus(HttpStatus.OK)
     fun findCompanies(
         @ModelAttribute pagingReqDto: PagingReqDto
-    ): CompaniesResDto {
+    ): List<CompanyRes> {
         return companyFindService.findCompanies(pagingReqDto)
     }
 }

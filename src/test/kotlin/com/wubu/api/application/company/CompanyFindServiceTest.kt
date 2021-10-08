@@ -5,7 +5,7 @@ import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.domain.company.Company
 import com.wubu.api.domain.company.CompanyId
 import com.wubu.api.infra.company.CompanyRepository
-import com.wubu.api.interfaces.company.CompaniesResDto
+import com.wubu.api.interfaces.company.CompanyRes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -45,7 +45,7 @@ internal class CompanyFindServiceTest {
             date = LocalDate.of(1991, 3, 26)
         )
         val companies = listOf(company1, company2)
-        val companiesResDto = CompaniesResDto.of(companies)
+        val companyResList = companies.map { company -> CompanyRes.of(company) }
 
         given(
             companyRepository.findAllByOrderByNameAsc(
@@ -58,6 +58,6 @@ internal class CompanyFindServiceTest {
         val foundCompanies = companyFindService.findCompanies(pagingReqDto)
 
         // then
-        assertThat(foundCompanies).isEqualTo(companiesResDto)
+        assertThat(foundCompanies).isEqualTo(companyResList)
     }
 }
