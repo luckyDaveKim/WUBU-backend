@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-internal class CompanyDtoTest {
+internal class CompanyResTest {
 
     private lateinit var company1: Company
     private lateinit var company2: Company
@@ -34,14 +34,14 @@ internal class CompanyDtoTest {
         val companyName = "company name"
 
         // when
-        val companyDto = CompanyDto(
+        val companyRes = CompanyRes(
             code = companyCode,
             name = companyName
         )
 
         // then
-        assertThat(companyDto.code).isEqualTo(companyCode)
-        assertThat(companyDto.name).isEqualTo(companyName)
+        assertThat(companyRes.code).isEqualTo(companyCode)
+        assertThat(companyRes.name).isEqualTo(companyName)
     }
 
     @Test
@@ -49,11 +49,11 @@ internal class CompanyDtoTest {
         // given
 
         // when
-        val companyDto = CompanyDto.of(company1)
+        val companyRes = CompanyRes.of(company1)
 
         // then
-        assertThat(companyDto.code).isEqualTo(company1.id.companyCode)
-        assertThat(companyDto.name).isEqualTo(company1.name)
+        assertThat(companyRes.code).isEqualTo(company1.id.companyCode)
+        assertThat(companyRes.name).isEqualTo(company1.name)
     }
 
     @Test
@@ -61,11 +61,11 @@ internal class CompanyDtoTest {
         // given
 
         // when
-        val companyDto1 = CompanyDto.of(company1)
-        val companyDto2 = CompanyDto.of(company1)
+        val companyRes1 = CompanyRes.of(company1)
+        val companyRes2 = CompanyRes.of(company1)
 
         // then
-        assertThat(companyDto1).isEqualTo(companyDto2)
+        assertThat(companyRes1).isEqualTo(companyRes2)
     }
 
     @Test
@@ -73,10 +73,10 @@ internal class CompanyDtoTest {
         // given
 
         // when
-        val companyDto1 = CompanyDto.of(company1)
-        val companyDto2 = CompanyDto.of(company2)
+        val companyRes1 = CompanyRes.of(company1)
+        val companyRes2 = CompanyRes.of(company2)
 
         // then
-        assertThat(companyDto1).isNotEqualTo(companyDto2)
+        assertThat(companyRes1).isNotEqualTo(companyRes2)
     }
 }

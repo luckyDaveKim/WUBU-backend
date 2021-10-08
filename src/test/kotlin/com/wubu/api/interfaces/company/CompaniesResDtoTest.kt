@@ -42,9 +42,9 @@ internal class CompaniesResDtoTest {
     @Test
     fun `생성 테스트`() {
         // given
-        val companyDto1 = CompanyDto.of(company1)
-        val companyDto2 = CompanyDto.of(company2)
-        val companiesDto = listOf(companyDto1, companyDto2)
+        val companyRes1 = CompanyRes.of(company1)
+        val companyRes2 = CompanyRes.of(company2)
+        val companiesDto = listOf(companyRes1, companyRes2)
 
         // when
         val companiesResDto = CompaniesResDto(companiesDto)
@@ -53,15 +53,15 @@ internal class CompaniesResDtoTest {
         assertThat(companiesResDto).isNotNull
         assertThat(companiesResDto.companies).isNotNull
         assertThat(companiesResDto.companies.size).isEqualTo(2)
-        assertThat(companiesResDto.companies[0]).isEqualTo(companyDto1)
-        assertThat(companiesResDto.companies[1]).isEqualTo(companyDto2)
+        assertThat(companiesResDto.companies[0]).isEqualTo(companyRes1)
+        assertThat(companiesResDto.companies[1]).isEqualTo(companyRes2)
     }
 
     @Test
     fun `of 생성 테스트`() {
         // given
-        val companyDto1 = CompanyDto.of(company1)
-        val companyDto2 = CompanyDto.of(company2)
+        val companyRes1 = CompanyRes.of(company1)
+        val companyRes2 = CompanyRes.of(company2)
         val companies = listOf(company1, company2)
 
         // when
@@ -71,8 +71,8 @@ internal class CompaniesResDtoTest {
         assertThat(companiesResDto).isNotNull
         assertThat(companiesResDto.companies).isNotNull
         assertThat(companiesResDto.companies.size).isEqualTo(2)
-        assertThat(companiesResDto.companies[0]).isEqualTo(companyDto1)
-        assertThat(companiesResDto.companies[1]).isEqualTo(companyDto2)
+        assertThat(companiesResDto.companies[0]).isEqualTo(companyRes1)
+        assertThat(companiesResDto.companies[1]).isEqualTo(companyRes2)
     }
 
     @Test

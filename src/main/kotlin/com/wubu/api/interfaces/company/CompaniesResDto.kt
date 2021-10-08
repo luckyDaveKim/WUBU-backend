@@ -5,12 +5,12 @@ import com.wubu.api.domain.company.Company
 
 data class CompaniesResDto(
     @JsonValue
-    val companies: List<CompanyDto>
+    val companies: List<CompanyRes>
 ) {
     companion object {
         fun of(companies: List<Company>): CompaniesResDto {
             return CompaniesResDto(
-                companies.map(CompanyDto::of)
+                companies.map(CompanyRes::of)
                     .toList()
             )
         }

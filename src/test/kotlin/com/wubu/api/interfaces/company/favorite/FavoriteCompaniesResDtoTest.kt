@@ -4,7 +4,7 @@ import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.domain.company.Company
 import com.wubu.api.domain.company.CompanyId
 import com.wubu.api.domain.company.favorite.FavoriteCompany
-import com.wubu.api.interfaces.company.CompanyDto
+import com.wubu.api.interfaces.company.CompanyRes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -16,8 +16,8 @@ internal class FavoriteCompaniesResDtoTest {
     private lateinit var companyCode2: CompanyCode
     private lateinit var companyName1: String
     private lateinit var companyName2: String
-    private lateinit var companyDto1: CompanyDto
-    private lateinit var companyDto2: CompanyDto
+    private lateinit var companyRes1: CompanyRes
+    private lateinit var companyRes2: CompanyRes
 
     @BeforeEach
     fun setUp() {
@@ -25,11 +25,11 @@ internal class FavoriteCompaniesResDtoTest {
         companyCode2 = CompanyCode("000002")
         companyName1 = "company name1"
         companyName2 = "company name2"
-        companyDto1 = CompanyDto(
+        companyRes1 = CompanyRes(
             code = companyCode1,
             name = companyName1
         )
-        companyDto2 = CompanyDto(
+        companyRes2 = CompanyRes(
             code = companyCode2,
             name = companyName2
         )
@@ -38,16 +38,16 @@ internal class FavoriteCompaniesResDtoTest {
     @Test
     fun `생성 테스트`() {
         // given
-        val favoriteCompanyDtoSet = setOf(companyDto1, companyDto2)
+        val favoriteCompanyDtoSet = setOf(companyRes1, companyRes2)
 
         // when
         val favoriteCompaniesResDto = FavoriteCompaniesResDto(favoriteCompanyDtoSet)
 
         // then
         assertThat(favoriteCompaniesResDto).isNotNull
-        assertThat(favoriteCompaniesResDto.companyDtoSet).isEqualTo(favoriteCompanyDtoSet)
-        assertThat(favoriteCompaniesResDto.companyDtoSet).contains(companyDto1, companyDto2)
-        assertThat(favoriteCompaniesResDto.companyDtoSet.size).isEqualTo(2)
+        assertThat(favoriteCompaniesResDto.companyResSet).isEqualTo(favoriteCompanyDtoSet)
+        assertThat(favoriteCompaniesResDto.companyResSet).contains(companyRes1, companyRes2)
+        assertThat(favoriteCompaniesResDto.companyResSet.size).isEqualTo(2)
     }
 
     @Test
@@ -67,24 +67,24 @@ internal class FavoriteCompaniesResDtoTest {
         val favoriteCompany2 = FavoriteCompany(2, company2)
         val favoriteCompanies = listOf(favoriteCompany1, favoriteCompany2)
 
-        val companyDto1 = CompanyDto.of(company1)
-        val companyDto2 = CompanyDto.of(company2)
-        val companyDtoSet = setOf(companyDto1, companyDto2)
+        val companyRes1 = CompanyRes.of(company1)
+        val companyRes2 = CompanyRes.of(company2)
+        val companyDtoSet = setOf(companyRes1, companyRes2)
 
         // when
         val favoriteCompaniesResDto = FavoriteCompaniesResDto.of(favoriteCompanies)
 
         // then
         assertThat(favoriteCompaniesResDto).isNotNull
-        assertThat(favoriteCompaniesResDto.companyDtoSet).isEqualTo(companyDtoSet)
-        assertThat(favoriteCompaniesResDto.companyDtoSet).contains(companyDto1, companyDto2)
-        assertThat(favoriteCompaniesResDto.companyDtoSet.size).isEqualTo(2)
+        assertThat(favoriteCompaniesResDto.companyResSet).isEqualTo(companyDtoSet)
+        assertThat(favoriteCompaniesResDto.companyResSet).contains(companyRes1, companyRes2)
+        assertThat(favoriteCompaniesResDto.companyResSet.size).isEqualTo(2)
     }
 
     @Test
     fun `동등성 비교 테스트`() {
         // given
-        val favoriteCompanyDtoSet1 = setOf(companyDto1)
+        val favoriteCompanyDtoSet1 = setOf(companyRes1)
 
         // when
         val favoriteCompaniesResDto1 = FavoriteCompaniesResDto(favoriteCompanyDtoSet1)
@@ -97,8 +97,8 @@ internal class FavoriteCompaniesResDtoTest {
     @Test
     fun `동등성 비교 실패 테스트`() {
         // given
-        val favoriteCompanyDtoSet1 = setOf(companyDto1)
-        val favoriteCompanyDtoSet2 = setOf(companyDto2)
+        val favoriteCompanyDtoSet1 = setOf(companyRes1)
+        val favoriteCompanyDtoSet2 = setOf(companyRes2)
 
         // when
         val favoriteCompaniesResDto1 = FavoriteCompaniesResDto(favoriteCompanyDtoSet1)
