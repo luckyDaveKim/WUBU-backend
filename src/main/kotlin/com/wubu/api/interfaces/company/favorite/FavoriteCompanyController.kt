@@ -38,8 +38,8 @@ class FavoriteCompanyController(
     )
     @ResponseStatus(HttpStatus.OK)
     fun saveCompanies(
-        @RequestBody @Valid favoriteCompanyReqDto: FavoriteCompanyReqDto
+        @RequestBody @Valid favoriteCompanyReq: FavoriteCompanyReq
     ) {
-        favoriteCompanySaveService.saveCompanies(favoriteCompanyReqDto)
+        favoriteCompanySaveService.saveCompanies(favoriteCompanyReq)
     }
 }

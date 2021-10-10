@@ -4,7 +4,7 @@ import com.wubu.api.domain.company.CompanyId
 import com.wubu.api.domain.company.favorite.FavoriteCompany
 import com.wubu.api.infra.company.CompanyRepository
 import com.wubu.api.infra.company.favorite.FavoriteCompanyRepository
-import com.wubu.api.interfaces.company.favorite.FavoriteCompanyReqDto
+import com.wubu.api.interfaces.company.favorite.FavoriteCompanyReq
 import org.springframework.stereotype.Service
 
 @Service
@@ -13,10 +13,10 @@ class FavoriteCompanySaveService(
     private val companyRepository: CompanyRepository
 ) {
 
-    fun saveCompanies(favoriteCompanyReqDto: FavoriteCompanyReqDto) {
+    fun saveCompanies(favoriteCompanyReq: FavoriteCompanyReq) {
         favoriteCompanyRepository.deleteAll()
 
-        val companies = favoriteCompanyReqDto.companyCodes
+        val companies = favoriteCompanyReq.companyCodes
             .map { companyCode -> CompanyId(companyCode) }
             .map { companyId ->
                 companyRepository.findById(companyId)
