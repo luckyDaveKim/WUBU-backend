@@ -1,6 +1,6 @@
 package com.wubu.api.interfaces.company
 
-import com.wubu.api.application.company.CompanyFindService
+import com.wubu.api.application.company.CompanyFacade
 import com.wubu.api.common.web.dto.PagingReqDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/companies")
 class CompanyController(
-    private val companyFindService: CompanyFindService
+    private val companyFacade: CompanyFacade
 ) {
 
     @GetMapping(
@@ -21,9 +21,9 @@ class CompanyController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     @ResponseStatus(HttpStatus.OK)
-    fun findCompanies(
+    fun retrieveCompanies(
         @ModelAttribute pagingReqDto: PagingReqDto
     ): List<CompanyRes> {
-        return companyFindService.findCompanies(pagingReqDto)
+        return companyFacade.retrieveCompanies(pagingReqDto)
     }
 }

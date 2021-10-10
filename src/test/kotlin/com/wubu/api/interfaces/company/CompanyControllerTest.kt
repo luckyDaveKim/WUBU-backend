@@ -1,7 +1,7 @@
 package com.wubu.api.interfaces.company
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wubu.api.application.company.CompanyFindService
+import com.wubu.api.application.company.CompanyFacade
 import com.wubu.api.common.web.dto.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.domain.company.Company
@@ -27,7 +27,7 @@ internal class CompanyControllerTest(
 ) {
 
     @MockBean
-    private lateinit var companyFindService: CompanyFindService
+    private lateinit var companyFacade: CompanyFacade
 
     private val objectMapper = ObjectMapper()
 
@@ -53,11 +53,7 @@ internal class CompanyControllerTest(
         val companyResList = listOf(company1, company2).map { company -> CompanyRes.of(company) }
         val jsonCompaniesResDto = objectMapper.writeValueAsString(companyResList)
 
-        given(
-            companyFindService.findCompanies(
-                pagingReqDto = pagingReqDto
-            )
-        )
+        given(companyFacade.retrieveCompanies(pagingReqDto))
             .willReturn(companyResList)
 
         // when
@@ -91,11 +87,7 @@ internal class CompanyControllerTest(
         val companyResList = listOf(company1, company2).map { company -> CompanyRes.of(company) }
         val jsonCompaniesResDto = objectMapper.writeValueAsString(companyResList)
 
-        given(
-            companyFindService.findCompanies(
-                pagingReqDto = PagingReqDto()
-            )
-        )
+        given(companyFacade.retrieveCompanies(PagingReqDto()))
             .willReturn(companyResList)
 
         // when
