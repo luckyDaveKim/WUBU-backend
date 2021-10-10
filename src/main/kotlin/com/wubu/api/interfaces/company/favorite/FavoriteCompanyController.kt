@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/companies/favorite")
@@ -37,7 +38,7 @@ class FavoriteCompanyController(
     )
     @ResponseStatus(HttpStatus.OK)
     fun saveCompanies(
-        @RequestBody favoriteCompanyReqDto: FavoriteCompanyReqDto
+        @RequestBody @Valid favoriteCompanyReqDto: FavoriteCompanyReqDto
     ) {
         favoriteCompanySaveService.saveCompanies(favoriteCompanyReqDto)
     }
