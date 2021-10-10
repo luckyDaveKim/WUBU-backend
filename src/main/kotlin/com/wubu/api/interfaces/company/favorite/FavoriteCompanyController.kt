@@ -3,6 +3,7 @@ package com.wubu.api.interfaces.company.favorite
 import com.wubu.api.application.company.favorite.FavoriteCompanyFindService
 import com.wubu.api.application.company.favorite.FavoriteCompanySaveService
 import com.wubu.api.common.web.dto.PagingReqDto
+import com.wubu.api.interfaces.company.CompanyRes
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -28,7 +29,7 @@ class FavoriteCompanyController(
     @ResponseStatus(HttpStatus.OK)
     fun findCompanies(
         @ModelAttribute pagingReqDto: PagingReqDto
-    ): FavoriteCompaniesResDto {
+    ): List<CompanyRes> {
         return favoriteCompanyFindService.findCompanies(pagingReqDto)
     }
 
