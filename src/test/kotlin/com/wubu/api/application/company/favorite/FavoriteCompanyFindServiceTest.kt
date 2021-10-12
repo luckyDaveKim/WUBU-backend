@@ -6,7 +6,7 @@ import com.wubu.api.domain.company.Company
 import com.wubu.api.domain.company.CompanyId
 import com.wubu.api.domain.company.favorite.FavoriteCompany
 import com.wubu.api.infra.company.favorite.FavoriteCompanyRepository
-import com.wubu.api.interfaces.company.favorite.FavoriteCompaniesResDto
+import com.wubu.api.interfaces.company.CompanyRes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -48,7 +48,7 @@ internal class FavoriteCompanyFindServiceTest {
         val favoriteCompany1 = FavoriteCompany(company = company1)
         val favoriteCompany2 = FavoriteCompany(company = company2)
         val favoriteCompanies = listOf(favoriteCompany1, favoriteCompany2)
-        val favoriteCompaniesResDto = FavoriteCompaniesResDto.of(favoriteCompanies)
+        val favoriteCompanyResList = favoriteCompanies.map { favoriteCompany -> CompanyRes.of(favoriteCompany) }
 
         given(
             favoriteCompanyRepository.findAllByOrderByCompany_NameAsc(
@@ -64,6 +64,6 @@ internal class FavoriteCompanyFindServiceTest {
 
         // then
         assertThat(foundFavoriteCompanies).isNotNull
-        assertThat(foundFavoriteCompanies).isEqualTo(favoriteCompaniesResDto)
+        assertThat(foundFavoriteCompanies).isEqualTo(favoriteCompanyResList)
     }
 }

@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-internal class FavoriteCompanyReqDtoTest {
+internal class FavoriteCompanyReqTest {
 
     private lateinit var companyCode1: CompanyCode
     private lateinit var companyCode2: CompanyCode
@@ -22,11 +22,11 @@ internal class FavoriteCompanyReqDtoTest {
         val companyCodes = listOf(companyCode1, companyCode2)
 
         // when
-        val favoriteCompanyReqDto = FavoriteCompanyReqDto(companyCodes)
+        val favoriteCompanyReq = FavoriteCompanyReq(companyCodes)
 
         // then
-        assertThat(favoriteCompanyReqDto).isNotNull
-        assertThat(favoriteCompanyReqDto.companyCodes).contains(companyCode1, companyCode2)
+        assertThat(favoriteCompanyReq).isNotNull
+        assertThat(favoriteCompanyReq.companyCodes).contains(companyCode1, companyCode2)
     }
 
     @Test
@@ -35,11 +35,11 @@ internal class FavoriteCompanyReqDtoTest {
         val companyCodes1 = listOf(companyCode1, companyCode2)
 
         // when
-        val favoriteCompanyReqDto1 = FavoriteCompanyReqDto(companyCodes1)
-        val favoriteCompanyReqDto2 = FavoriteCompanyReqDto(companyCodes1)
+        val favoriteCompanyReq1 = FavoriteCompanyReq(companyCodes1)
+        val favoriteCompanyReq2 = FavoriteCompanyReq(companyCodes1)
 
         // then
-        assertThat(favoriteCompanyReqDto1).isEqualTo(favoriteCompanyReqDto2)
+        assertThat(favoriteCompanyReq1).isEqualTo(favoriteCompanyReq2)
     }
 
     @Test
@@ -49,10 +49,10 @@ internal class FavoriteCompanyReqDtoTest {
         val companyCodes2 = listOf(companyCode2)
 
         // when
-        val favoriteCompanyReqDto1 = FavoriteCompanyReqDto(companyCodes1)
-        val favoriteCompanyReqDto2 = FavoriteCompanyReqDto(companyCodes2)
+        val favoriteCompanyReq1 = FavoriteCompanyReq(companyCodes1)
+        val favoriteCompanyReq2 = FavoriteCompanyReq(companyCodes2)
 
         // then
-        assertThat(favoriteCompanyReqDto1).isNotEqualTo(favoriteCompanyReqDto2)
+        assertThat(favoriteCompanyReq1).isNotEqualTo(favoriteCompanyReq2)
     }
 }

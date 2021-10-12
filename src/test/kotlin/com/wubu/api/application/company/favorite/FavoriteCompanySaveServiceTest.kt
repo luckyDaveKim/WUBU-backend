@@ -6,7 +6,7 @@ import com.wubu.api.domain.company.CompanyId
 import com.wubu.api.domain.company.favorite.FavoriteCompany
 import com.wubu.api.infra.company.CompanyRepository
 import com.wubu.api.infra.company.favorite.FavoriteCompanyRepository
-import com.wubu.api.interfaces.company.favorite.FavoriteCompanyReqDto
+import com.wubu.api.interfaces.company.favorite.FavoriteCompanyReq
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
@@ -63,7 +63,7 @@ internal class FavoriteCompanySaveServiceTest {
     fun `즐겨찾기 회사 저장 테스트`() {
         // given
         val companyCodes = listOf(companyCode1, companyCode2)
-        val favoriteCompanyReqDto = FavoriteCompanyReqDto(companyCodes = companyCodes)
+        val favoriteCompanyReq = FavoriteCompanyReq(companyCodes = companyCodes)
 
         given(companyRepository.findById(CompanyId(companyCode = companyCode1)))
             .willReturn(Optional.of(company1))
@@ -71,7 +71,7 @@ internal class FavoriteCompanySaveServiceTest {
             .willReturn(Optional.of(company2))
 
         // when
-        favoriteCompanySaveService.saveCompanies(favoriteCompanyReqDto)
+        favoriteCompanySaveService.saveCompanies(favoriteCompanyReq)
 
         // then
         verify(favoriteCompanyRepository)
@@ -90,7 +90,7 @@ internal class FavoriteCompanySaveServiceTest {
         // given
         val companyCode = CompanyCode("999999")
         val companyCodes = listOf(companyCode)
-        val favoriteCompanyReqDto = FavoriteCompanyReqDto(companyCodes = companyCodes)
+        val favoriteCompanyReq = FavoriteCompanyReq(companyCodes = companyCodes)
 
         given(companyRepository.findById(CompanyId(companyCode = companyCode)))
             .willThrow(NotFoundCompanyException(companyCode))
@@ -98,7 +98,7 @@ internal class FavoriteCompanySaveServiceTest {
         // when
 
         // then
-        assertThatThrownBy { favoriteCompanySaveService.saveCompanies(favoriteCompanyReqDto) }
+        assertThatThrownBy { favoriteCompanySaveService.saveCompanies(favoriteCompanyReq) }
             .isInstanceOf(NotFoundCompanyException::class.java)
     }
 }

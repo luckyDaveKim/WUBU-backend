@@ -1,10 +1,7 @@
-package com.wubu.api.application.company
+package com.wubu.api.domain.company
 
 import com.wubu.api.common.web.dto.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
-import com.wubu.api.domain.company.Company
-import com.wubu.api.domain.company.CompanyId
-import com.wubu.api.infra.company.CompanyRepository
 import com.wubu.api.interfaces.company.CompanyRes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,13 +13,13 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
 
 @ExtendWith(MockitoExtension::class)
-internal class CompanyFindServiceTest {
+internal class CompanyServiceImplTest {
 
     @Mock
-    private lateinit var companyRepository: CompanyRepository
+    private lateinit var companyReader: CompanyReader
 
     @InjectMocks
-    private lateinit var companyFindService: CompanyFindService
+    private lateinit var companyService: CompanyServiceImpl
 
     @Test
     fun `회사 리스트 조회 테스트`() {
@@ -47,15 +44,11 @@ internal class CompanyFindServiceTest {
         val companies = listOf(company1, company2)
         val companyResList = companies.map { company -> CompanyRes.of(company) }
 
-        given(
-            companyRepository.findAllByOrderByNameAsc(
-                pageable = pagingReqDto.getPageable()
-            )
-        )
+        given(companyReader.getCompanies(pagingReqDto))
             .willReturn(companies)
 
         // when
-        val foundCompanies = companyFindService.findCompanies(pagingReqDto)
+        val foundCompanies = companyService.retrieveCompanies(pagingReqDto)
 
         // then
         assertThat(foundCompanies).isEqualTo(companyResList)

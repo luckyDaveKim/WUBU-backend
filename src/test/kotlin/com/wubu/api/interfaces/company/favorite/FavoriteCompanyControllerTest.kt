@@ -53,15 +53,15 @@ internal class FavoriteCompanyControllerTest(
             code = CompanyCode("000002"),
             name = "company name2"
         )
-        val favoriteCompaniesResDto = FavoriteCompaniesResDto(setOf(companyRes1, companyRes2))
-        val jsonFavoriteCompaniesResDto = objectMapper.writeValueAsString(favoriteCompaniesResDto)
+        val favoriteCompanyResList = listOf(companyRes1, companyRes2)
+        val jsonFavoriteCompaniesResDto = objectMapper.writeValueAsString(favoriteCompanyResList)
 
         given(
             favoriteCompanyFindService.findCompanies(
                 pagingReqDto = pagingReqDto
             )
         )
-            .willReturn(favoriteCompaniesResDto)
+            .willReturn(favoriteCompanyResList)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -85,7 +85,7 @@ internal class FavoriteCompanyControllerTest(
         reqCompanyCodes["companyCodes"] = listOf("000001")
         val jsonReqCompanyCodes = objectMapper.writeValueAsString(reqCompanyCodes)
 
-        val favoriteCompanyReqDto = FavoriteCompanyReqDto(listOf(CompanyCode("000001")))
+        val favoriteCompanyReq = FavoriteCompanyReq(listOf(CompanyCode("000001")))
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -97,7 +97,7 @@ internal class FavoriteCompanyControllerTest(
 
         // then
         verify(favoriteCompanySaveService)
-            .saveCompanies(favoriteCompanyReqDto)
+            .saveCompanies(favoriteCompanyReq)
         resultActions.andExpect { status().isOk }
             .andDo { print() }
     }
