@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CompanyRepository : JpaRepository<Company, CompanyId> {
 
+    fun findAllByIdIn(
+        companyIds: List<CompanyId>
+    ): List<Company>
+
     fun findAllByOrderByNameAsc(
         pageable: Pageable
     ): List<Company>
