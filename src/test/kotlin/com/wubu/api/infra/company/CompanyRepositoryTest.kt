@@ -63,6 +63,20 @@ internal class CompanyRepositoryTest(
     }
 
     @Test
+    fun `id 리스트 기준 조회 테스트`() {
+        // given
+        val codes = listOf(company1.id, company2.id)
+
+        // when
+        val foundCompanies = companyRepository.findAllByIdIn(codes)
+
+        // then
+        assertThat(foundCompanies).isNotNull
+        assertThat(foundCompanies[0]).isEqualTo(company1)
+        assertThat(foundCompanies[1]).isEqualTo(company2)
+    }
+
+    @Test
     fun `id 기준 조회 테스트`() {
         // given
         val code = company1.id

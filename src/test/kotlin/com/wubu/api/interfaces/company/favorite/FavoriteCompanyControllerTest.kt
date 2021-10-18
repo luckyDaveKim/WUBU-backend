@@ -1,11 +1,9 @@
 package com.wubu.api.interfaces.company.favorite
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wubu.api.application.company.favorite.FavoriteCompanyFindService
-import com.wubu.api.application.company.favorite.FavoriteCompanySaveService
+import com.wubu.api.application.company.favorite.FavoriteCompanyFacade
 import com.wubu.api.common.web.dto.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
-import com.wubu.api.interfaces.company.CompanyRes
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.verify
@@ -28,10 +26,7 @@ internal class FavoriteCompanyControllerTest(
 ) {
 
     @MockBean
-    private lateinit var favoriteCompanyFindService: FavoriteCompanyFindService
-
-    @MockBean
-    private lateinit var favoriteCompanySaveService: FavoriteCompanySaveService
+    private lateinit var favoriteCompanyFacade: FavoriteCompanyFacade
 
     private val objectMapper = ObjectMapper()
 
@@ -45,22 +40,18 @@ internal class FavoriteCompanyControllerTest(
             pageSize = pageSize
         )
 
-        val companyRes1 = CompanyRes(
+        val favoriteCompanyRes1 = FavoriteCompanyRes(
             code = CompanyCode("000001"),
             name = "company name1"
         )
-        val companyRes2 = CompanyRes(
+        val favoriteCompanyRes2 = FavoriteCompanyRes(
             code = CompanyCode("000002"),
             name = "company name2"
         )
-        val favoriteCompanyResList = listOf(companyRes1, companyRes2)
+        val favoriteCompanyResList = listOf(favoriteCompanyRes1, favoriteCompanyRes2)
         val jsonFavoriteCompaniesResDto = objectMapper.writeValueAsString(favoriteCompanyResList)
 
-        given(
-            favoriteCompanyFindService.findCompanies(
-                pagingReqDto = pagingReqDto
-            )
-        )
+        given(favoriteCompanyFacade.retrieveFavoriteCompanies(pagingReqDto))
             .willReturn(favoriteCompanyResList)
 
         // when
@@ -96,8 +87,8 @@ internal class FavoriteCompanyControllerTest(
         )
 
         // then
-        verify(favoriteCompanySaveService)
-            .saveCompanies(favoriteCompanyReq)
+        verify(favoriteCompanyFacade)
+            .registerFavoriteCompanies(favoriteCompanyReq)
         resultActions.andExpect { status().isOk }
             .andDo { print() }
     }

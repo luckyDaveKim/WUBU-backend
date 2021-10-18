@@ -1,9 +1,7 @@
 package com.wubu.api.interfaces.company.favorite
 
-import com.wubu.api.application.company.favorite.FavoriteCompanyFindService
-import com.wubu.api.application.company.favorite.FavoriteCompanySaveService
+import com.wubu.api.application.company.favorite.FavoriteCompanyFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.interfaces.company.CompanyRes
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,8 +16,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/api/companies/favorite")
 class FavoriteCompanyController(
-    private val favoriteCompanyFindService: FavoriteCompanyFindService,
-    private val favoriteCompanySaveService: FavoriteCompanySaveService
+    private val favoriteCompanyFacade: FavoriteCompanyFacade,
 ) {
 
     @GetMapping(
@@ -29,8 +26,8 @@ class FavoriteCompanyController(
     @ResponseStatus(HttpStatus.OK)
     fun findCompanies(
         @ModelAttribute pagingReqDto: PagingReqDto
-    ): List<CompanyRes> {
-        return favoriteCompanyFindService.findCompanies(pagingReqDto)
+    ): List<FavoriteCompanyRes> {
+        return favoriteCompanyFacade.retrieveFavoriteCompanies(pagingReqDto)
     }
 
     @PutMapping(
@@ -41,6 +38,6 @@ class FavoriteCompanyController(
     fun saveCompanies(
         @RequestBody @Valid favoriteCompanyReq: FavoriteCompanyReq
     ) {
-        favoriteCompanySaveService.saveCompanies(favoriteCompanyReq)
+        favoriteCompanyFacade.registerFavoriteCompanies(favoriteCompanyReq)
     }
 }
