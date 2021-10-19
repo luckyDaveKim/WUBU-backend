@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface DailyUsdExchangeRateRepository : JpaRepository<DailyUsdExchangeRate, DailyUsdExchangeRateId> {
+
     fun findAllByOrderById_DateDesc(
         pageable: Pageable
     ): List<DailyUsdExchangeRate>
