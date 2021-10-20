@@ -1,9 +1,8 @@
 package com.wubu.api.interfaces.exchangerate.usd.daily
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wubu.api.application.exchangerate.usd.daily.DailyUsdExchangeRateFindService
+import com.wubu.api.application.exchangerate.usd.daily.DailyUsdExchangeRateFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.exchangerate.Rate
 import com.wubu.api.domain.exchangerate.usd.daily.DailyUsdExchangeRate
 import com.wubu.api.domain.exchangerate.usd.daily.DailyUsdExchangeRateId
@@ -31,7 +30,7 @@ internal class DailyUsdExchangeRateControllerTest(
 ) {
 
     @MockBean
-    private lateinit var dailyUsdExchangeRateFindService: DailyUsdExchangeRateFindService
+    private lateinit var dailyUsdExchangeRateFacade: DailyUsdExchangeRateFacade
 
     private val converter = DailyUsdExchangeRateToPointConverter()
     private val objectMapper = ObjectMapper()
@@ -67,14 +66,11 @@ internal class DailyUsdExchangeRateControllerTest(
         val points = listOf(dailyUsdExchangeRate1, dailyUsdExchangeRate2, dailyUsdExchangeRate3)
             .map(converter::convert)
             .toList()
-        val pointResDto = PointResDto.of(points)
-        val jsonPointResDto = objectMapper.writeValueAsString(pointResDto)
+        val dailyUsdExchangeRateRes = DailyUsdExchangeRateRes.of(points)
+        val jsonPointResDto = objectMapper.writeValueAsString(dailyUsdExchangeRateRes)
 
-        given(
-            dailyUsdExchangeRateFindService.findDailyExchangeRate(
-                pagingReqDto = PagingReqDto()
-            )
-        ).willReturn(pointResDto)
+        given(dailyUsdExchangeRateFacade.retrieveDailyExchangeRate(PagingReqDto()))
+            .willReturn(dailyUsdExchangeRateRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -98,14 +94,11 @@ internal class DailyUsdExchangeRateControllerTest(
         val points = listOf(dailyUsdExchangeRate1, dailyUsdExchangeRate2, dailyUsdExchangeRate3)
             .map(converter::convert)
             .toList()
-        val pointResDto = PointResDto.of(points)
-        val jsonPointResDto = objectMapper.writeValueAsString(pointResDto)
+        val dailyUsdExchangeRateRes = DailyUsdExchangeRateRes.of(points)
+        val jsonPointResDto = objectMapper.writeValueAsString(dailyUsdExchangeRateRes)
 
-        given(
-            dailyUsdExchangeRateFindService.findDailyExchangeRate(
-                pagingReqDto = pagingReqDto
-            )
-        ).willReturn(pointResDto)
+        given(dailyUsdExchangeRateFacade.retrieveDailyExchangeRate(pagingReqDto))
+            .willReturn(dailyUsdExchangeRateRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -117,8 +110,8 @@ internal class DailyUsdExchangeRateControllerTest(
         )
 
         // then
-        verify(dailyUsdExchangeRateFindService)
-            .findDailyExchangeRate(pagingReqDto)
+        verify(dailyUsdExchangeRateFacade)
+            .retrieveDailyExchangeRate(pagingReqDto)
         resultActions.andExpect { status().isOk }
             .andExpect(content().json(jsonPointResDto))
             .andDo { print() }

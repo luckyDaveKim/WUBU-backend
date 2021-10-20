@@ -1,12 +1,9 @@
-package com.wubu.api.application.exchangerate.usd.daily
+package com.wubu.api.domain.exchangerate.usd.daily
 
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.exchangerate.Rate
-import com.wubu.api.domain.exchangerate.usd.daily.DailyUsdExchangeRate
-import com.wubu.api.domain.exchangerate.usd.daily.DailyUsdExchangeRateId
-import com.wubu.api.infra.exchangerate.usd.daily.DailyUsdExchangeRateRepository
 import com.wubu.api.interfaces.exchangerate.usd.daily.DailyUsdExchangeRateConverter.DailyUsdExchangeRateToPointConverter
+import com.wubu.api.interfaces.exchangerate.usd.daily.DailyUsdExchangeRateRes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -19,16 +16,16 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
 
 @ExtendWith(MockitoExtension::class)
-internal class DailyUsdExchangeRateFindServiceTest {
+internal class DailyUsdExchangeRateServiceImplTest {
 
     @Mock
-    private lateinit var dailyUsdExchangeRateRepository: DailyUsdExchangeRateRepository
+    private lateinit var dailyUsdExchangeRateReader: DailyUsdExchangeRateReader
 
     @Spy
     private lateinit var dailyUsdExchangeRateToPointConverter: DailyUsdExchangeRateToPointConverter
 
     @InjectMocks
-    private lateinit var dailyUsdExchangeRateFindService: DailyUsdExchangeRateFindService
+    private lateinit var dailyUsdExchangeRateService: DailyUsdExchangeRateServiceImpl
 
     private lateinit var dailyUsdExchangeRate1: DailyUsdExchangeRate
     private lateinit var dailyUsdExchangeRate2: DailyUsdExchangeRate
@@ -61,20 +58,18 @@ internal class DailyUsdExchangeRateFindServiceTest {
         // given
         val pagingReqDto = PagingReqDto()
         val dailyUsdExchangeRates = listOf(dailyUsdExchangeRate1, dailyUsdExchangeRate2, dailyUsdExchangeRate3)
-        val reversedDailyUsdExchangeRates = dailyUsdExchangeRates.reversed()
-        val pointResDto = PointResDto.of(
+        val dailyUsdExchangeRateRes = DailyUsdExchangeRateRes.of(
             dailyUsdExchangeRates.map(dailyUsdExchangeRateToPointConverter::convert)
-                .toList()
         )
 
-        given(dailyUsdExchangeRateRepository.findAllByOrderById_DateDesc(pagingReqDto.getPageable()))
-            .willReturn(reversedDailyUsdExchangeRates)
+        given(dailyUsdExchangeRateReader.findDailyExchangeRates(pagingReqDto))
+            .willReturn(dailyUsdExchangeRates)
 
         // when
-        val foundDailyUsdExchangeRates = dailyUsdExchangeRateFindService.findDailyExchangeRate(pagingReqDto)
+        val foundDailyUsdExchangeRates = dailyUsdExchangeRateService.getDailyExchangeRate(pagingReqDto)
 
         // then
         assertThat(foundDailyUsdExchangeRates).isNotNull
-        assertThat(foundDailyUsdExchangeRates).isEqualTo(pointResDto)
+        assertThat(foundDailyUsdExchangeRates).isEqualTo(dailyUsdExchangeRateRes)
     }
 }
