@@ -65,7 +65,6 @@ internal class DailyUsdExchangeRateControllerTest(
         // given
         val points = listOf(dailyUsdExchangeRate1, dailyUsdExchangeRate2, dailyUsdExchangeRate3)
             .map(converter::convert)
-            .toList()
         val dailyUsdExchangeRateRes = DailyUsdExchangeRateRes.of(points)
         val jsonPointResDto = objectMapper.writeValueAsString(dailyUsdExchangeRateRes)
 
@@ -93,7 +92,6 @@ internal class DailyUsdExchangeRateControllerTest(
         val pagingReqDto = PagingReqDto(page, pageSize)
         val points = listOf(dailyUsdExchangeRate1, dailyUsdExchangeRate2, dailyUsdExchangeRate3)
             .map(converter::convert)
-            .toList()
         val dailyUsdExchangeRateRes = DailyUsdExchangeRateRes.of(points)
         val jsonPointResDto = objectMapper.writeValueAsString(dailyUsdExchangeRateRes)
 

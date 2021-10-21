@@ -83,10 +83,7 @@ internal class MinutelyPriceFindServiceTest {
 
         val minutelyPrices = listOf(minutelyPrice2, minutelyPrice3)
         val reversedMinutelyPrices = minutelyPrices.reversed()
-        val pointResDto = PointResDto.of(
-            minutelyPrices.map(minutelyPriceToPointConverter::convert)
-                .toList()
-        )
+        val pointResDto = PointResDto.of(minutelyPrices.map(minutelyPriceToPointConverter::convert))
 
         given(
             minutelyPriceRepository.findAllById_CompanyCodeOrderById_DateTimeDesc(
@@ -116,7 +113,6 @@ internal class MinutelyPriceFindServiceTest {
         val minutelyPrices = listOf(minutelyPrice2, minutelyPrice3)
         val reversedMinutelyPrices = minutelyPrices.reversed()
         val points = minutelyPrices.map(minutelyPriceToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
 
         given(

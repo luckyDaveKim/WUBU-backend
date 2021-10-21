@@ -21,7 +21,6 @@ class DailyPriceFindService(
             dailyPriceRepository.findAllByIdCompanyCodeOrderByIdDateDesc(companyCode, pagingReqDto.getPageable())
                 .reversed()
                 .map(dailyPriceToPointConverter::convert)
-                .toList()
 
         return PointResDto.of(points)
     }
@@ -33,7 +32,6 @@ class DailyPriceFindService(
             startDateOfThisWeek
         )
             .map(dailyPriceToPointConverter::convert)
-            .toList()
 
         return PointResDto.of(points)
     }

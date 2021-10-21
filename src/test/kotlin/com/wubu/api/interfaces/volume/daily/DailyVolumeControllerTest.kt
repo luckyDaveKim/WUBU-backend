@@ -68,7 +68,6 @@ internal class DailyVolumeControllerTest(
                     y = source.volume.value
                 )
             }
-            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonDailyVolumesResponseDto = objectMapper.writeValueAsString(pointResDto)
 
@@ -99,7 +98,6 @@ internal class DailyVolumeControllerTest(
                     y = source.volume.value
                 )
             }
-            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonDailyVolumesResponseDto = objectMapper.writeValueAsString(pointResDto)
 

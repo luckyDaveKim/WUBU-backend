@@ -71,7 +71,6 @@ internal class DailyPriceControllerTest(
         val companyCode = CompanyCode("000000")
         val points = listOf(dailyPrice1, dailyPrice2)
             .map(dailyPriceToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonDailyPricesResDto = objectMapper.writeValueAsString(pointResDto)
 
@@ -106,7 +105,6 @@ internal class DailyPriceControllerTest(
                     close = source.close.value
                 )
             }
-            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonDailyPricesResponseDto = objectMapper.writeValueAsString(pointResDto)
 

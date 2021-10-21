@@ -23,7 +23,6 @@ class MinutelyPriceFindService(
             )
                 .reversed()
                 .map(minutelyPriceToPointConverter::convert)
-                .toList()
 
         return PointResDto.of(points)
     }
@@ -40,7 +39,6 @@ class MinutelyPriceFindService(
             )
                 .reversed()
                 .map(minutelyPriceToPointConverter::convert)
-                .toList()
 
         return PointResDto.of(points)
     }

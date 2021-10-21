@@ -89,7 +89,6 @@ internal class DailyVolumeFindServiceTest {
         val reversedDailyVolumes = listOf(dailyVolume4, dailyVolume3, dailyVolume2, dailyVolume1)
         val dailyVolumes = reversedDailyVolumes.reversed()
         val volumes = dailyVolumes.map(dailyVolumeToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(volumes)
 
         given(dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(companyCode, pagingReqDto.getPageable()))
@@ -125,7 +124,6 @@ internal class DailyVolumeFindServiceTest {
         val reversedDailyVolumes = listOf(thisTuesdayVolume, thisMondayVolume)
         val dailyVolumes = reversedDailyVolumes.reversed()
         val points = dailyVolumes.map(dailyVolumeToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
 
         given(

@@ -29,7 +29,6 @@ class MinutelyStackedVolumeFindService(
                 .stream()
                 .collect(MinutelyVolume.toStacked())
                 .map(minutelyVolumeToPointConverter::convert)
-                .toList()
 
         return PointResDto.of(points)
     }
