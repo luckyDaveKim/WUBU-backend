@@ -22,7 +22,6 @@ class MinutelyUsdExchangeRateFindService(
             )
                 .reversed()
                 .map(minutelyUsdExchangeRateToPointConverter::convert)
-                .toList()
 
         return PointResDto.of(points)
     }

@@ -59,7 +59,6 @@ internal class MinutelyUsdExchangeRateFindServiceTest {
         val minutelyUsdExchangeRates = listOf(minutelyUsdExchangeRate1, minutelyUsdExchangeRate2)
         val reversedMinutelyUsdExchangeRates = minutelyUsdExchangeRates.reversed()
         val points = minutelyUsdExchangeRates.map(minutelyUsdExchangeRateToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
 
         given(

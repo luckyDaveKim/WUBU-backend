@@ -22,7 +22,6 @@ class MinutelyVolumeFindService(
             )
                 .reversed()
                 .map(minutelyVolumeToPointConverter::convert)
-                .toList()
 
         return PointResDto.of(points)
     }
@@ -39,7 +38,6 @@ class MinutelyVolumeFindService(
             )
                 .reversed()
                 .map(minutelyVolumeToPointConverter::convert)
-                .toList()
 
         return PointResDto.of(points)
     }

@@ -59,7 +59,6 @@ internal class MinutelyUsdExchangeRateControllerTest(
         val date = LocalDate.of(1991, 3, 26)
         val points = listOf(minutelyUsdExchangeRate1, minutelyUsdExchangeRate2)
             .map(minutelyUsdExchangeRateToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonPointResDto = objectMapper.writeValueAsString(pointResDto)
 

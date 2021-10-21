@@ -9,7 +9,6 @@ data class PointResDto(
         fun of(points: List<Point>): PointResDto {
             val pointDtoList = points
                 .map(PointDto.Companion::of)
-                .toList()
             return PointResDto(pointDtoList)
         }
     }

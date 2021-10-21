@@ -104,7 +104,6 @@ internal class DailyPriceFindServiceTest {
         val reversedDailyPrices = listOf(dailyPrice4, dailyPrice3, dailyPrice2, dailyPrice1)
         val dailyPrices = reversedDailyPrices.reversed()
         val points = dailyPrices.map(dailyPriceToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
 
         given(dailyPriceRepository.findAllByIdCompanyCodeOrderByIdDateDesc(companyCode, pagingReqDto.getPageable()))
@@ -125,7 +124,6 @@ internal class DailyPriceFindServiceTest {
         val mondayDate = DateUtil.getStartDateOfWeek(date)
         val dailyPrices = listOf(dailyPrice2, dailyPrice3)
         val points = dailyPrices.map(dailyPriceToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
 
         given(
@@ -172,7 +170,6 @@ internal class DailyPriceFindServiceTest {
         val reversedDailyPrices = listOf(thisTuesdayPrice, thisMondayPrice)
         val dailyPrices = reversedDailyPrices.reversed()
         val points = dailyPrices.map(dailyPriceToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
 
         given(

@@ -75,7 +75,6 @@ internal class MinutelyControllerTest(
 
         val points = listOf(minutelyPrice1, minutelyPrice2)
             .map(minutelyPriceToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonMinutelyPriceResDto = objectMapper.writeValueAsString(pointResDto)
 
@@ -106,7 +105,6 @@ internal class MinutelyControllerTest(
         // given
         val points = listOf(minutelyPrice1, minutelyPrice2)
             .map(minutelyPriceToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonMinutelyPriceResDto = objectMapper.writeValueAsString(pointResDto)
 
@@ -136,7 +134,6 @@ internal class MinutelyControllerTest(
         val date = LocalDate.of(1991, 3, 26)
         val points = listOf(minutelyPrice1, minutelyPrice2)
             .map(minutelyPriceToPointConverter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonMinutelyPriceResDto = objectMapper.writeValueAsString(pointResDto)
 

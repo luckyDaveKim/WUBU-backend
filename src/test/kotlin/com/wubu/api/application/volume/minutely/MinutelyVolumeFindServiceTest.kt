@@ -72,10 +72,7 @@ internal class MinutelyVolumeFindServiceTest {
 
         val minutelyVolumes = listOf(minutelyVolume2, minutelyVolume3)
         val reversedMinutelyVolumes = minutelyVolumes.reversed()
-        val pointResDto = PointResDto.of(
-            minutelyVolumes.map(converter::convert)
-                .toList()
-        )
+        val pointResDto = PointResDto.of(minutelyVolumes.map(converter::convert))
 
         given(
             minutelyVolumeRepository.findAllById_CompanyCodeOrderById_DateTimeDesc(
@@ -105,7 +102,6 @@ internal class MinutelyVolumeFindServiceTest {
         val minutelyVolumes = listOf(minutelyVolume1, minutelyVolume2, minutelyVolume3)
         val reversedMinutelyVolumes = minutelyVolumes.reversed()
         val points = minutelyVolumes.map(converter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
 
         given(

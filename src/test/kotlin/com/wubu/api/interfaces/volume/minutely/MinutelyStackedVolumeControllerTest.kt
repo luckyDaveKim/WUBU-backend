@@ -64,7 +64,6 @@ internal class MinutelyStackedVolumeControllerTest(
         val date = LocalDate.of(1991, 3, 26)
         val points = listOf(minutelyVolume1, minutelyVolume2)
             .map(converter::convert)
-            .toList()
         val pointResDto = PointResDto.of(points)
         val jsonMinutelyVolumeResDto = objectMapper.writeValueAsString(pointResDto)
 

@@ -11,7 +11,6 @@ data class DailyUsdExchangeRateRes(
         fun of(points: List<Point>): DailyUsdExchangeRateRes {
             val pointDtoList = points
                 .map(PointDto.Companion::of)
-                .toList()
             return DailyUsdExchangeRateRes(pointDtoList)
         }
     }

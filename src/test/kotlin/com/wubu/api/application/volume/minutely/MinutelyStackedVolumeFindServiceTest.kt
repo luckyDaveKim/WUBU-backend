@@ -73,7 +73,6 @@ internal class MinutelyStackedVolumeFindServiceTest {
             minutelyVolumes.stream()
                 .collect(MinutelyVolume.toStacked())
                 .map(converter::convert)
-                .toList()
         )
 
         given(

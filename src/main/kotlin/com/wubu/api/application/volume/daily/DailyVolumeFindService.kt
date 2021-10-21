@@ -21,7 +21,6 @@ class DailyVolumeFindService(
             dailyVolumeRepository.findAllByIdCompanyCodeOrderByIdDateDesc(companyCode, pagingReqDto.getPageable())
                 .reversed()
                 .map(dailyVolumeToPointConverter::convert)
-                .toList()
 
         return PointResDto.of(points)
     }
@@ -33,7 +32,6 @@ class DailyVolumeFindService(
             startDateOfThisWeek
         )
             .map(dailyVolumeToPointConverter::convert)
-            .toList()
 
         return PointResDto.of(points)
     }
