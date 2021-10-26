@@ -1,6 +1,6 @@
 package com.wubu.api.interfaces.exchangerate.usd.status
 
-import com.wubu.api.application.exchangerate.usd.status.UsdExchangeRateStatusFindService
+import com.wubu.api.application.exchangerate.usd.status.UsdExchangeRateStatusFacade
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -14,7 +14,7 @@ import java.time.LocalDate
 @RestController
 @RequestMapping("/api/status/exchange-rate")
 class UsdExchangeRateStatusController(
-    private val usdExchangeRateStatusFindService: UsdExchangeRateStatusFindService
+    private val usdExchangeRateStatusFacade: UsdExchangeRateStatusFacade
 ) {
 
     @GetMapping(
@@ -24,7 +24,7 @@ class UsdExchangeRateStatusController(
     @ResponseStatus(HttpStatus.OK)
     fun findDailyPrices(
         @PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate
-    ): UsdExchangeRateStatusDto {
-        return usdExchangeRateStatusFindService.findExchangeRateStatusAtDate(date)
+    ): UsdExchangeRateStatusRes {
+        return usdExchangeRateStatusFacade.retrieveExchangeRateStatusAtDate(date)
     }
 }

@@ -1,7 +1,7 @@
 package com.wubu.api.interfaces.exchangerate.usd.status
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wubu.api.application.exchangerate.usd.status.UsdExchangeRateStatusFindService
+import com.wubu.api.application.exchangerate.usd.status.UsdExchangeRateStatusFacade
 import com.wubu.api.common.web.model.exchangerate.Rate
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -24,7 +24,7 @@ internal class UsdExchangeRateStatusControllerTest(
 ) {
 
     @MockBean
-    private lateinit var usdExchangeRateStatusFindService: UsdExchangeRateStatusFindService
+    private lateinit var usdExchangeRateStatusFacade: UsdExchangeRateStatusFacade
 
     private val objectMapper = ObjectMapper()
 
@@ -32,15 +32,14 @@ internal class UsdExchangeRateStatusControllerTest(
     fun `특정일 데이터 조회 테스트`() {
         // given
         val date = LocalDate.of(1991, 3, 26)
-        val exchangeRateStatusDto = UsdExchangeRateStatusDto(
+        val usdExchangeRateStatusDto = UsdExchangeRateStatusRes(
             curRate = Rate(2.0),
             beforeRate = Rate(1.0)
         )
-        val jsonPointResDto = objectMapper.writeValueAsString(exchangeRateStatusDto)
+        val jsonPointResDto = objectMapper.writeValueAsString(usdExchangeRateStatusDto)
 
-        given(
-            usdExchangeRateStatusFindService.findExchangeRateStatusAtDate(date = date)
-        ).willReturn(exchangeRateStatusDto)
+        given(usdExchangeRateStatusFacade.retrieveExchangeRateStatusAtDate(date))
+            .willReturn(usdExchangeRateStatusDto)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(

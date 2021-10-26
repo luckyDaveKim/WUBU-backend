@@ -6,7 +6,7 @@ import com.wubu.api.common.web.model.exchangerate.Rate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class UsdExchangeRateStatusDtoTest {
+internal class UsdExchangeRateStatusResTest {
 
     @Test
     fun `생성 테스트`() {
@@ -15,18 +15,18 @@ internal class UsdExchangeRateStatusDtoTest {
         val beforeRate = Rate(2.0)
 
         // when
-        val usdExchangeRateStatusDto = UsdExchangeRateStatusDto(
+        val usdExchangeRateStatusRes = UsdExchangeRateStatusRes(
             curRate = curRate,
             beforeRate = beforeRate
         )
 
         // then
-        assertThat(usdExchangeRateStatusDto).isNotNull
-        assertThat(usdExchangeRateStatusDto.curRate).isEqualTo(curRate)
-        assertThat(usdExchangeRateStatusDto.beforeRate).isEqualTo(beforeRate)
-        assertThat(usdExchangeRateStatusDto.comparisonRate).isEqualTo(Rate(1.0))
-        assertThat(usdExchangeRateStatusDto.percentage).isEqualTo(Percentage(50.0))
-        assertThat(usdExchangeRateStatusDto.balance).isEqualTo(Balance.DOWN)
+        assertThat(usdExchangeRateStatusRes).isNotNull
+        assertThat(usdExchangeRateStatusRes.curRate).isEqualTo(curRate)
+        assertThat(usdExchangeRateStatusRes.beforeRate).isEqualTo(beforeRate)
+        assertThat(usdExchangeRateStatusRes.comparisonRate).isEqualTo(Rate(1.0))
+        assertThat(usdExchangeRateStatusRes.percentage).isEqualTo(Percentage(50.0))
+        assertThat(usdExchangeRateStatusRes.balance).isEqualTo(Balance.DOWN)
     }
 
     @Test
@@ -36,18 +36,18 @@ internal class UsdExchangeRateStatusDtoTest {
         val beforeRate = Rate(1.0)
 
         // when
-        val usdExchangeRateStatusDto = UsdExchangeRateStatusDto.of(
+        val usdExchangeRateStatusRes = UsdExchangeRateStatusRes.of(
             beforeRate = beforeRate,
             curRate = curRate
         )
 
         // then
-        assertThat(usdExchangeRateStatusDto).isNotNull
-        assertThat(usdExchangeRateStatusDto.curRate).isEqualTo(curRate)
-        assertThat(usdExchangeRateStatusDto.beforeRate).isEqualTo(beforeRate)
-        assertThat(usdExchangeRateStatusDto.comparisonRate).isEqualTo(Rate(1.0))
-        assertThat(usdExchangeRateStatusDto.percentage).isEqualTo(Percentage(100.0))
-        assertThat(usdExchangeRateStatusDto.balance).isEqualTo(Balance.UP)
+        assertThat(usdExchangeRateStatusRes).isNotNull
+        assertThat(usdExchangeRateStatusRes.curRate).isEqualTo(curRate)
+        assertThat(usdExchangeRateStatusRes.beforeRate).isEqualTo(beforeRate)
+        assertThat(usdExchangeRateStatusRes.comparisonRate).isEqualTo(Rate(1.0))
+        assertThat(usdExchangeRateStatusRes.percentage).isEqualTo(Percentage(100.0))
+        assertThat(usdExchangeRateStatusRes.balance).isEqualTo(Balance.UP)
     }
 
     @Test

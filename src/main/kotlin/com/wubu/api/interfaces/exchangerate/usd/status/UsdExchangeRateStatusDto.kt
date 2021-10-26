@@ -6,7 +6,7 @@ import com.wubu.api.common.web.model.exchangerate.Rate
 import kotlin.math.abs
 import kotlin.math.floor
 
-data class UsdExchangeRateStatusDto(
+data class UsdExchangeRateStatusRes(
     val curRate: Rate,
     val beforeRate: Rate
 ) {
@@ -16,8 +16,8 @@ data class UsdExchangeRateStatusDto(
     val balance: Balance = Balance.compare(curRate.value, beforeRate.value)
 
     companion object {
-        fun of(beforeRate: Rate, curRate: Rate): UsdExchangeRateStatusDto {
-            return UsdExchangeRateStatusDto(
+        fun of(beforeRate: Rate, curRate: Rate): UsdExchangeRateStatusRes {
+            return UsdExchangeRateStatusRes(
                 curRate = curRate,
                 beforeRate = beforeRate
             )
