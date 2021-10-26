@@ -1,11 +1,8 @@
-package com.wubu.api.application.exchangerate.usd.minutely
+package com.wubu.api.domain.exchangerate.usd.minutely
 
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.exchangerate.Rate
-import com.wubu.api.domain.exchangerate.usd.minutely.MinutelyUsdExchangeRate
-import com.wubu.api.domain.exchangerate.usd.minutely.MinutelyUsdExchangeRateId
-import com.wubu.api.infra.exchangerate.usd.minutely.MinutelyUsdExchangeRateRepository
 import com.wubu.api.interfaces.exchangerate.usd.minutely.MinutelyUsdExchangeRateConverter.MinutelyUsdExchangeRateToPointConverter
+import com.wubu.api.interfaces.exchangerate.usd.minutely.MinutelyUsdExchangeRateRes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -19,16 +16,16 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @ExtendWith(MockitoExtension::class)
-internal class MinutelyUsdExchangeRateFindServiceTest {
+internal class MinutelyUsdExchangeRateServiceImplTest {
 
     @Mock
-    private lateinit var minutelyUsdExchangeRateRepository: MinutelyUsdExchangeRateRepository
+    private lateinit var minutelyUsdExchangeRateReader: MinutelyUsdExchangeRateReader
 
     @Spy
     private lateinit var minutelyUsdExchangeRateToPointConverter: MinutelyUsdExchangeRateToPointConverter
 
     @InjectMocks
-    private lateinit var minutelyUsdExchangeRateFindService: MinutelyUsdExchangeRateFindService
+    private lateinit var minutelyUsdExchangeRateService: MinutelyUsdExchangeRateServiceImpl
 
     private lateinit var minutelyUsdExchangeRate1: MinutelyUsdExchangeRate
     private lateinit var minutelyUsdExchangeRate2: MinutelyUsdExchangeRate
@@ -50,31 +47,22 @@ internal class MinutelyUsdExchangeRateFindServiceTest {
     }
 
     @Test
-    fun `특정일 분별 데이터 조회 테스트`() {
+    fun `데이터 조회 테스트`() {
         // given
         val date = LocalDate.of(1991, 3, 26)
-        val afterEqualDateTime = date.atStartOfDay()
-        val beforeDateTime = date.plusDays(1).atStartOfDay()
-
         val minutelyUsdExchangeRates = listOf(minutelyUsdExchangeRate1, minutelyUsdExchangeRate2)
-        val reversedMinutelyUsdExchangeRates = minutelyUsdExchangeRates.reversed()
-        val points = minutelyUsdExchangeRates.map(minutelyUsdExchangeRateToPointConverter::convert)
-        val pointResDto = PointResDto.of(points)
-
-        given(
-            minutelyUsdExchangeRateRepository.findAllById_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeDesc(
-                afterEqualDateTime = afterEqualDateTime,
-                beforeDateTime = beforeDateTime
-            )
-        ).willReturn(reversedMinutelyUsdExchangeRates)
-
-        // when
-        val foundPointResDto = minutelyUsdExchangeRateFindService.findMinutelyExchangeRateAtDate(
-            date = date
+        val minutelyUsdExchangeRateRes = MinutelyUsdExchangeRateRes.of(
+            minutelyUsdExchangeRates.map(minutelyUsdExchangeRateToPointConverter::convert)
         )
 
+        given(minutelyUsdExchangeRateReader.findMinutelyExchangeRates(date))
+            .willReturn(minutelyUsdExchangeRates)
+
+        // when
+        val foundMinutelyUsdExchangeRates = minutelyUsdExchangeRateService.getMinutelyExchangeRate(date)
+
         // then
-        assertThat(foundPointResDto).isNotNull
-        assertThat(foundPointResDto).isEqualTo(pointResDto)
+        assertThat(foundMinutelyUsdExchangeRates).isNotNull
+        assertThat(foundMinutelyUsdExchangeRates).isEqualTo(minutelyUsdExchangeRateRes)
     }
 }

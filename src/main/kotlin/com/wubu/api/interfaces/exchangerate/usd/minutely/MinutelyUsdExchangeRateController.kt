@@ -1,7 +1,6 @@
 package com.wubu.api.interfaces.exchangerate.usd.minutely
 
-import com.wubu.api.application.exchangerate.usd.minutely.MinutelyUsdExchangeRateFindService
-import com.wubu.api.common.web.dto.PointResDto
+import com.wubu.api.application.exchangerate.usd.minutely.MinutelyUsdExchangeRateFacade
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -15,7 +14,7 @@ import java.time.LocalDate
 @RestController
 @RequestMapping("/api/minutely/exchange-rate")
 class MinutelyUsdExchangeRateController(
-    private val minutelyUsdExchangeRateFindService: MinutelyUsdExchangeRateFindService
+    private val minutelyUsdExchangeRateFacade: MinutelyUsdExchangeRateFacade
 ) {
 
     @GetMapping(
@@ -25,7 +24,7 @@ class MinutelyUsdExchangeRateController(
     @ResponseStatus(HttpStatus.OK)
     fun findDailyPrices(
         @PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate
-    ): PointResDto {
-        return minutelyUsdExchangeRateFindService.findMinutelyExchangeRateAtDate(date)
+    ): MinutelyUsdExchangeRateRes {
+        return minutelyUsdExchangeRateFacade.retrieveMinutelyExchangeRateAtDate(date)
     }
 }

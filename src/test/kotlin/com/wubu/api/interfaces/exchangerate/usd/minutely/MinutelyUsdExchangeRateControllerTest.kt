@@ -1,12 +1,8 @@
 package com.wubu.api.interfaces.exchangerate.usd.minutely
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wubu.api.application.exchangerate.usd.minutely.MinutelyUsdExchangeRateFindService
-import com.wubu.api.common.web.dto.PointResDto
-import com.wubu.api.common.web.model.exchangerate.Rate
-import com.wubu.api.domain.exchangerate.usd.minutely.MinutelyUsdExchangeRate
-import com.wubu.api.domain.exchangerate.usd.minutely.MinutelyUsdExchangeRateId
-import com.wubu.api.interfaces.exchangerate.usd.minutely.MinutelyUsdExchangeRateConverter.MinutelyUsdExchangeRateToPointConverter
+import com.wubu.api.application.exchangerate.usd.minutely.MinutelyUsdExchangeRateFacade
+import com.wubu.api.common.web.model.Point
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -21,7 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 @WebMvcTest(MinutelyUsdExchangeRateController::class)
 internal class MinutelyUsdExchangeRateControllerTest(
@@ -30,26 +25,21 @@ internal class MinutelyUsdExchangeRateControllerTest(
 ) {
 
     @MockBean
-    private lateinit var minutelyUsdExchangeRateFindService: MinutelyUsdExchangeRateFindService
+    private lateinit var minutelyUsdExchangeRateFacade: MinutelyUsdExchangeRateFacade
 
-    private val minutelyUsdExchangeRateToPointConverter = MinutelyUsdExchangeRateToPointConverter()
     private val objectMapper = ObjectMapper()
-    private lateinit var minutelyUsdExchangeRate1: MinutelyUsdExchangeRate
-    private lateinit var minutelyUsdExchangeRate2: MinutelyUsdExchangeRate
+    private lateinit var point1: Point
+    private lateinit var point2: Point
 
     @BeforeEach
     fun setUp() {
-        minutelyUsdExchangeRate1 = MinutelyUsdExchangeRate(
-            id = MinutelyUsdExchangeRateId(
-                dateTime = LocalDateTime.of(1991, 3, 26, 9, 0, 0),
-                rate = Rate(1.0)
-            )
+        point1 = Point(
+            x = 1,
+            y = 2
         )
-        minutelyUsdExchangeRate2 = MinutelyUsdExchangeRate(
-            id = MinutelyUsdExchangeRateId(
-                dateTime = LocalDateTime.of(1991, 3, 26, 10, 0, 0),
-                rate = Rate(2.0)
-            )
+        point2 = Point(
+            x = 10,
+            y = 20
         )
     }
 
@@ -57,14 +47,12 @@ internal class MinutelyUsdExchangeRateControllerTest(
     fun `특정일 데이터 조회 테스트`() {
         // given
         val date = LocalDate.of(1991, 3, 26)
-        val points = listOf(minutelyUsdExchangeRate1, minutelyUsdExchangeRate2)
-            .map(minutelyUsdExchangeRateToPointConverter::convert)
-        val pointResDto = PointResDto.of(points)
-        val jsonPointResDto = objectMapper.writeValueAsString(pointResDto)
+        val points = listOf(point1, point2)
+        val minutelyUsdExchangeRateRes = MinutelyUsdExchangeRateRes.of(points)
+        val jsonPointResDto = objectMapper.writeValueAsString(minutelyUsdExchangeRateRes)
 
-        given(
-            minutelyUsdExchangeRateFindService.findMinutelyExchangeRateAtDate(date = date)
-        ).willReturn(pointResDto)
+        given(minutelyUsdExchangeRateFacade.retrieveMinutelyExchangeRateAtDate(date))
+            .willReturn(minutelyUsdExchangeRateRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
