@@ -11,6 +11,6 @@ class DailyUsdExchangeRateFacade(
 ) {
 
     fun retrieveDailyExchangeRate(pagingReqDto: PagingReqDto): DailyUsdExchangeRateRes {
-        return dailyUsdExchangeRateService.getDailyExchangeRate(pagingReqDto)
+        return dailyUsdExchangeRateService.retrieveDailyExchangeRate(pagingReqDto)
     }
 }

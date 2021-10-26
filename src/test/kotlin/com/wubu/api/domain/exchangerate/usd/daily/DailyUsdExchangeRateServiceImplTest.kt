@@ -62,11 +62,11 @@ internal class DailyUsdExchangeRateServiceImplTest {
             dailyUsdExchangeRates.map(dailyUsdExchangeRateToPointConverter::convert)
         )
 
-        given(dailyUsdExchangeRateReader.findDailyExchangeRates(pagingReqDto))
+        given(dailyUsdExchangeRateReader.getDailyExchangeRates(pagingReqDto))
             .willReturn(dailyUsdExchangeRates)
 
         // when
-        val foundDailyUsdExchangeRates = dailyUsdExchangeRateService.getDailyExchangeRate(pagingReqDto)
+        val foundDailyUsdExchangeRates = dailyUsdExchangeRateService.retrieveDailyExchangeRate(pagingReqDto)
 
         // then
         assertThat(foundDailyUsdExchangeRates).isNotNull

@@ -5,5 +5,5 @@ import com.wubu.api.interfaces.exchangerate.usd.daily.DailyUsdExchangeRateRes
 
 interface DailyUsdExchangeRateService {
 
-    fun getDailyExchangeRate(pagingReqDto: PagingReqDto): DailyUsdExchangeRateRes
+    fun retrieveDailyExchangeRate(pagingReqDto: PagingReqDto): DailyUsdExchangeRateRes
 }

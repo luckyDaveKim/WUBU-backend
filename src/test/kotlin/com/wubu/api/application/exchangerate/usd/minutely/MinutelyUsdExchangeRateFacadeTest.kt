@@ -44,7 +44,7 @@ internal class MinutelyUsdExchangeRateFacadeTest {
         val points = listOf(point1, point2)
         val minutelyUsdExchangeRateRes = MinutelyUsdExchangeRateRes.of(points)
 
-        given(minutelyUsdExchangeRateService.getMinutelyExchangeRate(date))
+        given(minutelyUsdExchangeRateService.retrieveMinutelyExchangeRate(date))
             .willReturn(minutelyUsdExchangeRateRes)
 
         // when

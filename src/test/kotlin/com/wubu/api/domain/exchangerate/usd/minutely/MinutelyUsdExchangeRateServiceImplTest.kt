@@ -55,11 +55,11 @@ internal class MinutelyUsdExchangeRateServiceImplTest {
             minutelyUsdExchangeRates.map(minutelyUsdExchangeRateToPointConverter::convert)
         )
 
-        given(minutelyUsdExchangeRateReader.findMinutelyExchangeRates(date))
+        given(minutelyUsdExchangeRateReader.getMinutelyExchangeRates(date))
             .willReturn(minutelyUsdExchangeRates)
 
         // when
-        val foundMinutelyUsdExchangeRates = minutelyUsdExchangeRateService.getMinutelyExchangeRate(date)
+        val foundMinutelyUsdExchangeRates = minutelyUsdExchangeRateService.retrieveMinutelyExchangeRate(date)
 
         // then
         assertThat(foundMinutelyUsdExchangeRates).isNotNull

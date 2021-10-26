@@ -5,5 +5,5 @@ import java.time.LocalDate
 
 interface MinutelyUsdExchangeRateService {
 
-    fun getMinutelyExchangeRate(date: LocalDate): MinutelyUsdExchangeRateRes
+    fun retrieveMinutelyExchangeRate(date: LocalDate): MinutelyUsdExchangeRateRes
 }

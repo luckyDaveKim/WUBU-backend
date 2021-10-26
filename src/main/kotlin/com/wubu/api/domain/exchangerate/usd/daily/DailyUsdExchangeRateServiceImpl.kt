@@ -13,8 +13,8 @@ class DailyUsdExchangeRateServiceImpl(
 ) : DailyUsdExchangeRateService {
 
     @Transactional
-    override fun getDailyExchangeRate(pagingReqDto: PagingReqDto): DailyUsdExchangeRateRes {
-        val points = dailyUsdExchangeRateReader.findDailyExchangeRates(pagingReqDto)
+    override fun retrieveDailyExchangeRate(pagingReqDto: PagingReqDto): DailyUsdExchangeRateRes {
+        val points = dailyUsdExchangeRateReader.getDailyExchangeRates(pagingReqDto)
             .map(dailyUsdExchangeRateToPointConverter::convert)
 
         return DailyUsdExchangeRateRes.of(points)

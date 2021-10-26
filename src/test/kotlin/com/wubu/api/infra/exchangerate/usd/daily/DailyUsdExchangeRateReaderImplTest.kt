@@ -60,7 +60,7 @@ internal class DailyUsdExchangeRateReaderImplTest {
             .willReturn(reversedDailyUsdExchangeRates)
 
         // when
-        val foundDailyUsdExchangeRates = dailyUsdExchangeRateReader.findDailyExchangeRates(pagingReqDto)
+        val foundDailyUsdExchangeRates = dailyUsdExchangeRateReader.getDailyExchangeRates(pagingReqDto)
 
         // then
         assertThat(foundDailyUsdExchangeRates).isNotNull

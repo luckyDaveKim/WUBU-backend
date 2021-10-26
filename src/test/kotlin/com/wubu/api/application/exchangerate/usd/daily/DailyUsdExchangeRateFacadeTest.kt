@@ -50,7 +50,7 @@ internal class DailyUsdExchangeRateFacadeTest {
         val points = listOf(point1, point2)
         val dailyUsdExchangeRateRes = DailyUsdExchangeRateRes.of(points)
 
-        given(dailyUsdExchangeRateService.getDailyExchangeRate(pagingReqDto))
+        given(dailyUsdExchangeRateService.retrieveDailyExchangeRate(pagingReqDto))
             .willReturn(dailyUsdExchangeRateRes)
 
         // when

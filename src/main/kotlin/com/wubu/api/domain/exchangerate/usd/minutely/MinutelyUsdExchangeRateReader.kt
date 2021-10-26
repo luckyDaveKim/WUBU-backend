@@ -4,5 +4,5 @@ import java.time.LocalDate
 
 interface MinutelyUsdExchangeRateReader {
 
-    fun findMinutelyExchangeRates(date: LocalDate): List<MinutelyUsdExchangeRate>
+    fun getMinutelyExchangeRates(date: LocalDate): List<MinutelyUsdExchangeRate>
 }

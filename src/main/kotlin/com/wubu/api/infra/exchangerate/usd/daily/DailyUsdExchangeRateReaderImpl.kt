@@ -10,7 +10,7 @@ class DailyUsdExchangeRateReaderImpl(
     private val dailyUsdExchangeRateRepository: DailyUsdExchangeRateRepository
 ) : DailyUsdExchangeRateReader {
 
-    override fun findDailyExchangeRates(pagingReqDto: PagingReqDto): List<DailyUsdExchangeRate> {
+    override fun getDailyExchangeRates(pagingReqDto: PagingReqDto): List<DailyUsdExchangeRate> {
         return dailyUsdExchangeRateRepository.findAllByOrderById_DateDesc(pagingReqDto.getPageable())
             .reversed()
     }

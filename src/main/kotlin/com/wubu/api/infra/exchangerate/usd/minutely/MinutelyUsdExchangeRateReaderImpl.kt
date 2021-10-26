@@ -10,7 +10,7 @@ class MinutelyUsdExchangeRateReaderImpl(
     private val minutelyUsdExchangeRateRepository: MinutelyUsdExchangeRateRepository
 ) : MinutelyUsdExchangeRateReader {
 
-    override fun findMinutelyExchangeRates(date: LocalDate): List<MinutelyUsdExchangeRate> {
+    override fun getMinutelyExchangeRates(date: LocalDate): List<MinutelyUsdExchangeRate> {
         val afterEqualDateTime = date.atStartOfDay()
         val beforeDateTime = date.plusDays(1).atStartOfDay()
 

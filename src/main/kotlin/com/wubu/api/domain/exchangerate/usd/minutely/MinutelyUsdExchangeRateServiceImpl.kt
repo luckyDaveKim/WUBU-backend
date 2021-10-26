@@ -13,8 +13,8 @@ class MinutelyUsdExchangeRateServiceImpl(
 ) : MinutelyUsdExchangeRateService {
 
     @Transactional
-    override fun getMinutelyExchangeRate(date: LocalDate): MinutelyUsdExchangeRateRes {
-        val points = minutelyUsdExchangeRateReader.findMinutelyExchangeRates(date)
+    override fun retrieveMinutelyExchangeRate(date: LocalDate): MinutelyUsdExchangeRateRes {
+        val points = minutelyUsdExchangeRateReader.getMinutelyExchangeRates(date)
             .map(minutelyUsdExchangeRateToPointConverter::convert)
 
         return MinutelyUsdExchangeRateRes.of(points)

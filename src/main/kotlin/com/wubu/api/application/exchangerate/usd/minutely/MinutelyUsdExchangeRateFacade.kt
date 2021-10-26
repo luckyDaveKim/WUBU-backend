@@ -10,6 +10,6 @@ class MinutelyUsdExchangeRateFacade(
     private val minutelyUsdExchangeRateService: MinutelyUsdExchangeRateService
 ) {
     fun retrieveMinutelyExchangeRateAtDate(date: LocalDate): MinutelyUsdExchangeRateRes {
-        return minutelyUsdExchangeRateService.getMinutelyExchangeRate(date)
+        return minutelyUsdExchangeRateService.retrieveMinutelyExchangeRate(date)
     }
 }

@@ -59,7 +59,7 @@ internal class MinutelyUsdExchangeRateReaderImplTest {
         ).willReturn(reversedDailyUsdExchangeRates)
 
         // when
-        val foundDailyUsdExchangeRates = minutelyUsdExchangeRateReader.findMinutelyExchangeRates(date)
+        val foundDailyUsdExchangeRates = minutelyUsdExchangeRateReader.getMinutelyExchangeRates(date)
 
         // then
         assertThat(foundDailyUsdExchangeRates).isNotNull
