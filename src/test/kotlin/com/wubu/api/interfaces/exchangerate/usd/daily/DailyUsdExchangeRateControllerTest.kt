@@ -3,10 +3,7 @@ package com.wubu.api.interfaces.exchangerate.usd.daily
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wubu.api.application.exchangerate.usd.daily.DailyUsdExchangeRateFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.model.exchangerate.Rate
-import com.wubu.api.domain.exchangerate.usd.daily.DailyUsdExchangeRate
-import com.wubu.api.domain.exchangerate.usd.daily.DailyUsdExchangeRateId
-import com.wubu.api.interfaces.exchangerate.usd.daily.DailyUsdExchangeRateConverter.DailyUsdExchangeRateToPointConverter
+import com.wubu.api.common.web.model.Point
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -21,7 +18,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import java.time.LocalDate
 
 @WebMvcTest(DailyUsdExchangeRateController::class)
 internal class DailyUsdExchangeRateControllerTest(
@@ -32,39 +28,26 @@ internal class DailyUsdExchangeRateControllerTest(
     @MockBean
     private lateinit var dailyUsdExchangeRateFacade: DailyUsdExchangeRateFacade
 
-    private val converter = DailyUsdExchangeRateToPointConverter()
     private val objectMapper = ObjectMapper()
-    private lateinit var dailyUsdExchangeRate1: DailyUsdExchangeRate
-    private lateinit var dailyUsdExchangeRate2: DailyUsdExchangeRate
-    private lateinit var dailyUsdExchangeRate3: DailyUsdExchangeRate
+    private lateinit var point1: Point
+    private lateinit var point2: Point
 
     @BeforeEach
     fun setUp() {
-        dailyUsdExchangeRate1 = DailyUsdExchangeRate(
-            id = DailyUsdExchangeRateId(
-                date = LocalDate.of(1991, 3, 25),
-                rate = Rate(1.1)
-            )
+        point1 = Point(
+            x = 1,
+            y = 2
         )
-        dailyUsdExchangeRate2 = DailyUsdExchangeRate(
-            id = DailyUsdExchangeRateId(
-                date = LocalDate.of(1991, 3, 26),
-                rate = Rate(2.2)
-            )
-        )
-        dailyUsdExchangeRate3 = DailyUsdExchangeRate(
-            id = DailyUsdExchangeRateId(
-                date = LocalDate.of(1991, 3, 27),
-                rate = Rate(3.3)
-            )
+        point2 = Point(
+            x = 10,
+            y = 20
         )
     }
 
     @Test
     fun `조회 테스트`() {
         // given
-        val points = listOf(dailyUsdExchangeRate1, dailyUsdExchangeRate2, dailyUsdExchangeRate3)
-            .map(converter::convert)
+        val points = listOf(point1, point2)
         val dailyUsdExchangeRateRes = DailyUsdExchangeRateRes.of(points)
         val jsonPointResDto = objectMapper.writeValueAsString(dailyUsdExchangeRateRes)
 
@@ -90,8 +73,7 @@ internal class DailyUsdExchangeRateControllerTest(
         val page = 2
         val pageSize = 20
         val pagingReqDto = PagingReqDto(page, pageSize)
-        val points = listOf(dailyUsdExchangeRate1, dailyUsdExchangeRate2, dailyUsdExchangeRate3)
-            .map(converter::convert)
+        val points = listOf(point1, point2)
         val dailyUsdExchangeRateRes = DailyUsdExchangeRateRes.of(points)
         val jsonPointResDto = objectMapper.writeValueAsString(dailyUsdExchangeRateRes)
 

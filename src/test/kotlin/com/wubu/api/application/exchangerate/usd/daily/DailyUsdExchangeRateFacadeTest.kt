@@ -29,26 +29,16 @@ internal class DailyUsdExchangeRateFacadeTest {
     fun setUp() {
         point1 = Point(
             x = 1,
-            y = 2,
-            z = 3,
-            open = 4,
-            high = 5,
-            low = 6,
-            close = 7
+            y = 2
         )
         point2 = Point(
             x = 10,
-            y = 20,
-            z = 30,
-            open = 40,
-            high = 50,
-            low = 60,
-            close = 70
+            y = 20
         )
     }
 
     @Test
-    fun `회사 리스트 조회 테스트`() {
+    fun `일별 환율 조회 테스트`() {
         // given
         val page = 1
         val pageSize = 2
