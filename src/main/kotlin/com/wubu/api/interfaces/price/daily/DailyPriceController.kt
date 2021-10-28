@@ -1,8 +1,7 @@
 package com.wubu.api.interfaces.price.daily
 
-import com.wubu.api.application.price.daily.DailyPriceFindService
+import com.wubu.api.application.price.daily.DailyPriceFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/daily/price")
 class DailyPriceController(
-    private val dailyPriceFindService: DailyPriceFindService
+    private val dailyPriceFacade: DailyPriceFacade
 ) {
 
     @GetMapping(
@@ -27,7 +26,7 @@ class DailyPriceController(
     fun findDailyPrices(
         @PathVariable(value = "companyCode") companyCode: CompanyCode,
         @ModelAttribute pagingReqDto: PagingReqDto
-    ): PointResDto {
-        return dailyPriceFindService.findDailyStockValue(companyCode, pagingReqDto)
+    ): DailyPriceRes {
+        return dailyPriceFacade.retrieveDailyPrices(companyCode, pagingReqDto)
     }
 }

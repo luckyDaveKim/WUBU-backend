@@ -13,5 +13,9 @@ class DateUtil {
             }
             return mondayDate
         }
+
+        fun getStartDateOfNextWeek(date: LocalDate): LocalDate {
+            return getStartDateOfWeek(date).plusDays(7)
+        }
     }
 }

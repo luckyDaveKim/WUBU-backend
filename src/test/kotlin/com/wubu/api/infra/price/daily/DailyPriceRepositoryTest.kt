@@ -135,6 +135,7 @@ internal class DailyPriceRepositoryTest(
         val code = dailyPrice2.id.companyCode
         val today = LocalDate.now()
         val startDateOfWeek = DateUtil.getStartDateOfWeek(today)
+        val startDateOfNextWeek = DateUtil.getStartDateOfNextWeek(today)
         val thisWeekDataSize = today.dayOfWeek.value
 
         for (dailyPrice in getPricesBefore6DaysUntilToday()) {
@@ -143,9 +144,10 @@ internal class DailyPriceRepositoryTest(
 
         // when
         val foundThisWeekDailyPrices =
-            dailyPriceRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
-                code,
-                startDateOfWeek
+            dailyPriceRepository.findAllByIdCompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
+                companyCode = code,
+                greaterThanEqualDate = startDateOfWeek,
+                lessThanDate = startDateOfNextWeek
             )
 
         // then

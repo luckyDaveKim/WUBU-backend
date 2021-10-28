@@ -1,15 +1,10 @@
 package com.wubu.api.interfaces.price.daily
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wubu.api.application.price.daily.DailyPriceFindService
+import com.wubu.api.application.price.daily.DailyPriceFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.Point
-import com.wubu.api.common.web.model.stockvalue.Price
-import com.wubu.api.domain.price.daily.DailyPrice
-import com.wubu.api.domain.price.daily.DailyPriceId
-import com.wubu.api.interfaces.price.daily.DailyPriceConverter.DailyPriceToPointConverter
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -23,8 +18,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 @WebMvcTest(DailyPriceController::class)
 internal class DailyPriceControllerTest(
@@ -33,35 +26,31 @@ internal class DailyPriceControllerTest(
 ) {
 
     @MockBean
-    private lateinit var dailyPriceFindService: DailyPriceFindService
+    private lateinit var dailyPriceFacade: DailyPriceFacade
 
-    private val dailyPriceToPointConverter = DailyPriceToPointConverter()
     private val objectMapper = ObjectMapper()
-    private lateinit var dailyPrice1: DailyPrice
-    private lateinit var dailyPrice2: DailyPrice
+    private lateinit var point1: Point
+    private lateinit var point2: Point
 
     @BeforeEach
     fun setUp() {
-        dailyPrice1 = DailyPrice(
-            DailyPriceId(
-                CompanyCode("000000"),
-                LocalDate.of(1991, 3, 26)
-            ),
-            Price(1),
-            Price(2),
-            Price(3),
-            Price(4)
+        point1 = Point(
+            x = 1,
+            y = 2,
+            z = 3,
+            open = 4,
+            high = 5,
+            low = 6,
+            close = 7
         )
-
-        dailyPrice2 = DailyPrice(
-            DailyPriceId(
-                CompanyCode("000000"),
-                LocalDate.of(1991, 3, 27)
-            ),
-            Price(10),
-            Price(20),
-            Price(30),
-            Price(40)
+        point2 = Point(
+            x = 10,
+            y = 20,
+            z = 30,
+            open = 40,
+            high = 50,
+            low = 60,
+            close = 70
         )
     }
 
@@ -69,13 +58,12 @@ internal class DailyPriceControllerTest(
     fun `데이터 조회 테스트`() {
         // given
         val companyCode = CompanyCode("000000")
-        val points = listOf(dailyPrice1, dailyPrice2)
-            .map(dailyPriceToPointConverter::convert)
-        val pointResDto = PointResDto.of(points)
-        val jsonDailyPricesResDto = objectMapper.writeValueAsString(pointResDto)
+        val points = listOf(point1, point2)
+        val dailyPriceRes = DailyPriceRes.of(points)
+        val jsonDailyPricesResDto = objectMapper.writeValueAsString(dailyPriceRes)
 
-        given(dailyPriceFindService.findDailyStockValue(companyCode, PagingReqDto()))
-            .willReturn(pointResDto)
+        given(dailyPriceFacade.retrieveDailyPrices(companyCode, PagingReqDto()))
+            .willReturn(dailyPriceRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -94,22 +82,12 @@ internal class DailyPriceControllerTest(
     fun `페이징 데이터 조회 테스트`() {
         // given
         val companyCode = CompanyCode("000000")
-        val points = listOf(dailyPrice1, dailyPrice2)
-            .map { source ->
-                Point(
-                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                    y = source.close.value,
-                    open = source.open.value,
-                    high = source.high.value,
-                    low = source.low.value,
-                    close = source.close.value
-                )
-            }
-        val pointResDto = PointResDto.of(points)
-        val jsonDailyPricesResponseDto = objectMapper.writeValueAsString(pointResDto)
+        val points = listOf(point1, point2)
+        val dailyPriceRes = DailyPriceRes.of(points)
+        val jsonDailyPricesResDto = objectMapper.writeValueAsString(dailyPriceRes)
 
-        given(dailyPriceFindService.findDailyStockValue(companyCode, PagingReqDto()))
-            .willReturn(pointResDto)
+        given(dailyPriceFacade.retrieveDailyPrices(companyCode, PagingReqDto()))
+            .willReturn(dailyPriceRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -122,7 +100,7 @@ internal class DailyPriceControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-            .andExpect(content().string(jsonDailyPricesResponseDto))
+            .andExpect(content().string(jsonDailyPricesResDto))
             .andDo { print() }
     }
 }
