@@ -118,7 +118,7 @@ internal class MinutelyPriceRepositoryTest(
 
         // when
         val foundMinutelyPrices =
-            minutelyPriceRepository.findAllById_CompanyCodeAndId_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeDesc(
+            minutelyPriceRepository.findAllById_CompanyCodeAndId_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeAsc(
                 companyCode = companyCode,
                 afterEqualDateTime = afterEqualDateTime,
                 beforeDateTime = beforeDateTime

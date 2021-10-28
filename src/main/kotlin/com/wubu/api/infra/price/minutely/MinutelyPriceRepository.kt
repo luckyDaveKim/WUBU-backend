@@ -16,7 +16,7 @@ interface MinutelyPriceRepository : JpaRepository<MinutelyPrice, MinutelyPriceId
         pageable: Pageable
     ): List<MinutelyPrice>
 
-    fun findAllById_CompanyCodeAndId_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeDesc(
+    fun findAllById_CompanyCodeAndId_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeAsc(
         companyCode: CompanyCode,
         afterEqualDateTime: LocalDateTime,
         beforeDateTime: LocalDateTime

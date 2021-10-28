@@ -1,13 +1,10 @@
-package com.wubu.api.application.price.minutely
+package com.wubu.api.infra.price.minutely
 
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.domain.price.minutely.MinutelyPrice
 import com.wubu.api.domain.price.minutely.MinutelyPriceId
-import com.wubu.api.infra.price.minutely.MinutelyPriceRepository
-import com.wubu.api.interfaces.price.minutely.MinutelyPriceConverter.MinutelyPriceToPointConverter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -15,22 +12,18 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Spy
 import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 @ExtendWith(MockitoExtension::class)
-internal class MinutelyPriceFindServiceTest {
+internal class MinutelyPriceReaderImplTest {
 
     @Mock
     private lateinit var minutelyPriceRepository: MinutelyPriceRepository
 
-    @Spy
-    private lateinit var minutelyPriceToPointConverter: MinutelyPriceToPointConverter
-
     @InjectMocks
-    private lateinit var minutelyPriceFindService: MinutelyPriceFindService
+    private lateinit var minutelyPriceReader: MinutelyPriceReaderImpl
 
     private lateinit var minutelyPrice1: MinutelyPrice
     private lateinit var minutelyPrice2: MinutelyPrice
@@ -80,10 +73,8 @@ internal class MinutelyPriceFindServiceTest {
             page = 1,
             pageSize = 2
         )
-
-        val minutelyPrices = listOf(minutelyPrice2, minutelyPrice3)
+        val minutelyPrices = listOf(minutelyPrice1, minutelyPrice2, minutelyPrice3)
         val reversedMinutelyPrices = minutelyPrices.reversed()
-        val pointResDto = PointResDto.of(minutelyPrices.map(minutelyPriceToPointConverter::convert))
 
         given(
             minutelyPriceRepository.findAllById_CompanyCodeOrderById_DateTimeDesc(
@@ -93,14 +84,14 @@ internal class MinutelyPriceFindServiceTest {
         ).willReturn(reversedMinutelyPrices)
 
         // when
-        val foundPointResDto = minutelyPriceFindService.findMinutelyStockValue(
+        val foundPointRes = minutelyPriceReader.getMinutelyPrices(
             companyCode = companyCode,
             pagingReqDto = pagingReqDto
         )
 
         // then
-        assertThat(foundPointResDto).isNotNull
-        assertThat(foundPointResDto).isEqualTo(pointResDto)
+        assertThat(foundPointRes).isNotNull
+        assertThat(foundPointRes).isEqualTo(minutelyPrices)
     }
 
     @Test
@@ -110,27 +101,24 @@ internal class MinutelyPriceFindServiceTest {
         val date = LocalDate.of(1991, 3, 26)
         val afterEqualDateTime = date.atStartOfDay()
         val beforeDateTime = date.plusDays(1).atStartOfDay()
-        val minutelyPrices = listOf(minutelyPrice2, minutelyPrice3)
-        val reversedMinutelyPrices = minutelyPrices.reversed()
-        val points = minutelyPrices.map(minutelyPriceToPointConverter::convert)
-        val pointResDto = PointResDto.of(points)
+        val minutelyPrices = listOf(minutelyPrice1, minutelyPrice2, minutelyPrice3)
 
         given(
-            minutelyPriceRepository.findAllById_CompanyCodeAndId_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeDesc(
+            minutelyPriceRepository.findAllById_CompanyCodeAndId_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeAsc(
                 companyCode = companyCode,
                 afterEqualDateTime = afterEqualDateTime,
                 beforeDateTime = beforeDateTime
             )
-        ).willReturn(reversedMinutelyPrices)
+        ).willReturn(minutelyPrices)
 
         // when
-        val foundPointResDto = minutelyPriceFindService.findMinutelyStockValueAtDate(
+        val foundPointRes = minutelyPriceReader.getMinutelyPricesAtDate(
             companyCode = companyCode,
             date = date
         )
 
         // then
-        assertThat(foundPointResDto).isNotNull
-        assertThat(foundPointResDto).isEqualTo(pointResDto)
+        assertThat(foundPointRes).isNotNull
+        assertThat(foundPointRes).isEqualTo(minutelyPrices)
     }
 }
