@@ -1,14 +1,10 @@
 package com.wubu.api.interfaces.price.minutely
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wubu.api.application.price.minutely.MinutelyPriceFindService
+import com.wubu.api.application.price.minutely.MinutelyPriceFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
-import com.wubu.api.common.web.model.stockvalue.Price
-import com.wubu.api.domain.price.minutely.MinutelyPrice
-import com.wubu.api.domain.price.minutely.MinutelyPriceId
-import com.wubu.api.interfaces.price.minutely.MinutelyPriceConverter.MinutelyPriceToPointConverter
+import com.wubu.api.common.web.model.Point
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -23,67 +19,60 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
-import java.time.LocalDateTime
 
-@WebMvcTest(MinutelyController::class)
-internal class MinutelyControllerTest(
+@WebMvcTest(MinutelyPriceController::class)
+internal class MinutelyPriceControllerTest(
     @Autowired
     private val mockMvc: MockMvc
 ) {
 
     @MockBean
-    private lateinit var minutelyFindService: MinutelyPriceFindService
+    private lateinit var minutelyFindService: MinutelyPriceFacade
 
-    private val minutelyPriceToPointConverter = MinutelyPriceToPointConverter()
     private val objectMapper = ObjectMapper()
-    private lateinit var companyCode: CompanyCode
-    private lateinit var minutelyPrice1: MinutelyPrice
-    private lateinit var minutelyPrice2: MinutelyPrice
+    private lateinit var point1: Point
+    private lateinit var point2: Point
 
     @BeforeEach
     fun setUp() {
-        companyCode = CompanyCode("000001")
-        minutelyPrice1 = MinutelyPrice(
-            id = MinutelyPriceId(
-                companyCode = companyCode,
-                dateTime = LocalDateTime.of(1991, 3, 26, 9, 0)
-            ),
-            open = Price(1),
-            high = Price(2),
-            low = Price(3),
-            close = Price(4)
+        point1 = Point(
+            x = 1,
+            y = 2,
+            z = 3,
+            open = 4,
+            high = 5,
+            low = 6,
+            close = 7
         )
-        minutelyPrice2 = MinutelyPrice(
-            id = MinutelyPriceId(
-                companyCode = companyCode,
-                dateTime = LocalDateTime.of(1991, 3, 26, 9, 1)
-            ),
-            open = Price(10),
-            high = Price(20),
-            low = Price(30),
-            close = Price(40)
+        point2 = Point(
+            x = 10,
+            y = 20,
+            z = 30,
+            open = 40,
+            high = 50,
+            low = 60,
+            close = 70
         )
     }
 
     @Test
     fun `특정 회사 데이터 조회 테스트`() {
         // given
+        val companyCode = CompanyCode("000000")
         val pagingReqDto = PagingReqDto(
             page = 1,
             pageSize = 2
         )
-
-        val points = listOf(minutelyPrice1, minutelyPrice2)
-            .map(minutelyPriceToPointConverter::convert)
-        val pointResDto = PointResDto.of(points)
-        val jsonMinutelyPriceResDto = objectMapper.writeValueAsString(pointResDto)
+        val points = listOf(point1, point2)
+        val minutelyPriceRes = MinutelyPriceRes.of(points)
+        val jsonMinutelyPriceRes = objectMapper.writeValueAsString(minutelyPriceRes)
 
         given(
-            minutelyFindService.findMinutelyStockValue(
+            minutelyFindService.retrieveMinutelyPrices(
                 companyCode = companyCode,
                 pagingReqDto = pagingReqDto
             )
-        ).willReturn(pointResDto)
+        ).willReturn(minutelyPriceRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -96,24 +85,25 @@ internal class MinutelyControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-            .andExpect(content().json(jsonMinutelyPriceResDto))
+            .andExpect(content().json(jsonMinutelyPriceRes))
             .andDo { print() }
     }
 
     @Test
     fun `default 페이징 정보 기반 특정 회사 데이터 조회 테스트`() {
         // given
-        val points = listOf(minutelyPrice1, minutelyPrice2)
-            .map(minutelyPriceToPointConverter::convert)
-        val pointResDto = PointResDto.of(points)
-        val jsonMinutelyPriceResDto = objectMapper.writeValueAsString(pointResDto)
+        val companyCode = CompanyCode("000000")
+        val pagingReqDto = PagingReqDto()
+        val points = listOf(point1, point2)
+        val minutelyPriceRes = MinutelyPriceRes.of(points)
+        val jsonMinutelyPriceRes = objectMapper.writeValueAsString(minutelyPriceRes)
 
         given(
-            minutelyFindService.findMinutelyStockValue(
+            minutelyFindService.retrieveMinutelyPrices(
                 companyCode = companyCode,
-                pagingReqDto = PagingReqDto()
+                pagingReqDto = pagingReqDto
             )
-        ).willReturn(pointResDto)
+        ).willReturn(minutelyPriceRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -124,25 +114,25 @@ internal class MinutelyControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-            .andExpect(content().json(jsonMinutelyPriceResDto))
+            .andExpect(content().json(jsonMinutelyPriceRes))
             .andDo { print() }
     }
 
     @Test
     fun `특정 회사 및 특정일 데이터 조회 테스트`() {
         // given
+        val companyCode = CompanyCode("000000")
         val date = LocalDate.of(1991, 3, 26)
-        val points = listOf(minutelyPrice1, minutelyPrice2)
-            .map(minutelyPriceToPointConverter::convert)
-        val pointResDto = PointResDto.of(points)
-        val jsonMinutelyPriceResDto = objectMapper.writeValueAsString(pointResDto)
+        val points = listOf(point1, point2)
+        val minutelyPriceRes = MinutelyPriceRes.of(points)
+        val jsonMinutelyPriceRes = objectMapper.writeValueAsString(minutelyPriceRes)
 
         given(
-            minutelyFindService.findMinutelyStockValueAtDate(
+            minutelyFindService.retrieveMinutelyPricesAtDate(
                 companyCode = companyCode,
                 date = date
             )
-        ).willReturn(pointResDto)
+        ).willReturn(minutelyPriceRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -153,7 +143,7 @@ internal class MinutelyControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-            .andExpect(content().json(jsonMinutelyPriceResDto))
+            .andExpect(content().json(jsonMinutelyPriceRes))
             .andDo { print() }
     }
 }

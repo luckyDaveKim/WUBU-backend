@@ -60,10 +60,14 @@ internal class DailyPriceControllerTest(
         val companyCode = CompanyCode("000000")
         val points = listOf(point1, point2)
         val dailyPriceRes = DailyPriceRes.of(points)
-        val jsonDailyPricesResDto = objectMapper.writeValueAsString(dailyPriceRes)
+        val jsonDailyPricesRes = objectMapper.writeValueAsString(dailyPriceRes)
 
-        given(dailyPriceFacade.retrieveDailyPrices(companyCode, PagingReqDto()))
-            .willReturn(dailyPriceRes)
+        given(
+            dailyPriceFacade.retrieveDailyPrices(
+                companyCode = companyCode,
+                pagingReqDto = PagingReqDto()
+            )
+        ).willReturn(dailyPriceRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -74,7 +78,7 @@ internal class DailyPriceControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-            .andExpect(content().json(jsonDailyPricesResDto))
+            .andExpect(content().json(jsonDailyPricesRes))
             .andDo { print() }
     }
 

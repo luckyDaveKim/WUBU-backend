@@ -1,8 +1,7 @@
 package com.wubu.api.interfaces.price.minutely
 
-import com.wubu.api.application.price.minutely.MinutelyPriceFindService
+import com.wubu.api.application.price.minutely.MinutelyPriceFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
@@ -17,8 +16,8 @@ import java.time.LocalDate
 
 @RestController
 @RequestMapping("/api/minutely/price")
-class MinutelyController(
-    private val minutelyPriceFindService: MinutelyPriceFindService
+class MinutelyPriceController(
+    private val minutelyPriceFacade: MinutelyPriceFacade
 ) {
 
     @GetMapping(
@@ -29,8 +28,8 @@ class MinutelyController(
     fun findMinutelyPrices(
         @PathVariable(value = "companyCode") companyCode: CompanyCode,
         @ModelAttribute pagingReqDto: PagingReqDto
-    ): PointResDto {
-        return minutelyPriceFindService.findMinutelyStockValue(companyCode, pagingReqDto)
+    ): MinutelyPriceRes {
+        return minutelyPriceFacade.retrieveMinutelyPrices(companyCode, pagingReqDto)
     }
 
     @GetMapping(
@@ -41,7 +40,7 @@ class MinutelyController(
     fun findMinutelyPricesAtDate(
         @PathVariable(value = "companyCode") companyCode: CompanyCode,
         @PathVariable(name = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate
-    ): PointResDto {
-        return minutelyPriceFindService.findMinutelyStockValueAtDate(companyCode, date)
+    ): MinutelyPriceRes {
+        return minutelyPriceFacade.retrieveMinutelyPricesAtDate(companyCode, date)
     }
 }
