@@ -1,8 +1,7 @@
 package com.wubu.api.interfaces.volume.daily
 
-import com.wubu.api.application.volume.daily.DailyVolumeFindService
+import com.wubu.api.application.volume.daily.DailyVolumeFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/daily/volume")
 class DailyVolumeController(
-    private val dailyVolumeFindService: DailyVolumeFindService
+    private val dailyVolumeFacade: DailyVolumeFacade
 ) {
 
     @GetMapping(
@@ -27,7 +26,7 @@ class DailyVolumeController(
     fun findDailyVolumes(
         @PathVariable(value = "companyCode") companyCode: CompanyCode,
         @ModelAttribute pagingReqDto: PagingReqDto
-    ): PointResDto {
-        return dailyVolumeFindService.findDailyStockValue(companyCode, pagingReqDto)
+    ): DailyVolumeRes {
+        return dailyVolumeFacade.retrieveDailyVolumes(companyCode, pagingReqDto)
     }
 }

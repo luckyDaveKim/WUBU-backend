@@ -15,8 +15,9 @@ interface DailyVolumeRepository : JpaRepository<DailyVolume, DailyVolumeId> {
         pageable: Pageable
     ): List<DailyVolume>
 
-    fun findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
+    fun findAllById_CompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
         companyCode: CompanyCode,
-        date: LocalDate
+        greaterThanEqualDate: LocalDate,
+        lessThanDate: LocalDate
     ): List<DailyVolume>
 }

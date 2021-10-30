@@ -1,14 +1,10 @@
 package com.wubu.api.interfaces.volume.daily
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wubu.api.application.volume.daily.DailyVolumeFindService
+import com.wubu.api.application.volume.daily.DailyVolumeFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.Point
-import com.wubu.api.common.web.model.stockvalue.Volume
-import com.wubu.api.domain.volume.daily.DailyVolume
-import com.wubu.api.domain.volume.daily.DailyVolumeId
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -22,8 +18,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 @WebMvcTest(DailyVolumeController::class)
 internal class DailyVolumeControllerTest(
@@ -32,28 +26,21 @@ internal class DailyVolumeControllerTest(
 ) {
 
     @MockBean
-    private lateinit var dailyVolumeFindService: DailyVolumeFindService
+    private lateinit var dailyVolumeFacade: DailyVolumeFacade
 
     private val objectMapper = ObjectMapper()
-    private lateinit var dailyVolume1: DailyVolume
-    private lateinit var dailyVolume2: DailyVolume
+    private lateinit var point1: Point
+    private lateinit var point2: Point
 
     @BeforeEach
     fun setUp() {
-        dailyVolume1 = DailyVolume(
-            DailyVolumeId(
-                CompanyCode("000000"),
-                LocalDate.of(1991, 3, 26)
-            ),
-            Volume(1)
+        point1 = Point(
+            x = 1,
+            y = 2
         )
-
-        dailyVolume2 = DailyVolume(
-            DailyVolumeId(
-                CompanyCode("000000"),
-                LocalDate.of(1991, 3, 27)
-            ),
-            Volume(1)
+        point2 = Point(
+            x = 10,
+            y = 20
         )
     }
 
@@ -61,18 +48,16 @@ internal class DailyVolumeControllerTest(
     fun `데이터 조회 테스트`() {
         // given
         val companyCode = CompanyCode("000000")
-        val points = listOf(dailyVolume1, dailyVolume2)
-            .map { source ->
-                Point(
-                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                    y = source.volume.value
-                )
-            }
-        val pointResDto = PointResDto.of(points)
-        val jsonDailyVolumesResponseDto = objectMapper.writeValueAsString(pointResDto)
+        val points = listOf(point1, point2)
+        val dailyVolumeRes = DailyVolumeRes.of(points)
+        val jsonDailyVolumesResp = objectMapper.writeValueAsString(dailyVolumeRes)
 
-        given(dailyVolumeFindService.findDailyStockValue(companyCode, PagingReqDto()))
-            .willReturn(pointResDto)
+        given(
+            dailyVolumeFacade.retrieveDailyVolumes(
+                companyCode = companyCode,
+                pagingReqDto = PagingReqDto()
+            )
+        ).willReturn(dailyVolumeRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -83,7 +68,7 @@ internal class DailyVolumeControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-            .andExpect(content().json(jsonDailyVolumesResponseDto))
+            .andExpect(content().json(jsonDailyVolumesResp))
             .andDo { print() }
     }
 
@@ -91,18 +76,12 @@ internal class DailyVolumeControllerTest(
     fun `페이징 데이터 조회 테스트`() {
         // given
         val companyCode = CompanyCode("000000")
-        val points = listOf(dailyVolume1, dailyVolume2)
-            .map { source ->
-                Point(
-                    x = source.id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                    y = source.volume.value
-                )
-            }
-        val pointResDto = PointResDto.of(points)
-        val jsonDailyVolumesResponseDto = objectMapper.writeValueAsString(pointResDto)
+        val points = listOf(point1, point2)
+        val dailyVolumeRes = DailyVolumeRes.of(points)
+        val jsonDailyVolumesResp = objectMapper.writeValueAsString(dailyVolumeRes)
 
-        given(dailyVolumeFindService.findDailyStockValue(companyCode, PagingReqDto()))
-            .willReturn(pointResDto)
+        given(dailyVolumeFacade.retrieveDailyVolumes(companyCode, PagingReqDto()))
+            .willReturn(dailyVolumeRes)
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -115,7 +94,7 @@ internal class DailyVolumeControllerTest(
 
         // then
         resultActions.andExpect { status().isOk }
-            .andExpect(content().string(jsonDailyVolumesResponseDto))
+            .andExpect(content().string(jsonDailyVolumesResp))
             .andDo { print() }
     }
 }

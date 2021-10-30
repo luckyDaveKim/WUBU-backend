@@ -15,7 +15,7 @@ interface DailyPriceRepository : JpaRepository<DailyPrice, DailyPriceId> {
         pageable: Pageable
     ): List<DailyPrice>
 
-    fun findAllByIdCompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
+    fun findAllById_CompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
         companyCode: CompanyCode,
         greaterThanEqualDate: LocalDate,
         lessThanDate: LocalDate
