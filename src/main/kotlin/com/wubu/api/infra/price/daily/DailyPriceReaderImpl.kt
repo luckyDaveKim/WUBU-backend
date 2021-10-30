@@ -23,7 +23,7 @@ class DailyPriceReaderImpl(
     override fun getThisWeekPrices(companyCode: CompanyCode, date: LocalDate): List<DailyPrice> {
         val startDateOfThisWeek = DateUtil.getStartDateOfWeek(date)
         val startDateOfNextWeek = DateUtil.getStartDateOfNextWeek(date)
-        return dailyPriceRepository.findAllByIdCompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
+        return dailyPriceRepository.findAllById_CompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
             companyCode = companyCode,
             greaterThanEqualDate = startDateOfThisWeek,
             lessThanDate = startDateOfNextWeek

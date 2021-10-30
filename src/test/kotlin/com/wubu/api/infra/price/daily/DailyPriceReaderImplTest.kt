@@ -98,7 +98,7 @@ internal class DailyPriceReaderImplTest {
         val dailyPrices = listOf(dailyPrice1, dailyPrice2, dailyPrice3)
 
         given(
-            dailyPriceRepository.findAllByIdCompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
+            dailyPriceRepository.findAllById_CompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
                 companyCode = companyCode,
                 greaterThanEqualDate = startDateOfThisWeek,
                 lessThanDate = startDateOfNextWeek

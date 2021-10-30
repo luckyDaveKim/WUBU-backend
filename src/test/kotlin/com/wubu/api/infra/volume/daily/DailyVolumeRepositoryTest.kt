@@ -123,18 +123,20 @@ internal class DailyVolumeRepositoryTest(
     fun `코드 및 날짜 기준 리스트 조회 테스트`() {
         // given
         val code = dailyVolume2.id.companyCode
-        val today = LocalDate.now()
-        val startDateOfWeek = DateUtil.getStartDateOfWeek(today)
-        val thisWeekDataSize = today.dayOfWeek.value
+        val date = LocalDate.now()
+        val startDateOfWeek = DateUtil.getStartDateOfWeek(date)
+        val startDateOfNextWeek = DateUtil.getStartDateOfNextWeek(date)
+        val thisWeekDataSize = date.dayOfWeek.value
 
         // when
         for (dailyVolume in getVolumeBefore6DaysUntilToday()) {
             dailyVolumeRepository.save(dailyVolume)
         }
         val foundThisWeekDailyVolumes =
-            dailyVolumeRepository.findAllByIdCompanyCodeAndIdDateGreaterThanEqualOrderByIdDateAsc(
-                code,
-                startDateOfWeek
+            dailyVolumeRepository.findAllById_CompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
+                companyCode = code,
+                greaterThanEqualDate = startDateOfWeek,
+                lessThanDate = startDateOfNextWeek
             )
 
         // then

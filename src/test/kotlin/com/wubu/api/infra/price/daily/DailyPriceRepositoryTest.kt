@@ -144,7 +144,7 @@ internal class DailyPriceRepositoryTest(
 
         // when
         val foundThisWeekDailyPrices =
-            dailyPriceRepository.findAllByIdCompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
+            dailyPriceRepository.findAllById_CompanyCodeAndId_DateGreaterThanEqualAndId_DateLessThanOrderByIdDateAsc(
                 companyCode = code,
                 greaterThanEqualDate = startDateOfWeek,
                 lessThanDate = startDateOfNextWeek
