@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 interface MinutelyPriceService {
 
-    fun retrieveMinutelyPrice(companyCode: CompanyCode, pagingReqDto: PagingReqDto): MinutelyPriceRes
+    fun retrieveMinutelyPrices(companyCode: CompanyCode, pagingReqDto: PagingReqDto): MinutelyPriceRes
 
-    fun retrieveMinutelyStockPrice(companyCode: CompanyCode, date: LocalDate): MinutelyPriceRes
+    fun retrieveMinutelyPricesAtDate(companyCode: CompanyCode, date: LocalDate): MinutelyPriceRes
 }

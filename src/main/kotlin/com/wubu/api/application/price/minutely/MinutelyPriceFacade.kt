@@ -14,14 +14,14 @@ class MinutelyPriceFacade(
 ) : MinutelyStockValueFindService {
 
     fun retrieveMinutelyPrices(companyCode: CompanyCode, pagingReqDto: PagingReqDto): MinutelyPriceRes {
-        return minutelyPriceService.retrieveMinutelyPrice(
+        return minutelyPriceService.retrieveMinutelyPrices(
             companyCode = companyCode,
             pagingReqDto = pagingReqDto
         )
     }
 
     fun retrieveMinutelyPricesAtDate(companyCode: CompanyCode, date: LocalDate): MinutelyPriceRes {
-        return minutelyPriceService.retrieveMinutelyStockPrice(
+        return minutelyPriceService.retrieveMinutelyPricesAtDate(
             companyCode = companyCode,
             date = date
         )
