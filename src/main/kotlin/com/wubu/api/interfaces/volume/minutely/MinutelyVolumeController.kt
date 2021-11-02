@@ -1,8 +1,7 @@
 package com.wubu.api.interfaces.volume.minutely
 
-import com.wubu.api.application.volume.minutely.MinutelyVolumeFindService
+import com.wubu.api.application.volume.minutely.MinutelyVolumeFacade
 import com.wubu.api.common.web.dto.PagingReqDto
-import com.wubu.api.common.web.dto.PointResDto
 import com.wubu.api.common.web.model.CompanyCode
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
@@ -18,7 +17,7 @@ import java.time.LocalDate
 @RestController
 @RequestMapping("/api/minutely/volume")
 class MinutelyVolumeController(
-    private val minutelyVolumeFindService: MinutelyVolumeFindService
+    private val minutelyVolumeFacade: MinutelyVolumeFacade
 ) {
 
     @GetMapping(
@@ -29,8 +28,8 @@ class MinutelyVolumeController(
     fun findMinutelyVolumes(
         @PathVariable(value = "companyCode") companyCode: CompanyCode,
         @ModelAttribute pagingReqDto: PagingReqDto
-    ): PointResDto {
-        return minutelyVolumeFindService.findMinutelyStockValue(companyCode, pagingReqDto)
+    ): MinutelyVolumeRes {
+        return minutelyVolumeFacade.retrieveMinutelyVolumes(companyCode, pagingReqDto)
     }
 
     @GetMapping(
@@ -41,7 +40,7 @@ class MinutelyVolumeController(
     fun findMinutelyVolumesAtDate(
         @PathVariable(value = "companyCode") companyCode: CompanyCode,
         @PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate,
-    ): PointResDto {
-        return minutelyVolumeFindService.findMinutelyStockValueAtDate(companyCode, date)
+    ): MinutelyVolumeRes {
+        return minutelyVolumeFacade.retrieveMinutelyVolumesAtDate(companyCode, date)
     }
 }

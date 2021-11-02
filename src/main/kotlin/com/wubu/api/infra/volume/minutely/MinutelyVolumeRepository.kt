@@ -21,4 +21,10 @@ interface MinutelyVolumeRepository : JpaRepository<MinutelyVolume, MinutelyVolum
         afterEqualDateTime: LocalDateTime,
         beforeDateTime: LocalDateTime
     ): List<MinutelyVolume>
+
+    fun findAllById_CompanyCodeAndId_DateTimeGreaterThanEqualAndId_DateTimeLessThanOrderById_DateTimeAsc(
+        companyCode: CompanyCode,
+        afterEqualDateTime: LocalDateTime,
+        beforeDateTime: LocalDateTime
+    ): List<MinutelyVolume>
 }

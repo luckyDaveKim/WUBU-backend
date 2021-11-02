@@ -90,7 +90,7 @@ internal class MinutelyPriceServiceImplTest {
         ).willReturn(minutelyPrices)
 
         // when
-        val foundPointRes = minutelyPriceService.retrieveMinutelyPrice(
+        val foundPointRes = minutelyPriceService.retrieveMinutelyPrices(
             companyCode = companyCode,
             pagingReqDto = pagingReqDto
         )
@@ -118,7 +118,7 @@ internal class MinutelyPriceServiceImplTest {
         ).willReturn(minutelyPrices)
 
         // when
-        val foundPointRes = minutelyPriceService.retrieveMinutelyStockPrice(
+        val foundPointRes = minutelyPriceService.retrieveMinutelyPricesAtDate(
             companyCode = companyCode,
             date = date
         )

@@ -5,6 +5,7 @@ import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.interfaces.volume.daily.DailyVolumeConverter.DailyVolumeToPointConverter
 import com.wubu.api.interfaces.volume.daily.DailyVolumeRes
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 
 @Service
@@ -13,6 +14,7 @@ class DailyVolumeServiceImpl(
     private val dailyVolumeToPointConverter: DailyVolumeToPointConverter
 ) : DailyVolumeService {
 
+    @Transactional
     override fun retrieveDailyVolumes(companyCode: CompanyCode, pagingReqDto: PagingReqDto): DailyVolumeRes {
         val points = dailyVolumeReader.getDailyVolumes(
             companyCode = companyCode,
@@ -22,6 +24,7 @@ class DailyVolumeServiceImpl(
         return DailyVolumeRes.of(points)
     }
 
+    @Transactional
     override fun retrieveThisWeekVolumes(companyCode: CompanyCode, date: LocalDate): DailyVolumeRes {
         val points = dailyVolumeReader.getThisWeekVolumes(
             companyCode = companyCode,

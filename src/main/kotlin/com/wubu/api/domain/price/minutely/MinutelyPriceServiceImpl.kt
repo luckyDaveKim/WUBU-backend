@@ -15,7 +15,7 @@ class MinutelyPriceServiceImpl(
 ) : MinutelyPriceService {
 
     @Transactional
-    override fun retrieveMinutelyPrice(companyCode: CompanyCode, pagingReqDto: PagingReqDto): MinutelyPriceRes {
+    override fun retrieveMinutelyPrices(companyCode: CompanyCode, pagingReqDto: PagingReqDto): MinutelyPriceRes {
         val points = minutelyPriceReader.getMinutelyPrices(
             companyCode = companyCode,
             pagingReqDto = pagingReqDto
@@ -24,7 +24,7 @@ class MinutelyPriceServiceImpl(
         return MinutelyPriceRes.of(points)
     }
 
-    override fun retrieveMinutelyStockPrice(companyCode: CompanyCode, date: LocalDate): MinutelyPriceRes {
+    override fun retrieveMinutelyPricesAtDate(companyCode: CompanyCode, date: LocalDate): MinutelyPriceRes {
         val points = minutelyPriceReader.getMinutelyPricesAtDate(
             companyCode = companyCode,
             date = date
