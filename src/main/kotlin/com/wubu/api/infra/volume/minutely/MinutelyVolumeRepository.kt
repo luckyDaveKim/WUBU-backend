@@ -5,10 +5,8 @@ import com.wubu.api.domain.volume.minutely.MinutelyVolume
 import com.wubu.api.domain.volume.minutely.MinutelyVolumeId
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
-@Repository
 interface MinutelyVolumeRepository : JpaRepository<MinutelyVolume, MinutelyVolumeId> {
 
     fun findAllById_CompanyCodeOrderById_DateTimeDesc(
