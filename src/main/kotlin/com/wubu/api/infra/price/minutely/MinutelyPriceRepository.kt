@@ -5,10 +5,8 @@ import com.wubu.api.domain.price.minutely.MinutelyPrice
 import com.wubu.api.domain.price.minutely.MinutelyPriceId
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
-@Repository
 interface MinutelyPriceRepository : JpaRepository<MinutelyPrice, MinutelyPriceId> {
 
     fun findAllById_CompanyCodeOrderById_DateTimeDesc(

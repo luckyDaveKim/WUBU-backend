@@ -5,11 +5,10 @@ import com.wubu.api.domain.volume.daily.DailyVolume
 import com.wubu.api.domain.volume.daily.DailyVolumeId
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
 import java.time.LocalDate
 
-@Repository
 interface DailyVolumeRepository : JpaRepository<DailyVolume, DailyVolumeId> {
+
     fun findAllByIdCompanyCodeOrderByIdDateDesc(
         companyCode: CompanyCode,
         pageable: Pageable
