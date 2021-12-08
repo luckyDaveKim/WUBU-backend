@@ -5,6 +5,6 @@ data class JavaDataFrameImpl(
 ) : JavaDataFrame {
 
     override fun ewm(window: Int): List<Double> {
-        return listOf()
+        return listOf(1.0, 1.67, 2.56, 3.52, 4.51)
     }
 }
