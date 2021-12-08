@@ -41,4 +41,17 @@ internal class JavaDataFrameImplTest {
         // then
         assertThat(ewm).isEqualTo(listOf(1.0, 1.67, 2.56, 3.52, 4.51))
     }
+
+    @Test
+    fun `empty data ewm 테스트`() {
+        // given
+        val data = emptyList<Double>()
+        val jdf = JavaDataFrameImpl(data)
+
+        // when
+        val ewm = jdf.ewm(window = 3)
+
+        // then
+        assertThat(ewm).isEqualTo(emptyList<Double>())
+    }
 }
