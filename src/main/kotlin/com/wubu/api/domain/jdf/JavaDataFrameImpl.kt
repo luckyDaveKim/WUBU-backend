@@ -8,6 +8,8 @@ data class JavaDataFrameImpl(
 ) : JavaDataFrame {
 
     override fun ewm(window: Int): List<Double> {
+        if (data.isEmpty()) return emptyList()
+
         val result = mutableListOf(data[0])
 
         for (i: Int in 1 until data.size) {
