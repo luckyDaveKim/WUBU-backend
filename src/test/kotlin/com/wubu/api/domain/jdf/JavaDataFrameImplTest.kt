@@ -40,7 +40,7 @@ internal class JavaDataFrameImplTest {
         val ema = jdf.ema(window = 3)
 
         // then
-        assertThat(ema).isEqualTo(
+        val series = Series(
             listOf(
                 1.0,
                 1.6666666666666667,
@@ -49,6 +49,7 @@ internal class JavaDataFrameImplTest {
                 4.161290322580645
             )
         )
+        assertThat(ema).isEqualTo(series)
     }
 
     @Test
