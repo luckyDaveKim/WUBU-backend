@@ -100,4 +100,22 @@ internal class JavaDataFrameImplTest {
         )
         assertThat(ema).isEqualTo(series)
     }
+
+    @Test
+    fun `ema 빼기 테스트`() {
+        // given
+        val data = listOf(1.0, 2.0, 3.0, 4.0, 5.0)
+        val jdf = JavaDataFrameImpl(data)
+        val ema1 = jdf.ema(window = 3)
+        val ema2 = jdf.ema(window = 3)
+
+        // when
+        val ema = ema1 - ema2
+
+        // then
+        val series = Series(
+            listOf(0.0, 0.0, 0.0, 0.0, 0.0)
+        )
+        assertThat(ema).isEqualTo(series)
+    }
 }
