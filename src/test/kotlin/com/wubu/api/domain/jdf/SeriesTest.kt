@@ -80,4 +80,18 @@ internal class SeriesTest {
         // then
         assertThat(series.data).isEqualTo(emptyList<Double>())
     }
+
+    @Test
+    fun `minus 테스트`() {
+        // given
+        val data = listOf(1.0, 2.0, 3.0, 4.0, 5.0)
+        val series1 = Series(data)
+        val series2 = Series(data)
+
+        // when
+        val series = series1 - series2
+
+        // then
+        assertThat(series.data).isEqualTo(listOf(0.0, 0.0, 0.0, 0.0, 0.0))
+    }
 }

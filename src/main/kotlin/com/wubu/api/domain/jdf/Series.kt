@@ -15,4 +15,8 @@ class Series(
         }
         return Series(newData)
     }
+
+    operator fun minus(otherSeries: Series): Series {
+        return Series(emptyList())
+    }
 }
