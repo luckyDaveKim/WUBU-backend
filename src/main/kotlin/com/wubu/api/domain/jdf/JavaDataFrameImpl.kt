@@ -1,7 +1,7 @@
 package com.wubu.api.domain.jdf
 
-import kotlin.math.pow
-import kotlin.math.roundToLong
+import kotlin.math.exp
+import kotlin.math.ln
 
 data class JavaDataFrameImpl(
     override val data: List<Double>
@@ -10,24 +10,15 @@ data class JavaDataFrameImpl(
     override fun ema(window: Int): List<Double> {
         if (data.isEmpty()) return emptyList()
 
-        val result = mutableListOf(data[0])
-
-        for (i: Int in 1 until data.size) {
-            val beforeIndex = i - 1
-            val avg = (result[beforeIndex] * 0.33) + (data[i] * 0.67)
-            result.add(trimNum(avg))
+        val result = mutableListOf<Double>()
+        val alpha = 2.0 / (window + 1)
+        var p = 0.0
+        var a = 0.0
+        for (i in data.indices) {
+            p = data[i] + ((1 - alpha) * p)
+            a += exp(i * ln(1 - alpha))
+            result.add(p / a)
         }
-
-        return result
-    }
-
-    private fun trimNum(num: Double): Double {
-        val decimal = 2
-        val forDecimalNum = (10.0).pow(decimal)
-
-        var result = num * forDecimalNum
-        result = result.roundToLong().toDouble()
-        result /= forDecimalNum
 
         return result
     }
