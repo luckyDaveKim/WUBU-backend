@@ -8,6 +8,8 @@ data class JavaDataFrameImpl(
 ) : JavaDataFrame {
 
     override fun ema(window: Int): List<Double> {
+        if (window < 0) throw IllegalArgumentException(String.format("window는 음수일 수 없습니다. '%d", window))
+
         if (data.isEmpty()) return emptyList()
 
         val result = mutableListOf<Double>()
