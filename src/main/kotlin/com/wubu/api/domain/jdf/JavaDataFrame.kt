@@ -6,5 +6,5 @@ interface JavaDataFrame {
     /**
      * 지수 이동평균 (Exponential Moving Average)
      */
-    fun ema(window: Int): List<Double>
+    fun ema(window: Int): Series
 }

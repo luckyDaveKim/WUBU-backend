@@ -2,7 +2,7 @@ package com.wubu.api.domain.jdf
 
 import kotlin.math.max
 
-class Series(
+data class Series(
     val data: List<Double>
 ) {
     operator fun plus(otherSeries: Series): Series {
