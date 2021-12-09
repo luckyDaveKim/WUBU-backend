@@ -7,7 +7,7 @@ data class JavaDataFrameImpl(
     override val data: List<Double>
 ) : JavaDataFrame {
 
-    override fun ewm(window: Int): List<Double> {
+    override fun ema(window: Int): List<Double> {
         if (data.isEmpty()) return emptyList()
 
         val result = mutableListOf(data[0])
