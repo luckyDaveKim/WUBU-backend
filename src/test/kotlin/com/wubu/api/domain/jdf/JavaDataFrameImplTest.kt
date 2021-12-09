@@ -76,4 +76,28 @@ internal class JavaDataFrameImplTest {
         // then
         assertThatThrownBy { jdf.ema(window = -1) }
     }
+
+    @Test
+    fun `ema 더하기 테스트`() {
+        // given
+        val data = listOf(1.0, 2.0, 3.0, 4.0, 5.0)
+        val jdf = JavaDataFrameImpl(data)
+        val ema1 = jdf.ema(window = 3)
+        val ema2 = jdf.ema(window = 3)
+
+        // when
+        val ema = ema1 + ema2
+
+        // then
+        val series = Series(
+            listOf(
+                2.0,
+                3.3333333333333335,
+                4.857142857142857,
+                6.533333333333333,
+                8.32258064516129
+            )
+        )
+        assertThat(ema).isEqualTo(series)
+    }
 }
