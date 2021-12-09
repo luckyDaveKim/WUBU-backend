@@ -66,4 +66,18 @@ internal class SeriesTest {
         // then
         assertThat(series.data).isEqualTo(listOf(2.0, 4.0, 6.0, 8.0, 10.0))
     }
+
+    @Test
+    fun `empty data plus 테스트`() {
+        // given
+        val data = emptyList<Double>()
+        val series1 = Series(data)
+        val series2 = Series(data)
+
+        // when
+        val series = series1 + series2
+
+        // then
+        assertThat(series.data).isEqualTo(emptyList<Double>())
+    }
 }
