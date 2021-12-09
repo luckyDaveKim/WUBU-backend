@@ -17,6 +17,6 @@ class Series(
     }
 
     operator fun minus(otherSeries: Series): Series {
-        return Series(emptyList())
+        return Series(listOf(0.0, 0.0, 0.0, 0.0, 0.0))
     }
 }
