@@ -28,4 +28,18 @@ internal class SeriesTest {
         // then
         assertThat(series.data).isEqualTo(data)
     }
+
+    @Test
+    fun `plus 테스트`() {
+        // given
+        val data = listOf(1.0, 2.0, 3.0, 4.0, 5.0)
+        val series1 = Series(data)
+        val series2 = Series(data)
+
+        // when
+        val series = series1 + series2
+
+        // then
+        assertThat(series.data).isEqualTo(listOf(2.0, 4.0, 6.0, 8.0, 10.0))
+    }
 }
