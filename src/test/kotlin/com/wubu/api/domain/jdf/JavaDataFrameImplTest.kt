@@ -62,7 +62,7 @@ internal class JavaDataFrameImplTest {
         val ema = jdf.ema(window = 3)
 
         // then
-        assertThat(ema).isEqualTo(emptyList<Double>())
+        assertThat(ema).isEqualTo(Series(emptyList()))
     }
 
     @Test
