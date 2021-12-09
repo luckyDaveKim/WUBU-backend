@@ -1,6 +1,7 @@
 package com.wubu.api.domain.jdf
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
 internal class JavaDataFrameImplTest {
@@ -61,5 +62,17 @@ internal class JavaDataFrameImplTest {
 
         // then
         assertThat(ema).isEqualTo(emptyList<Double>())
+    }
+
+    @Test
+    fun `음수 window ema 실패 테스트`() {
+        // given
+        val data = listOf(1.0, 2.0, 3.0, 4.0, 5.0)
+        val jdf = JavaDataFrameImpl(data)
+
+        // when
+
+        // then
+        assertThatThrownBy { jdf.ema(window = -1) }
     }
 }
