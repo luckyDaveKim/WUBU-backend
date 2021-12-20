@@ -81,7 +81,9 @@ internal class VolumeTest {
         val volume = Volume(volumeValue)
 
         // then
+        assertThat(volume).isNotNull
         assertThat(volume).isInstanceOf(StockValue::class.java)
+        assertThat(volume.value).isEqualTo(volumeValue)
     }
 
     @Test
