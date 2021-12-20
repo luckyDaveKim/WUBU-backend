@@ -66,10 +66,12 @@ internal class PriceTest {
         val priceValue = 123456L
 
         // when
-        val stockValue: StockValue = Price(priceValue)
+        val stockValue = Price(priceValue)
 
         // then
         assertThat(stockValue).isNotNull
+        assertThat(stockValue).isInstanceOf(StockValue::class.java)
+        assertThat(stockValue.value).isEqualTo(priceValue)
     }
 
     @Test
