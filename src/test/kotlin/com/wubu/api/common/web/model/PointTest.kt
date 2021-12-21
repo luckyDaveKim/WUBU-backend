@@ -1,8 +1,13 @@
 package com.wubu.api.common.web.model
 
+import com.wubu.api.common.web.model.stockvalue.Price
+import com.wubu.api.common.web.model.stockvalue.Volume
+import com.wubu.api.domain.stock.daily.DailyStockPiece
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
+import java.time.ZoneOffset
 
 internal class PointTest {
 
@@ -226,5 +231,36 @@ internal class PointTest {
 
         // then
         assertThat(point1).isNotEqualTo(point2)
+    }
+
+    @Test
+    fun `price 전환 테스트`() {
+        // given
+        val date = LocalDate.of(1991, 3, 26)
+        val price = OHLC(
+            open = Price(1L),
+            high = Price(2L),
+            low = Price(3L),
+            close = Price(4L)
+        )
+        val volume = Volume(5L)
+
+        val dailyStockPiece = DailyStockPiece(
+            date = date,
+            price = price,
+            volume = volume
+        )
+
+        // when
+        val pricePoint = Point.ofPrice(dailyStockPiece)
+
+        // then
+        assertThat(pricePoint).isNotNull
+        assertThat(pricePoint.x).isEqualTo(date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
+        assertThat(pricePoint.y).isEqualTo(price.close.value)
+        assertThat(pricePoint.open).isEqualTo(price.open.value)
+        assertThat(pricePoint.high).isEqualTo(price.high.value)
+        assertThat(pricePoint.low).isEqualTo(price.low.value)
+        assertThat(pricePoint.close).isEqualTo(price.close.value)
     }
 }
