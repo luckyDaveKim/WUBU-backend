@@ -35,4 +35,32 @@ internal class DailyStockPieceTest {
         assertThat(dailyStockPiece.price).isEqualTo(price)
         assertThat(dailyStockPiece.volume).isEqualTo(volume)
     }
+
+    @Test
+    fun `동등성 비교 테스트`() {
+        // given
+        val date = LocalDate.of(1991, 3, 26)
+        val price = OHLC(
+            open = Price(1L),
+            high = Price(2L),
+            low = Price(3L),
+            close = Price(4L)
+        )
+        val volume = Volume(5L)
+
+        // when
+        val dailyStockPiece1 = DailyStockPiece(
+            date = date,
+            price = price,
+            volume = volume
+        )
+        val dailyStockPiece2 = DailyStockPiece(
+            date = date,
+            price = price,
+            volume = volume
+        )
+
+        // then
+        assertThat(dailyStockPiece1).isEqualTo(dailyStockPiece2)
+    }
 }
