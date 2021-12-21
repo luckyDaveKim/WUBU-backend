@@ -22,5 +22,9 @@ data class Point(
                 close = stockPiece.price.close.value
             )
         }
+
+        fun ofVolume(stockPiece: StockPiece): Point {
+            return Point()
+        }
     }
 }
