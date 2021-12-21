@@ -63,4 +63,99 @@ internal class DailyStockPieceTest {
         // then
         assertThat(dailyStockPiece1).isEqualTo(dailyStockPiece2)
     }
+
+    @Test
+    fun `다른 date 동등성 비교 실패 테스트`() {
+        // given
+        val date1 = LocalDate.of(1991, 3, 26)
+        val price1 = OHLC(
+            open = Price(1L),
+            high = Price(2L),
+            low = Price(3L),
+            close = Price(4L)
+        )
+        val volume1 = Volume(5L)
+
+        val date2 = LocalDate.of(1991, 3, 27)
+
+        // when
+        val dailyStockPiece1 = DailyStockPiece(
+            date = date1,
+            price = price1,
+            volume = volume1
+        )
+        val dailyStockPiece2 = DailyStockPiece(
+            date = date2,
+            price = price1,
+            volume = volume1
+        )
+
+        // then
+        assertThat(dailyStockPiece1).isNotEqualTo(dailyStockPiece2)
+    }
+
+    @Test
+    fun `다른 price 동등성 비교 실패 테스트`() {
+        // given
+        val date1 = LocalDate.of(1991, 3, 26)
+        val price1 = OHLC(
+            open = Price(1L),
+            high = Price(2L),
+            low = Price(3L),
+            close = Price(4L)
+        )
+        val volume1 = Volume(5L)
+
+        val price2 = OHLC(
+            open = Price(5L),
+            high = Price(6L),
+            low = Price(7L),
+            close = Price(8L)
+        )
+
+        // when
+        val dailyStockPiece1 = DailyStockPiece(
+            date = date1,
+            price = price1,
+            volume = volume1
+        )
+        val dailyStockPiece2 = DailyStockPiece(
+            date = date1,
+            price = price2,
+            volume = volume1
+        )
+
+        // then
+        assertThat(dailyStockPiece1).isNotEqualTo(dailyStockPiece2)
+    }
+
+    @Test
+    fun `다른 volume 동등성 비교 실패 테스트`() {
+        // given
+        val date1 = LocalDate.of(1991, 3, 26)
+        val price1 = OHLC(
+            open = Price(1L),
+            high = Price(2L),
+            low = Price(3L),
+            close = Price(4L)
+        )
+        val volume1 = Volume(5L)
+
+        val volume2 = Volume(6L)
+
+        // when
+        val dailyStockPiece1 = DailyStockPiece(
+            date = date1,
+            price = price1,
+            volume = volume1
+        )
+        val dailyStockPiece2 = DailyStockPiece(
+            date = date1,
+            price = price1,
+            volume = volume2
+        )
+
+        // then
+        assertThat(dailyStockPiece1).isNotEqualTo(dailyStockPiece2)
+    }
 }
