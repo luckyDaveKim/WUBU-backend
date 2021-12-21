@@ -24,7 +24,10 @@ data class Point(
         }
 
         fun ofVolume(stockPiece: StockPiece): Point {
-            return Point()
+            return Point(
+                x = stockPiece.x,
+                y = stockPiece.volume.value
+            )
         }
     }
 }
