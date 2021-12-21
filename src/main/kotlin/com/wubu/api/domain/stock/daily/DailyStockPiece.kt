@@ -6,7 +6,7 @@ import com.wubu.api.domain.stock.StockPiece
 import java.time.LocalDate
 import java.time.ZoneOffset
 
-class DailyStockPiece(
+data class DailyStockPiece(
     private val date: LocalDate,
     override val price: OHLC,
     override val volume: Volume
