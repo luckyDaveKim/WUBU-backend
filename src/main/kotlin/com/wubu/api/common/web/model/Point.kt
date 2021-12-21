@@ -13,7 +13,14 @@ data class Point(
 ) {
     companion object {
         fun ofPrice(stockPiece: StockPiece): Point {
-            return Point()
+            return Point(
+                x = stockPiece.x,
+                y = stockPiece.price.close.value,
+                open = stockPiece.price.open.value,
+                high = stockPiece.price.high.value,
+                low = stockPiece.price.low.value,
+                close = stockPiece.price.close.value
+            )
         }
     }
 }
