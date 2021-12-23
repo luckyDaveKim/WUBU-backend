@@ -1,6 +1,7 @@
 package com.wubu.api.common.web.model
 
-import com.wubu.api.domain.stock.StockPiece
+import com.wubu.api.domain.stock.StockPricePiece
+import com.wubu.api.domain.stock.StockVolumePiece
 
 data class Point(
     val x: Number = 0,
@@ -12,21 +13,21 @@ data class Point(
     val close: Number = 0
 ) {
     companion object {
-        fun ofPrice(stockPiece: StockPiece): Point {
+        fun ofPrice(stockPricePiece: StockPricePiece): Point {
             return Point(
-                x = stockPiece.x,
-                y = stockPiece.price.close.value,
-                open = stockPiece.price.open.value,
-                high = stockPiece.price.high.value,
-                low = stockPiece.price.low.value,
-                close = stockPiece.price.close.value
+                x = stockPricePiece.x,
+                y = stockPricePiece.price.close.value,
+                open = stockPricePiece.price.open.value,
+                high = stockPricePiece.price.high.value,
+                low = stockPricePiece.price.low.value,
+                close = stockPricePiece.price.close.value
             )
         }
 
-        fun ofVolume(stockPiece: StockPiece): Point {
+        fun ofVolume(stockVolumePiece: StockVolumePiece): Point {
             return Point(
-                x = stockPiece.x,
-                y = stockPiece.volume.value
+                x = stockVolumePiece.x,
+                y = stockVolumePiece.volume.value
             )
         }
     }
