@@ -56,7 +56,7 @@ internal class DailyStockPieceIdTest {
     }
 
     @Test
-    fun `동등성 비교 실패 테스트`() {
+    fun `다른 companyCode 동등성 비교 실패 테스트`() {
         // given
 
         // when
@@ -66,10 +66,82 @@ internal class DailyStockPieceIdTest {
         )
         val dailyStockPieceId2 = DailyStockPieceId(
             companyCode = companyCode2,
+            date = date1
+        )
+
+        // then
+        assertThat(dailyStockPieceId1).isNotEqualTo(dailyStockPieceId2)
+    }
+
+    @Test
+    fun `다른 date 동등성 비교 실패 테스트`() {
+        // given
+
+        // when
+        val dailyStockPieceId1 = DailyStockPieceId(
+            companyCode = companyCode1,
+            date = date1
+        )
+        val dailyStockPieceId2 = DailyStockPieceId(
+            companyCode = companyCode1,
             date = date2
         )
 
         // then
         assertThat(dailyStockPieceId1).isNotEqualTo(dailyStockPieceId2)
+    }
+
+    @Test
+    fun `hashCode 비교 테스트`() {
+        // given
+
+        // when
+        val dailyStockPieceId1 = DailyStockPieceId(
+            companyCode = companyCode1,
+            date = date1
+        )
+        val dailyStockPieceId2 = DailyStockPieceId(
+            companyCode = companyCode1,
+            date = date1
+        )
+
+        // then
+        assertThat(dailyStockPieceId1.hashCode()).isEqualTo(dailyStockPieceId2.hashCode())
+    }
+
+    @Test
+    fun `다른 companyCode hashCode 비교 실패 테스트`() {
+        // given
+
+        // when
+        val dailyStockPieceId1 = DailyStockPieceId(
+            companyCode = companyCode1,
+            date = date1
+        )
+        val dailyStockPieceId2 = DailyStockPieceId(
+            companyCode = companyCode2,
+            date = date1
+        )
+
+        // then
+        assertThat(dailyStockPieceId1.hashCode()).isNotEqualTo(dailyStockPieceId2.hashCode())
+    }
+
+    @Test
+    fun `다른 date hashCode 비교 실패 테스트`() {
+        // given
+
+        // when
+        val dailyStockPieceId1 = DailyStockPieceId(
+            companyCode = companyCode1,
+            date = date1
+        )
+        val dailyStockPieceId2 = DailyStockPieceId(
+            companyCode = companyCode1,
+            date = date2
+        )
+
+        // then
+        assertThat(dailyStockPieceId1.hashCode()).isNotEqualTo(dailyStockPieceId2.hashCode())
     }
 }
