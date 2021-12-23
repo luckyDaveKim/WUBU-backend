@@ -1,11 +1,13 @@
 package com.wubu.api.interfaces.stock.daily
 
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.OHLC
 import com.wubu.api.common.web.model.Point
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.domain.stock.StockPiece
 import com.wubu.api.domain.stock.daily.DailyStockPiece
+import com.wubu.api.domain.stock.daily.DailyStockPieceId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -18,7 +20,12 @@ internal class DailyStockDtoTest {
 
     @BeforeEach
     fun setUp() {
+        val companyCode1 = CompanyCode("000001")
         val date1 = LocalDate.of(1991, 3, 26)
+        val dailyStockPieceId1 = DailyStockPieceId(
+            companyCode = companyCode1,
+            date = date1
+        )
         val price1 = OHLC(
             open = Price(1L),
             high = Price(2L),
@@ -27,12 +34,17 @@ internal class DailyStockDtoTest {
         )
         val volume1 = Volume(5L)
         stockPiece1 = DailyStockPiece(
-            date = date1,
+            id = dailyStockPieceId1,
             price = price1,
             volume = volume1
         )
 
-        val date2 = LocalDate.of(1991, 3, 27)
+        val companyCode2 = CompanyCode("000001")
+        val date2 = LocalDate.of(1991, 3, 26)
+        val dailyStockPieceId2 = DailyStockPieceId(
+            companyCode = companyCode2,
+            date = date2
+        )
         val price2 = OHLC(
             open = Price(6L),
             high = Price(7L),
@@ -41,7 +53,7 @@ internal class DailyStockDtoTest {
         )
         val volume2 = Volume(10L)
         stockPiece2 = DailyStockPiece(
-            date = date2,
+            id = dailyStockPieceId2,
             price = price2,
             volume = volume2
         )
