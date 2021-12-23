@@ -158,4 +158,114 @@ internal class StockPriceTest {
         // then
         assertThat(stockPrice1).isNotEqualTo(stockPrice2)
     }
+
+    @Test
+    fun `hashCode 비교 테스트`() {
+        // given
+
+        // when
+        val stockPrice1 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+        val stockPrice2 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+
+        // then
+        assertThat(stockPrice1.hashCode()).isEqualTo(stockPrice2.hashCode())
+    }
+
+    @Test
+    fun `다른 open hashCode 비교 실패 테스트`() {
+        // given
+
+        // when
+        val stockPrice1 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+        val stockPrice2 = StockPrice(
+            open = open2,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+
+        // then
+        assertThat(stockPrice1.hashCode()).isNotEqualTo(stockPrice2.hashCode())
+    }
+
+    @Test
+    fun `다른 high hashCode 비교 실패 테스트`() {
+        // given
+
+        // when
+        val stockPrice1 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+        val stockPrice2 = StockPrice(
+            open = open1,
+            high = high2,
+            low = low1,
+            close = close1
+        )
+
+        // then
+        assertThat(stockPrice1.hashCode()).isNotEqualTo(stockPrice2.hashCode())
+    }
+
+    @Test
+    fun `다른 low hashCode 비교 실패 테스트`() {
+        // given
+
+        // when
+        val stockPrice1 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+        val stockPrice2 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low2,
+            close = close1
+        )
+
+        // then
+        assertThat(stockPrice1.hashCode()).isNotEqualTo(stockPrice2.hashCode())
+    }
+
+    @Test
+    fun `다른 close hashCode 비교 실패 테스트`() {
+        // given
+
+        // when
+        val stockPrice1 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+        val stockPrice2 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close2
+        )
+
+        // then
+        assertThat(stockPrice1.hashCode()).isNotEqualTo(stockPrice2.hashCode())
+    }
 }
