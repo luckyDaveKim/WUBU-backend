@@ -36,4 +36,22 @@ internal class DailyStockPieceIdTest {
         assertThat(dailyStockPieceId.companyCode).isEqualTo(companyCode1)
         assertThat(dailyStockPieceId.date).isEqualTo(date1)
     }
+
+    @Test
+    fun `동등성 비교 테스트`() {
+        // given
+
+        // when
+        val dailyStockPieceId1 = DailyStockPieceId(
+            companyCode = companyCode1,
+            date = date1
+        )
+        val dailyStockPieceId2 = DailyStockPieceId(
+            companyCode = companyCode1,
+            date = date1
+        )
+
+        // then
+        assertThat(dailyStockPieceId1).isEqualTo(dailyStockPieceId2)
+    }
 }
