@@ -72,7 +72,7 @@ internal class StockPriceTest {
     }
 
     @Test
-    fun `동등성 비교 실패 테스트`() {
+    fun `다른 open 동등성 비교 실패 테스트`() {
         // given
 
         // when
@@ -84,8 +84,74 @@ internal class StockPriceTest {
         )
         val stockPrice2 = StockPrice(
             open = open2,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+
+        // then
+        assertThat(stockPrice1).isNotEqualTo(stockPrice2)
+    }
+
+    @Test
+    fun `다른 high 동등성 비교 실패 테스트`() {
+        // given
+
+        // when
+        val stockPrice1 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+        val stockPrice2 = StockPrice(
+            open = open1,
             high = high2,
+            low = low1,
+            close = close1
+        )
+
+        // then
+        assertThat(stockPrice1).isNotEqualTo(stockPrice2)
+    }
+
+    @Test
+    fun `다른 low 동등성 비교 실패 테스트`() {
+        // given
+
+        // when
+        val stockPrice1 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+        val stockPrice2 = StockPrice(
+            open = open1,
+            high = high1,
             low = low2,
+            close = close1
+        )
+
+        // then
+        assertThat(stockPrice1).isNotEqualTo(stockPrice2)
+    }
+
+    @Test
+    fun `다른 close 동등성 비교 실패 테스트`() {
+        // given
+
+        // when
+        val stockPrice1 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
+        )
+        val stockPrice2 = StockPrice(
+            open = open1,
+            high = high1,
+            low = low1,
             close = close2
         )
 
