@@ -1,10 +1,10 @@
-package com.wubu.api.common.web.model
+package com.wubu.api.domain.stock
 
 import com.wubu.api.common.web.model.stockvalue.Price
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class OHLCTest {
+internal class StockPriceTest {
 
     @Test
     fun `생성 테스트`() {
@@ -15,7 +15,7 @@ internal class OHLCTest {
         val close = Price(4L)
 
         // when
-        val ohlc = OHLC(
+        val stockPrice = StockPrice(
             open = open,
             high = high,
             low = low,
@@ -23,11 +23,11 @@ internal class OHLCTest {
         )
 
         // then
-        assertThat(ohlc).isNotNull
-        assertThat(ohlc.open).isEqualTo(open)
-        assertThat(ohlc.high).isEqualTo(high)
-        assertThat(ohlc.low).isEqualTo(low)
-        assertThat(ohlc.close).isEqualTo(close)
+        assertThat(stockPrice).isNotNull
+        assertThat(stockPrice.open).isEqualTo(open)
+        assertThat(stockPrice.high).isEqualTo(high)
+        assertThat(stockPrice.low).isEqualTo(low)
+        assertThat(stockPrice.close).isEqualTo(close)
     }
 
     @Test
@@ -39,13 +39,13 @@ internal class OHLCTest {
         val close = Price(4L)
 
         // when
-        val ohlc1 = OHLC(
+        val stockPrice1 = StockPrice(
             open = open,
             high = high,
             low = low,
             close = close
         )
-        val ohlc2 = OHLC(
+        val stockPrice2 = StockPrice(
             open = open,
             high = high,
             low = low,
@@ -53,7 +53,7 @@ internal class OHLCTest {
         )
 
         // then
-        assertThat(ohlc1).isEqualTo(ohlc2)
+        assertThat(stockPrice1).isEqualTo(stockPrice2)
     }
 
     @Test
@@ -70,13 +70,13 @@ internal class OHLCTest {
         val close2 = Price(8L)
 
         // when
-        val ohlc1 = OHLC(
+        val stockPrice1 = StockPrice(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val ohlc2 = OHLC(
+        val stockPrice2 = StockPrice(
             open = open2,
             high = high2,
             low = low2,
@@ -84,6 +84,6 @@ internal class OHLCTest {
         )
 
         // then
-        assertThat(ohlc1).isNotEqualTo(ohlc2)
+        assertThat(stockPrice1).isNotEqualTo(stockPrice2)
     }
 }

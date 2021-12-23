@@ -1,10 +1,10 @@
 package com.wubu.api.domain.stock.daily
 
 import com.wubu.api.common.web.model.CompanyCode
-import com.wubu.api.common.web.model.OHLC
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.domain.stock.StockPiece
+import com.wubu.api.domain.stock.StockPrice
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -21,7 +21,7 @@ internal class DailyStockPieceTest {
             companyCode = companyCode,
             date = date
         )
-        val price = OHLC(
+        val price = StockPrice(
             open = Price(1L),
             high = Price(2L),
             low = Price(3L),
@@ -53,7 +53,7 @@ internal class DailyStockPieceTest {
             companyCode = companyCode,
             date = date
         )
-        val price = OHLC(
+        val price = StockPrice(
             open = Price(1L),
             high = Price(2L),
             low = Price(3L),
@@ -84,7 +84,7 @@ internal class DailyStockPieceTest {
             companyCode = companyCode,
             date = date
         )
-        val price = OHLC(
+        val price = StockPrice(
             open = Price(1L),
             high = Price(2L),
             low = Price(3L),
@@ -117,7 +117,7 @@ internal class DailyStockPieceTest {
             companyCode = companyCode1,
             date = date1
         )
-        val price1 = OHLC(
+        val price1 = StockPrice(
             open = Price(1L),
             high = Price(2L),
             low = Price(3L),
@@ -157,7 +157,7 @@ internal class DailyStockPieceTest {
             companyCode = companyCode,
             date = date
         )
-        val price1 = OHLC(
+        val price1 = StockPrice(
             open = Price(1L),
             high = Price(2L),
             low = Price(3L),
@@ -165,7 +165,7 @@ internal class DailyStockPieceTest {
         )
         val volume1 = Volume(5L)
 
-        val price2 = OHLC(
+        val price2 = StockPrice(
             open = Price(5L),
             high = Price(6L),
             low = Price(7L),
@@ -197,7 +197,7 @@ internal class DailyStockPieceTest {
             companyCode = companyCode,
             date = date
         )
-        val price1 = OHLC(
+        val price1 = StockPrice(
             open = Price(1L),
             high = Price(2L),
             low = Price(3L),

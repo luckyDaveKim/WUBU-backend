@@ -1,11 +1,11 @@
 package com.wubu.api.interfaces.stock.daily
 
 import com.wubu.api.common.web.model.CompanyCode
-import com.wubu.api.common.web.model.OHLC
 import com.wubu.api.common.web.model.Point
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.domain.stock.StockPiece
+import com.wubu.api.domain.stock.StockPrice
 import com.wubu.api.domain.stock.daily.DailyStockPiece
 import com.wubu.api.domain.stock.daily.DailyStockPieceId
 import org.assertj.core.api.Assertions.assertThat
@@ -26,7 +26,7 @@ internal class DailyStockDtoTest {
             companyCode = companyCode1,
             date = date1
         )
-        val price1 = OHLC(
+        val price1 = StockPrice(
             open = Price(1L),
             high = Price(2L),
             low = Price(3L),
@@ -45,7 +45,7 @@ internal class DailyStockDtoTest {
             companyCode = companyCode2,
             date = date2
         )
-        val price2 = OHLC(
+        val price2 = StockPrice(
             open = Price(6L),
             high = Price(7L),
             low = Price(8L),
