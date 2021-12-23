@@ -2,54 +2,69 @@ package com.wubu.api.domain.stock
 
 import com.wubu.api.common.web.model.stockvalue.Price
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class StockPriceTest {
 
+    private lateinit var open1: Price
+    private lateinit var open2: Price
+    private lateinit var high1: Price
+    private lateinit var high2: Price
+    private lateinit var low1: Price
+    private lateinit var low2: Price
+    private lateinit var close1: Price
+    private lateinit var close2: Price
+
+    @BeforeEach
+    fun setUp() {
+        open1 = Price(1L)
+        high1 = Price(2L)
+        low1 = Price(3L)
+        close1 = Price(4L)
+
+        open2 = Price(10L)
+        high2 = Price(20L)
+        low2 = Price(30L)
+        close2 = Price(40L)
+    }
+
     @Test
     fun `생성 테스트`() {
         // given
-        val open = Price(1L)
-        val high = Price(2L)
-        val low = Price(3L)
-        val close = Price(4L)
 
         // when
         val stockPrice = StockPrice(
-            open = open,
-            high = high,
-            low = low,
-            close = close
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
         )
 
         // then
         assertThat(stockPrice).isNotNull
-        assertThat(stockPrice.open).isEqualTo(open)
-        assertThat(stockPrice.high).isEqualTo(high)
-        assertThat(stockPrice.low).isEqualTo(low)
-        assertThat(stockPrice.close).isEqualTo(close)
+        assertThat(stockPrice.open).isEqualTo(open1)
+        assertThat(stockPrice.high).isEqualTo(high1)
+        assertThat(stockPrice.low).isEqualTo(low1)
+        assertThat(stockPrice.close).isEqualTo(close1)
     }
 
     @Test
     fun `동등성 비교 테스트`() {
         // given
-        val open = Price(1L)
-        val high = Price(2L)
-        val low = Price(3L)
-        val close = Price(4L)
 
         // when
         val stockPrice1 = StockPrice(
-            open = open,
-            high = high,
-            low = low,
-            close = close
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
         )
         val stockPrice2 = StockPrice(
-            open = open,
-            high = high,
-            low = low,
-            close = close
+            open = open1,
+            high = high1,
+            low = low1,
+            close = close1
         )
 
         // then
@@ -59,15 +74,6 @@ internal class StockPriceTest {
     @Test
     fun `동등성 비교 실패 테스트`() {
         // given
-        val open1 = Price(1L)
-        val high1 = Price(2L)
-        val low1 = Price(3L)
-        val close1 = Price(4L)
-
-        val open2 = Price(5L)
-        val high2 = Price(6L)
-        val low2 = Price(7L)
-        val close2 = Price(8L)
 
         // when
         val stockPrice1 = StockPrice(
