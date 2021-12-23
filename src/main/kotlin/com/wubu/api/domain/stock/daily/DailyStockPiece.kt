@@ -4,10 +4,24 @@ import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.domain.stock.StockPiece
 import com.wubu.api.domain.stock.StockPrice
 import java.time.ZoneOffset
+import javax.persistence.Column
+import javax.persistence.Convert
+import javax.persistence.Embedded
+import javax.persistence.EmbeddedId
+import javax.persistence.Entity
+import javax.persistence.Table
 
+@Entity
+@Table(name = "daily_stock_pieces")
 class DailyStockPiece(
+    @EmbeddedId
     val id: DailyStockPieceId,
+
+    @Embedded
     override val price: StockPrice,
+
+    @Column(name = "volume", nullable = false)
+    @Convert(converter = Volume.VolumeConverter::class)
     override val volume: Volume
 ) : StockPiece {
     override val x: Number
@@ -20,16 +34,11 @@ class DailyStockPiece(
         other as DailyStockPiece
 
         if (id != other.id) return false
-        if (price != other.price) return false
-        if (volume != other.volume) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + price.hashCode()
-        result = 31 * result + volume.hashCode()
-        return result
+        return id.hashCode()
     }
 }

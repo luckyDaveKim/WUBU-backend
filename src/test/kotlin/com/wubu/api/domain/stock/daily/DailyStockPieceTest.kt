@@ -113,27 +113,7 @@ internal class DailyStockPieceTest {
     }
 
     @Test
-    fun `다른 id 동등성 비교 실패 테스트`() {
-        // given
-
-        // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
-            price = price1,
-            volume = volume1
-        )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId2,
-            price = price1,
-            volume = volume1
-        )
-
-        // then
-        assertThat(dailyStockPiece1).isNotEqualTo(dailyStockPiece2)
-    }
-
-    @Test
-    fun `다른 price 동등성 비교 실패 테스트`() {
+    fun `다른 price 동등성 비교 테스트`() {
         // given
 
         // when
@@ -149,11 +129,11 @@ internal class DailyStockPieceTest {
         )
 
         // then
-        assertThat(dailyStockPiece1).isNotEqualTo(dailyStockPiece2)
+        assertThat(dailyStockPiece1).isEqualTo(dailyStockPiece2)
     }
 
     @Test
-    fun `다른 volume 동등성 비교 실패 테스트`() {
+    fun `다른 volume 동등성 비교 테스트`() {
         // given
 
         // when
@@ -166,6 +146,26 @@ internal class DailyStockPieceTest {
             id = dailyStockPieceId1,
             price = price1,
             volume = volume2
+        )
+
+        // then
+        assertThat(dailyStockPiece1).isEqualTo(dailyStockPiece2)
+    }
+
+    @Test
+    fun `다른 id 동등성 비교 실패 테스트`() {
+        // given
+
+        // when
+        val dailyStockPiece1 = DailyStockPiece(
+            id = dailyStockPieceId1,
+            price = price1,
+            volume = volume1
+        )
+        val dailyStockPiece2 = DailyStockPiece(
+            id = dailyStockPieceId2,
+            price = price1,
+            volume = volume1
         )
 
         // then
@@ -193,27 +193,7 @@ internal class DailyStockPieceTest {
     }
 
     @Test
-    fun `다른 id hashCode 비교 실패 테스트`() {
-        // given
-
-        // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
-            price = price1,
-            volume = volume1
-        )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId2,
-            price = price1,
-            volume = volume1
-        )
-
-        // then
-        assertThat(dailyStockPiece1.hashCode()).isNotEqualTo(dailyStockPiece2.hashCode())
-    }
-
-    @Test
-    fun `다른 price hashCode 비교 실패 테스트`() {
+    fun `다른 price hashCode 비교 테스트`() {
         // given
 
         // when
@@ -229,11 +209,11 @@ internal class DailyStockPieceTest {
         )
 
         // then
-        assertThat(dailyStockPiece1.hashCode()).isNotEqualTo(dailyStockPiece2.hashCode())
+        assertThat(dailyStockPiece1.hashCode()).isEqualTo(dailyStockPiece2.hashCode())
     }
 
     @Test
-    fun `다른 volume hashCode 비교 실패 테스트`() {
+    fun `다른 volume hashCode 비교 테스트`() {
         // given
 
         // when
@@ -246,6 +226,26 @@ internal class DailyStockPieceTest {
             id = dailyStockPieceId1,
             price = price1,
             volume = volume2
+        )
+
+        // then
+        assertThat(dailyStockPiece1.hashCode()).isEqualTo(dailyStockPiece2.hashCode())
+    }
+
+    @Test
+    fun `다른 id hashCode 비교 실패 테스트`() {
+        // given
+
+        // when
+        val dailyStockPiece1 = DailyStockPiece(
+            id = dailyStockPieceId1,
+            price = price1,
+            volume = volume1
+        )
+        val dailyStockPiece2 = DailyStockPiece(
+            id = dailyStockPieceId2,
+            price = price1,
+            volume = volume1
         )
 
         // then
