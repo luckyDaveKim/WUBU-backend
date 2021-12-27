@@ -1,5 +1,6 @@
 package com.wubu.api.infra.stock.daily
 
+import com.wubu.api.common.web.dto.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
@@ -32,7 +33,7 @@ internal class DailyStockPiecesRepositoryTest(
         dailyStockPiece1 = DailyStockPiece(
             id = DailyStockPieceId(
                 CompanyCode("000001"),
-                LocalDate.of(1991, 3, 24)
+                LocalDate.of(1991, 3, 26)
             ),
             price = StockPrice(
                 open = Price(1),
@@ -45,7 +46,7 @@ internal class DailyStockPiecesRepositoryTest(
         dailyStockPiece2 = DailyStockPiece(
             id = DailyStockPieceId(
                 CompanyCode("000001"),
-                LocalDate.of(1991, 3, 28)
+                LocalDate.of(1991, 3, 27)
             ),
             price = StockPrice(
                 open = Price(10),
@@ -58,7 +59,7 @@ internal class DailyStockPiecesRepositoryTest(
         dailyStockPiece3 = DailyStockPiece(
             id = DailyStockPieceId(
                 CompanyCode("000001"),
-                LocalDate.of(1991, 3, 27)
+                LocalDate.of(1991, 3, 28)
             ),
             price = StockPrice(
                 open = Price(100),
@@ -86,5 +87,23 @@ internal class DailyStockPiecesRepositoryTest(
 
         // then
         assertThat(foundDailPrice.get()).isEqualTo(dailyStockPiece1)
+    }
+
+    @Test
+    fun `code 기준 리스트 조회 테스트`() {
+        // given
+        val companyCode = CompanyCode("000001")
+        val pageable = PagingReqDto().getPageable()
+
+        // when
+        val foundDailyStockPieces = dailyStockPiecesRepository.findAllById_CompanyCodeOrderById_DateDesc(
+            companyCode = companyCode,
+            pageable = pageable
+        )
+
+        // then
+        assertThat(foundDailyStockPieces[0]).isEqualTo(dailyStockPiece3)
+        assertThat(foundDailyStockPieces[1]).isEqualTo(dailyStockPiece2)
+        assertThat(foundDailyStockPieces[2]).isEqualTo(dailyStockPiece1)
     }
 }
