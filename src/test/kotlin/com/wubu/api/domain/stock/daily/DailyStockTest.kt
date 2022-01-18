@@ -3,22 +3,22 @@ package com.wubu.api.domain.stock.daily
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
-import com.wubu.api.domain.stock.StockPiece
 import com.wubu.api.domain.stock.OHLC
+import com.wubu.api.domain.stock.Stock
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.ZoneOffset
 
-internal class DailyStockPieceTest {
+internal class DailyStockTest {
 
     private lateinit var companyCode1: CompanyCode
     private lateinit var companyCode2: CompanyCode
     private lateinit var date1: LocalDate
     private lateinit var date2: LocalDate
-    private lateinit var dailyStockPieceId1: DailyStockPieceId
-    private lateinit var dailyStockPieceId2: DailyStockPieceId
+    private lateinit var dailyStockId1: DailyStockId
+    private lateinit var dailyStockId2: DailyStockId
     private lateinit var price1: OHLC
     private lateinit var price2: OHLC
     private lateinit var volume1: Volume
@@ -28,7 +28,7 @@ internal class DailyStockPieceTest {
     fun setUp() {
         companyCode1 = CompanyCode("000001")
         date1 = LocalDate.of(1991, 3, 26)
-        dailyStockPieceId1 = DailyStockPieceId(
+        dailyStockId1 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
@@ -42,7 +42,7 @@ internal class DailyStockPieceTest {
 
         companyCode2 = CompanyCode("000002")
         date2 = LocalDate.of(1991, 3, 27)
-        dailyStockPieceId2 = DailyStockPieceId(
+        dailyStockId2 = DailyStockId(
             companyCode = companyCode2,
             date = date2
         )
@@ -60,16 +60,16 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val dailyStockPiece = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
 
         // then
         assertThat(dailyStockPiece).isNotNull
-        assertThat(dailyStockPiece.id).isEqualTo(dailyStockPieceId1)
-        assertThat(dailyStockPiece.x).isEqualTo(date1.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
+        assertThat(dailyStockPiece.id).isEqualTo(dailyStockId1)
+        assertThat(dailyStockPiece.instant).isEqualTo(date1.atStartOfDay().atZone(ZoneOffset.UTC).toInstant())
         assertThat(dailyStockPiece.price).isEqualTo(price1)
         assertThat(dailyStockPiece.volume).isEqualTo(volume1)
     }
@@ -79,17 +79,17 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val stockPiece: StockPiece = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val stock: Stock = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
 
         // then
-        assertThat(stockPiece).isNotNull
-        assertThat(stockPiece.x).isEqualTo(date1.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
-        assertThat(stockPiece.price).isEqualTo(price1)
-        assertThat(stockPiece.volume).isEqualTo(volume1)
+        assertThat(stock).isNotNull
+        assertThat(stock.instant).isEqualTo(date1.atStartOfDay().atZone(ZoneOffset.UTC).toInstant())
+        assertThat(stock.price).isEqualTo(price1)
+        assertThat(stock.volume).isEqualTo(volume1)
     }
 
     @Test
@@ -97,13 +97,13 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece1 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece2 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
@@ -117,13 +117,13 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece1 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece2 = DailyStock(
+            id = dailyStockId1,
             price = price2,
             volume = volume1
         )
@@ -137,13 +137,13 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece1 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece2 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume2
         )
@@ -157,13 +157,13 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece1 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId2,
+        val dailyStockPiece2 = DailyStock(
+            id = dailyStockId2,
             price = price1,
             volume = volume1
         )
@@ -177,13 +177,13 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece1 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece2 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
@@ -197,13 +197,13 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece1 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece2 = DailyStock(
+            id = dailyStockId1,
             price = price2,
             volume = volume1
         )
@@ -217,13 +217,13 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece1 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece2 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume2
         )
@@ -237,13 +237,13 @@ internal class DailyStockPieceTest {
         // given
 
         // when
-        val dailyStockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        val dailyStockPiece1 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
-        val dailyStockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId2,
+        val dailyStockPiece2 = DailyStock(
+            id = dailyStockId2,
             price = price1,
             volume = volume1
         )

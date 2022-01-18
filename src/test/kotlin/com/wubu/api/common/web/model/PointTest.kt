@@ -3,8 +3,8 @@ package com.wubu.api.common.web.model
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.domain.stock.OHLC
-import com.wubu.api.domain.stock.daily.DailyStockPiece
-import com.wubu.api.domain.stock.daily.DailyStockPieceId
+import com.wubu.api.domain.stock.daily.DailyStock
+import com.wubu.api.domain.stock.daily.DailyStockId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -240,7 +240,7 @@ internal class PointTest {
         // given
         val companyCode = CompanyCode("000001")
         val date = LocalDate.of(1991, 3, 26)
-        val dailyStockPieceId = DailyStockPieceId(
+        val dailyStockId = DailyStockId(
             companyCode = companyCode,
             date = date
         )
@@ -252,8 +252,8 @@ internal class PointTest {
         )
         val volume = Volume(5L)
 
-        val dailyStockPiece = DailyStockPiece(
-            id = dailyStockPieceId,
+        val dailyStockPiece = DailyStock(
+            id = dailyStockId,
             price = price,
             volume = volume
         )
@@ -277,7 +277,7 @@ internal class PointTest {
         // given
         val companyCode = CompanyCode("000001")
         val date = LocalDate.of(1991, 3, 26)
-        val dailyStockPieceId = DailyStockPieceId(
+        val dailyStockId = DailyStockId(
             companyCode = companyCode,
             date = date
         )
@@ -289,8 +289,8 @@ internal class PointTest {
         )
         val volume = Volume(5L)
 
-        val dailyStockPiece = DailyStockPiece(
-            id = dailyStockPieceId,
+        val dailyStockPiece = DailyStock(
+            id = dailyStockId,
             price = price,
             volume = volume
         )

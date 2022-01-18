@@ -5,8 +5,8 @@ import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.domain.stock.OHLC
-import com.wubu.api.domain.stock.daily.DailyStockPiece
-import com.wubu.api.domain.stock.daily.DailyStockPieceId
+import com.wubu.api.domain.stock.daily.DailyStock
+import com.wubu.api.domain.stock.daily.DailyStockId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -18,21 +18,21 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
 
 @ExtendWith(MockitoExtension::class)
-internal class DailyStockPieceReaderImplTest {
+internal class DailyStockReaderImplTest {
 
     @Mock
     private lateinit var dailyStockPiecesRepository: DailyStockPiecesRepository
 
     @InjectMocks
-    private lateinit var dailyStockPieceReader: DailyStockPieceReaderImpl
+    private lateinit var dailyStockPieceReader: DailyStockReaderImpl
 
-    private lateinit var dailyStockPiece1: DailyStockPiece
-    private lateinit var dailyStockPiece2: DailyStockPiece
+    private lateinit var dailyStockPiece1: DailyStock
+    private lateinit var dailyStockPiece2: DailyStock
 
     @BeforeEach
     fun setUp() {
-        dailyStockPiece1 = DailyStockPiece(
-            id = DailyStockPieceId(
+        dailyStockPiece1 = DailyStock(
+            id = DailyStockId(
                 companyCode = CompanyCode("000001"),
                 date = LocalDate.of(1991, 3, 26)
             ),
@@ -45,8 +45,8 @@ internal class DailyStockPieceReaderImplTest {
             volume = Volume(5L)
         )
 
-        dailyStockPiece2 = DailyStockPiece(
-            id = DailyStockPieceId(
+        dailyStockPiece2 = DailyStock(
+            id = DailyStockId(
                 companyCode = CompanyCode("000002"),
                 date = LocalDate.of(1991, 3, 27)
             ),

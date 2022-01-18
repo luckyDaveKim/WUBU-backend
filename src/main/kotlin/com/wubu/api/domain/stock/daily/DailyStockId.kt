@@ -8,7 +8,7 @@ import javax.persistence.Convert
 import javax.persistence.Embeddable
 
 @Embeddable
-class DailyStockPieceId(
+class DailyStockId(
     @Column(name = "company_id", nullable = false)
     @Convert(converter = CompanyCode.CodeConverter::class)
     var companyCode: CompanyCode,
@@ -20,7 +20,7 @@ class DailyStockPieceId(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as DailyStockPieceId
+        other as DailyStockId
 
         if (companyCode != other.companyCode) return false
         if (date != other.date) return false

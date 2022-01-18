@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-internal class DailyStockPieceIdTest {
+internal class DailyStockIdTest {
 
     private lateinit var companyCode1: CompanyCode
     private lateinit var companyCode2: CompanyCode
@@ -26,15 +26,15 @@ internal class DailyStockPieceIdTest {
         // given
 
         // when
-        val dailyStockPieceId = DailyStockPieceId(
+        val dailyStockId = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
 
         // then
-        assertThat(dailyStockPieceId).isNotNull
-        assertThat(dailyStockPieceId.companyCode).isEqualTo(companyCode1)
-        assertThat(dailyStockPieceId.date).isEqualTo(date1)
+        assertThat(dailyStockId).isNotNull
+        assertThat(dailyStockId.companyCode).isEqualTo(companyCode1)
+        assertThat(dailyStockId.date).isEqualTo(date1)
     }
 
     @Test
@@ -42,17 +42,17 @@ internal class DailyStockPieceIdTest {
         // given
 
         // when
-        val dailyStockPieceId1 = DailyStockPieceId(
+        val dailyStockId1 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
-        val dailyStockPieceId2 = DailyStockPieceId(
+        val dailyStockId2 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
 
         // then
-        assertThat(dailyStockPieceId1).isEqualTo(dailyStockPieceId2)
+        assertThat(dailyStockId1).isEqualTo(dailyStockId2)
     }
 
     @Test
@@ -60,17 +60,17 @@ internal class DailyStockPieceIdTest {
         // given
 
         // when
-        val dailyStockPieceId1 = DailyStockPieceId(
+        val dailyStockId1 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
-        val dailyStockPieceId2 = DailyStockPieceId(
+        val dailyStockId2 = DailyStockId(
             companyCode = companyCode2,
             date = date1
         )
 
         // then
-        assertThat(dailyStockPieceId1).isNotEqualTo(dailyStockPieceId2)
+        assertThat(dailyStockId1).isNotEqualTo(dailyStockId2)
     }
 
     @Test
@@ -78,17 +78,17 @@ internal class DailyStockPieceIdTest {
         // given
 
         // when
-        val dailyStockPieceId1 = DailyStockPieceId(
+        val dailyStockId1 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
-        val dailyStockPieceId2 = DailyStockPieceId(
+        val dailyStockId2 = DailyStockId(
             companyCode = companyCode1,
             date = date2
         )
 
         // then
-        assertThat(dailyStockPieceId1).isNotEqualTo(dailyStockPieceId2)
+        assertThat(dailyStockId1).isNotEqualTo(dailyStockId2)
     }
 
     @Test
@@ -96,17 +96,17 @@ internal class DailyStockPieceIdTest {
         // given
 
         // when
-        val dailyStockPieceId1 = DailyStockPieceId(
+        val dailyStockId1 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
-        val dailyStockPieceId2 = DailyStockPieceId(
+        val dailyStockId2 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
 
         // then
-        assertThat(dailyStockPieceId1.hashCode()).isEqualTo(dailyStockPieceId2.hashCode())
+        assertThat(dailyStockId1.hashCode()).isEqualTo(dailyStockId2.hashCode())
     }
 
     @Test
@@ -114,17 +114,17 @@ internal class DailyStockPieceIdTest {
         // given
 
         // when
-        val dailyStockPieceId1 = DailyStockPieceId(
+        val dailyStockId1 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
-        val dailyStockPieceId2 = DailyStockPieceId(
+        val dailyStockId2 = DailyStockId(
             companyCode = companyCode2,
             date = date1
         )
 
         // then
-        assertThat(dailyStockPieceId1.hashCode()).isNotEqualTo(dailyStockPieceId2.hashCode())
+        assertThat(dailyStockId1.hashCode()).isNotEqualTo(dailyStockId2.hashCode())
     }
 
     @Test
@@ -132,16 +132,16 @@ internal class DailyStockPieceIdTest {
         // given
 
         // when
-        val dailyStockPieceId1 = DailyStockPieceId(
+        val dailyStockId1 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
-        val dailyStockPieceId2 = DailyStockPieceId(
+        val dailyStockId2 = DailyStockId(
             companyCode = companyCode1,
             date = date2
         )
 
         // then
-        assertThat(dailyStockPieceId1.hashCode()).isNotEqualTo(dailyStockPieceId2.hashCode())
+        assertThat(dailyStockId1.hashCode()).isNotEqualTo(dailyStockId2.hashCode())
     }
 }

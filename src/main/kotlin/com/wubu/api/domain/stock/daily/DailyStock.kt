@@ -1,8 +1,10 @@
 package com.wubu.api.domain.stock.daily
 
+import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Volume
-import com.wubu.api.domain.stock.StockPiece
 import com.wubu.api.domain.stock.OHLC
+import com.wubu.api.domain.stock.Stock
+import java.time.Instant
 import java.time.ZoneOffset
 import javax.persistence.Column
 import javax.persistence.Convert
@@ -13,9 +15,9 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "daily_stock_pieces")
-class DailyStockPiece(
+class DailyStock(
     @EmbeddedId
-    val id: DailyStockPieceId,
+    val id: DailyStockId,
 
     @Embedded
     override val price: OHLC,
@@ -23,15 +25,18 @@ class DailyStockPiece(
     @Column(name = "volume", nullable = false)
     @Convert(converter = Volume.VolumeConverter::class)
     override val volume: Volume
-) : StockPiece {
-    override val x: Number
-        get() = id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli()
+) : Stock {
+    override val companyCode: CompanyCode
+        get() = id.companyCode
+
+    override val instant: Instant
+        get() = id.date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as DailyStockPiece
+        other as DailyStock
 
         if (id != other.id) return false
 

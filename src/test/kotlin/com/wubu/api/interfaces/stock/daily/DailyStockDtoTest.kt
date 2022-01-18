@@ -4,10 +4,10 @@ import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.Point
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
-import com.wubu.api.domain.stock.StockPiece
 import com.wubu.api.domain.stock.OHLC
-import com.wubu.api.domain.stock.daily.DailyStockPiece
-import com.wubu.api.domain.stock.daily.DailyStockPieceId
+import com.wubu.api.domain.stock.Stock
+import com.wubu.api.domain.stock.daily.DailyStock
+import com.wubu.api.domain.stock.daily.DailyStockId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -15,14 +15,14 @@ import java.time.LocalDate
 
 internal class DailyStockDtoTest {
 
-    private lateinit var stockPiece1: StockPiece
-    private lateinit var stockPiece2: StockPiece
+    private lateinit var stock1: Stock
+    private lateinit var stock2: Stock
 
     @BeforeEach
     fun setUp() {
         val companyCode1 = CompanyCode("000001")
         val date1 = LocalDate.of(1991, 3, 26)
-        val dailyStockPieceId1 = DailyStockPieceId(
+        val dailyStockId1 = DailyStockId(
             companyCode = companyCode1,
             date = date1
         )
@@ -33,15 +33,15 @@ internal class DailyStockDtoTest {
             close = Price(4L)
         )
         val volume1 = Volume(5L)
-        stockPiece1 = DailyStockPiece(
-            id = dailyStockPieceId1,
+        stock1 = DailyStock(
+            id = dailyStockId1,
             price = price1,
             volume = volume1
         )
 
         val companyCode2 = CompanyCode("000001")
         val date2 = LocalDate.of(1991, 3, 26)
-        val dailyStockPieceId2 = DailyStockPieceId(
+        val dailyStockId2 = DailyStockId(
             companyCode = companyCode2,
             date = date2
         )
@@ -52,8 +52,8 @@ internal class DailyStockDtoTest {
             close = Price(9L)
         )
         val volume2 = Volume(10L)
-        stockPiece2 = DailyStockPiece(
-            id = dailyStockPieceId2,
+        stock2 = DailyStock(
+            id = dailyStockId2,
             price = price2,
             volume = volume2
         )
@@ -62,7 +62,7 @@ internal class DailyStockDtoTest {
     @Test
     fun `생성 테스트`() {
         // given
-        val stockPieces = listOf(stockPiece1, stockPiece2)
+        val stockPieces = listOf(stock1, stock2)
 
         // when
         val dailyStockDto = DailyStockDto(stockPieces)
