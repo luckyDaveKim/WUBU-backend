@@ -4,7 +4,7 @@ import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.domain.stock.StockPiece
-import com.wubu.api.domain.stock.StockPrice
+import com.wubu.api.domain.stock.OHLC
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -19,8 +19,8 @@ internal class DailyStockPieceTest {
     private lateinit var date2: LocalDate
     private lateinit var dailyStockPieceId1: DailyStockPieceId
     private lateinit var dailyStockPieceId2: DailyStockPieceId
-    private lateinit var price1: StockPrice
-    private lateinit var price2: StockPrice
+    private lateinit var price1: OHLC
+    private lateinit var price2: OHLC
     private lateinit var volume1: Volume
     private lateinit var volume2: Volume
 
@@ -32,7 +32,7 @@ internal class DailyStockPieceTest {
             companyCode = companyCode1,
             date = date1
         )
-        price1 = StockPrice(
+        price1 = OHLC(
             open = Price(1L),
             high = Price(2L),
             low = Price(3L),
@@ -46,7 +46,7 @@ internal class DailyStockPieceTest {
             companyCode = companyCode2,
             date = date2
         )
-        price2 = StockPrice(
+        price2 = OHLC(
             open = Price(10L),
             high = Price(20L),
             low = Price(30L),

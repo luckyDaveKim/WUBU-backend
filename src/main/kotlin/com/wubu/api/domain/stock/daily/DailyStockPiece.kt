@@ -2,7 +2,7 @@ package com.wubu.api.domain.stock.daily
 
 import com.wubu.api.common.web.model.stockvalue.Volume
 import com.wubu.api.domain.stock.StockPiece
-import com.wubu.api.domain.stock.StockPrice
+import com.wubu.api.domain.stock.OHLC
 import java.time.ZoneOffset
 import javax.persistence.Column
 import javax.persistence.Convert
@@ -18,7 +18,7 @@ class DailyStockPiece(
     val id: DailyStockPieceId,
 
     @Embedded
-    override val price: StockPrice,
+    override val price: OHLC,
 
     @Column(name = "volume", nullable = false)
     @Convert(converter = Volume.VolumeConverter::class)

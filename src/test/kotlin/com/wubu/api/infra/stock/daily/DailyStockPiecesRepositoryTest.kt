@@ -4,7 +4,7 @@ import com.wubu.api.common.web.dto.PagingReqDto
 import com.wubu.api.common.web.model.CompanyCode
 import com.wubu.api.common.web.model.stockvalue.Price
 import com.wubu.api.common.web.model.stockvalue.Volume
-import com.wubu.api.domain.stock.StockPrice
+import com.wubu.api.domain.stock.OHLC
 import com.wubu.api.domain.stock.daily.DailyStockPiece
 import com.wubu.api.domain.stock.daily.DailyStockPieceId
 import org.assertj.core.api.Assertions.assertThat
@@ -35,7 +35,7 @@ internal class DailyStockPiecesRepositoryTest(
                 CompanyCode("000001"),
                 LocalDate.of(1991, 3, 26)
             ),
-            price = StockPrice(
+            price = OHLC(
                 open = Price(1),
                 high = Price(2),
                 low = Price(3),
@@ -48,7 +48,7 @@ internal class DailyStockPiecesRepositoryTest(
                 CompanyCode("000001"),
                 LocalDate.of(1991, 3, 27)
             ),
-            price = StockPrice(
+            price = OHLC(
                 open = Price(10),
                 high = Price(20),
                 low = Price(30),
@@ -61,7 +61,7 @@ internal class DailyStockPiecesRepositoryTest(
                 CompanyCode("000001"),
                 LocalDate.of(1991, 3, 28)
             ),
-            price = StockPrice(
+            price = OHLC(
                 open = Price(100),
                 high = Price(200),
                 low = Price(300),

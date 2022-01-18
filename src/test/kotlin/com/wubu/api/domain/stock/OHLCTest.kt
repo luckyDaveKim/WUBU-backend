@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-internal class StockPriceTest {
+internal class OHLCTest {
 
     private lateinit var open1: Price
     private lateinit var open2: Price
@@ -34,7 +34,7 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice = StockPrice(
+        val ohlc = OHLC(
             open = open1,
             high = high1,
             low = low1,
@@ -42,11 +42,11 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice).isNotNull
-        assertThat(stockPrice.open).isEqualTo(open1)
-        assertThat(stockPrice.high).isEqualTo(high1)
-        assertThat(stockPrice.low).isEqualTo(low1)
-        assertThat(stockPrice.close).isEqualTo(close1)
+        assertThat(ohlc).isNotNull
+        assertThat(ohlc.open).isEqualTo(open1)
+        assertThat(ohlc.high).isEqualTo(high1)
+        assertThat(ohlc.low).isEqualTo(low1)
+        assertThat(ohlc.close).isEqualTo(close1)
     }
 
     @Test
@@ -54,13 +54,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open1,
             high = high1,
             low = low1,
@@ -68,7 +68,7 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1).isEqualTo(stockPrice2)
+        assertThat(ohlc1).isEqualTo(ohlc2)
     }
 
     @Test
@@ -76,13 +76,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open2,
             high = high1,
             low = low1,
@@ -90,7 +90,7 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1).isNotEqualTo(stockPrice2)
+        assertThat(ohlc1).isNotEqualTo(ohlc2)
     }
 
     @Test
@@ -98,13 +98,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open1,
             high = high2,
             low = low1,
@@ -112,7 +112,7 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1).isNotEqualTo(stockPrice2)
+        assertThat(ohlc1).isNotEqualTo(ohlc2)
     }
 
     @Test
@@ -120,13 +120,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open1,
             high = high1,
             low = low2,
@@ -134,7 +134,7 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1).isNotEqualTo(stockPrice2)
+        assertThat(ohlc1).isNotEqualTo(ohlc2)
     }
 
     @Test
@@ -142,13 +142,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open1,
             high = high1,
             low = low1,
@@ -156,7 +156,7 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1).isNotEqualTo(stockPrice2)
+        assertThat(ohlc1).isNotEqualTo(ohlc2)
     }
 
     @Test
@@ -164,13 +164,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open1,
             high = high1,
             low = low1,
@@ -178,7 +178,7 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1.hashCode()).isEqualTo(stockPrice2.hashCode())
+        assertThat(ohlc1.hashCode()).isEqualTo(ohlc2.hashCode())
     }
 
     @Test
@@ -186,13 +186,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open2,
             high = high1,
             low = low1,
@@ -200,7 +200,7 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1.hashCode()).isNotEqualTo(stockPrice2.hashCode())
+        assertThat(ohlc1.hashCode()).isNotEqualTo(ohlc2.hashCode())
     }
 
     @Test
@@ -208,13 +208,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open1,
             high = high2,
             low = low1,
@@ -222,7 +222,7 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1.hashCode()).isNotEqualTo(stockPrice2.hashCode())
+        assertThat(ohlc1.hashCode()).isNotEqualTo(ohlc2.hashCode())
     }
 
     @Test
@@ -230,13 +230,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open1,
             high = high1,
             low = low2,
@@ -244,7 +244,7 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1.hashCode()).isNotEqualTo(stockPrice2.hashCode())
+        assertThat(ohlc1.hashCode()).isNotEqualTo(ohlc2.hashCode())
     }
 
     @Test
@@ -252,13 +252,13 @@ internal class StockPriceTest {
         // given
 
         // when
-        val stockPrice1 = StockPrice(
+        val ohlc1 = OHLC(
             open = open1,
             high = high1,
             low = low1,
             close = close1
         )
-        val stockPrice2 = StockPrice(
+        val ohlc2 = OHLC(
             open = open1,
             high = high1,
             low = low1,
@@ -266,6 +266,6 @@ internal class StockPriceTest {
         )
 
         // then
-        assertThat(stockPrice1.hashCode()).isNotEqualTo(stockPrice2.hashCode())
+        assertThat(ohlc1.hashCode()).isNotEqualTo(ohlc2.hashCode())
     }
 }
