@@ -8,12 +8,13 @@ import com.wubu.api.domain.stock.OHLC
 import com.wubu.api.domain.stock.Stock
 import com.wubu.api.domain.stock.daily.DailyStock
 import com.wubu.api.domain.stock.daily.DailyStockId
+import com.wubu.api.interfaces.stock.StockRes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-internal class DailyStockDtoTest {
+internal class StockResTest {
 
     private lateinit var stock1: Stock
     private lateinit var stock2: Stock
@@ -65,11 +66,11 @@ internal class DailyStockDtoTest {
         val stockPieces = listOf(stock1, stock2)
 
         // when
-        val dailyStockDto = DailyStockDto(stockPieces)
+        val stockRes = StockRes(stockPieces)
 
         // then
-        assertThat(dailyStockDto).isNotNull
-        assertThat(dailyStockDto.prices).isEqualTo(stockPieces.map { Point.ofPrice(it) })
-        assertThat(dailyStockDto.volumes).isEqualTo(stockPieces.map { Point.ofVolume(it) })
+        assertThat(stockRes).isNotNull
+        assertThat(stockRes.prices).isEqualTo(stockPieces.map { Point.ofPrice(it) })
+        assertThat(stockRes.volumes).isEqualTo(stockPieces.map { Point.ofVolume(it) })
     }
 }
